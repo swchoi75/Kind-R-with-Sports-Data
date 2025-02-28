@@ -8,15 +8,15 @@ print("Hello, World!")
 
 object <- 1 + 2
 
-print(object) #object¸¦ Ãâ·ÂÇÏ¶ó
+print(object) #objectë¥¼ ì¶œë ¥í•˜ë¼
 
 object 
 
-Object #O°¡ ´ë¹®ÀÚ
+Object #Oê°€ ëŒ€ë¬¸ìž
 
 ls()
 
-rm(object) #object Áö¿ì±â
+rm(object) #object ì§€ìš°ê¸°
 
 object
 
@@ -54,15 +54,11 @@ df1$x
 
 df1$z <- c(7, 8, 9)
 
-df1[1, ] #Ã¹ ÇàÀ» Ãâ·ÂÇÏ¶ó
+df1[1, ] #ì²« í–‰ì„ ì¶œë ¥í•˜ë¼
 
-df1[ , 1] #Ã¹ ¿­À» Ãâ·ÂÇÏ¶ó
+df1[ , 1] #ì²« ì—´ì„ ì¶œë ¥í•˜ë¼
 
-df1[2, 2] #µÎ ¹øÂ° Çà, µÎ ¹øÂ° ¿­À» Ãâ·ÂÇÏ¶ó
-
-1 == 1
-
-1 == 2
+df1[2, 2] #ë‘ ë²ˆì§¸ í–‰, ë‘ ë²ˆì§¸ ì—´ì„ ì¶œë ¥í•˜ë¼== 2
 
 df1$x == 1
 
@@ -78,7 +74,7 @@ getwd()
 
 setwd('À§Ä¡')
 
-batting <- read.csv(file.choose())
+battìœ„ì¹˜ead.csv(file.choose())
 
 batting <- read.csv('https://github.com/bigkini/kindeR/blob/main/kbo_batting_qualified.csv')
 

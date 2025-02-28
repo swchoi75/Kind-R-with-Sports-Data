@@ -133,22 +133,22 @@ team_batting_fit %>%
 kovo_sets_results
 
 kovo_sets_results %>%
-  mutate(³²³àºÎ = as_factor(³²³àºÎ)) -> kovo_sets_results
+  mutate(ë‚¨ë…€ë¶€ = as_factor(ë‚¨ë…€ë¶€)) -> kovo_sets_results
 
 kovo_sets_results %>%
-  ggplot(aes(x = ¸®½Ãºê_È¿À², y = ½Â·ü, color = ³²³àºÎ)) +
+  ggplot(aes(x = ë¦¬ì‹œë¸Œ_íš¨ìœ¨, y = ìŠ¹ë¥ , color = ë‚¨ë…€ë¶€)) +
   geom_point() +
   geom_smooth(method = 'lm', se = FALSE)
 
 linear_reg() %>% 
   set_engine(engine = 'lm') %>% 
-  fit(½Â·ü ~ ¸®½Ãºê_È¿À² * ³²³àºÎ,
+  fit(ìŠ¹ë¥  ~ ë¦¬ì‹œë¸Œ_íš¨ìœ¨ * ë‚¨ë…€ë¶€,
       data = kovo_sets_results) %>% 
   tidy()
 
 kovo_sets_results %>% 
-  filter(³²³àºÎ == '¿©') %>% 
-  specify(½Â·ü ~ ¸®½Ãºê_È¿À²) %>% 
+  filter(ë‚¨ë…€ë¶€ == 'ì—¬') %>% 
+  specify(ìŠ¹ë¥  ~ ë¦¬ì‹œë¸Œ_íš¨ìœ¨) %>% 
   hypothesize(null = 'independence') %>%
   generate(1000, type = 'permute') %>% 
   calculate(stat = 'slope') %>% 
@@ -157,24 +157,23 @@ kovo_sets_results %>%
 
 linear_reg() %>% 
   set_engine(engine = 'lm') %>% 
-  fit(½Â·ü ~ ¼¼Æ®´ç_¼­ºê + ¸®½Ãºê_È¿À² + °ø°Ý_È¿À² + ¼¼Æ®´ç_ºí·ÎÅ· + ¼¼Æ®´ç_µð±×,
-        data = kovo_sets_results %>% filter(³²³àºÎ == '³²')) %>% 
+  fit(ìŠ¹ë¥  ~ ì„¸íŠ¸ë‹¹_ì„œë¸Œ + ë¦¬ì‹œë¸Œ_íš¨ìœ¨ + ê³µê²©_íš¨ìœ¨ + ì„¸íŠ¸ë‹¹_ë¸”ë¡œí‚¹ + ì„¸íŠ¸ë‹¹_ë””ê·¸,
+      data = kovo_sets_results %>% filter(ë‚¨ë…€ë¶€ == 'ë‚¨')) %>% 
   tidy()
 
 linear_reg() %>% 
   set_engine(engine = 'lm') %>% 
-  fit(½Â·ü ~ ¼¼Æ®´ç_¼­ºê + °ø°Ý_È¿À² + ¼¼Æ®´ç_ºí·ÎÅ· + ¼¼Æ®´ç_µð±×,
-        data = kovo_sets_results %>% filter(³²³àºÎ == '³²')) %>% 
+  fit(ìŠ¹ë¥  ~ ì„¸íŠ¸ë‹¹_ì„œë¸Œ + ê³µê²©_íš¨ìœ¨ + ì„¸íŠ¸ë‹¹_ë¸”ë¡œí‚¹ + ì„¸íŠ¸ë‹¹_ë””ê·¸,
+      data = kovo_sets_results %>% filter(ë‚¨ë…€ë¶€ == 'ë‚¨')) %>% 
   tidy()
 
 linear_reg() %>% 
   set_engine(engine = 'lm') %>% 
-  fit(½Â·ü ~ ¼¼Æ®´ç_¼­ºê + °ø°Ý_È¿À² + ¼¼Æ®´ç_ºí·ÎÅ· + ¼¼Æ®´ç_µð±×,
-        data = kovo_sets_results %>% filter(³²³àºÎ == '³²')) %>% 
+  fit(ìŠ¹ë¥  ~ ì„¸íŠ¸ë‹¹_ì„œë¸Œ + ê³µê²©_íš¨ìœ¨ + ì„¸íŠ¸ë‹¹_ë¸”ë¡œí‚¹ + ì„¸íŠ¸ë‹¹_ë””ê·¸,
+      data = kovo_sets_results %>% filter(ë‚¨ë…€ë¶€ == 'ë‚¨')) %>% 
   vi()
 
 linear_reg() %>% 
   set_engine(engine = 'lm') %>% 
-  fit(½Â·ü ~ ¼¼Æ®´ç_¼­ºê + ¸®½Ãºê_È¿À² + °ø°Ý_È¿À² + ¼¼Æ®´ç_ºí·ÎÅ· + ¼¼Æ®´ç_µð±×,
-        data = kovo_sets_results %>% filter(³²³àºÎ == '¿©')) %>% 
-  tidy()
+  fit(ìŠ¹ë¥  ~ ì„¸íŠ¸ë‹¹_ì„œë¸Œ + ë¦¬ì‹œë¸Œ_íš¨ìœ¨ + ê³µê²©_íš¨ìœ¨ + ì„¸íŠ¸ë‹¹_ë¸”ë¡œí‚¹ + ì„¸íŠ¸ë‹¹_ë””ê·¸,
+      data = kovo_sets_results %>% filter(ë‚¨ë…€ë¶€ == 'ì—¬

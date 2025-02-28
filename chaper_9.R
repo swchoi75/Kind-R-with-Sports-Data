@@ -17,21 +17,21 @@ gocheock_attendance %>%
 gocheock_sample
 
 gocheock_sample %>%
-  summarise(¿©¼ºÇÕ°è = sum(¼ºº° == '¿©'))
+  summarise(ì—¬ì„±í•©ê³„ = sum(ì„±ë³„ == 'ì—¬'))
 
 gocheock_sample %>%
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30)
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30)
 
 gocheock_sample %>%
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30) %>%
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²))
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30) %>%
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨))
 
 gocheock_sample %>%
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30) %>%
-  ggplot(aes(x = ¿©¼ººñÀ²)) +
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30) %>%
+  ggplot(aes(x = ì—¬ì„±ë¹„ìœ¨)) +
   geom_histogram(binwidth = .05, fill = 'gray75', color = 'white') 
 
 gocheock_attendance %>%
@@ -50,45 +50,45 @@ gocheock_sample
 
 gocheock_sample %>%
   group_by(trial, replicate) %>% 
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30,
-                .groups = 'drop') %>%
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²))
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30,
+            .groups = 'drop') %>%
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨))
 
 gocheock_sample %>%
   group_by(trial, replicate) %>% 
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30,
-                .groups = 'drop') %>%
-  ggplot(aes(x = ¿©¼ººñÀ²)) +
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30,
+            .groups = 'drop') %>%
+  ggplot(aes(x = ì—¬ì„±ë¹„ìœ¨)) +
   geom_histogram(binwidth = .05, fill = 'gray75', color = 'white')
 
 gocheock_attendance %>% 
   rep_sample_n(reps = 15 * 3,
                size = 30,
                replace = TRUE) %>%
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30) %>% 
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²))
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30) %>% 
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨))
 
 gocheock_attendance %>% 
-  summarise(¿©¼ººñÀ²=mean(¼ºº°=='¿©'))
+  summarise(ì—¬ì„±ë¹„ìœ¨=mean(ì„±ë³„=='ì—¬'))
 
 gocheock_attendance %>%
   rep_sample_n(reps = 15 * 100,
                size = 30,
                replace = TRUE) %>%
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30) %>% 
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²))
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30) %>% 
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨))
 
 gocheock_attendance %>% 
   rep_sample_n(reps=15*100,
                size=30,
                replace=TRUE) %>% 
-  summarise(¿©¼ºÇÕ°è  = sum(¼ºº°  == '¿©'),
-                ¿©¼ººñÀ² = ¿©¼ºÇÕ°è / 30) %>% 
-  ggplot(aes(x = ¿©¼ººñÀ²)) +
+  summarise(ì—¬ì„±í•©ê³„  = sum(ì„±ë³„  == 'ì—¬'),
+            ì—¬ì„±ë¹„ìœ¨ = ì—¬ì„±í•©ê³„ / 30) %>% 
+  ggplot(aes(x = ì—¬ì„±ë¹„ìœ¨)) +
   geom_histogram(binwidth = .05, fill = 'gray75', color = 'white') +
   geom_vline(xintercept = .437)
 
@@ -101,32 +101,32 @@ crossing(
   x = c(1, 2, 3),
   y = c(1, 2, 3)
 ) %>% 
-  mutate(Æò±Õ = (x + y) /2)
+  mutate(í‰ê·  = (x + y) /2)
 
 crossing(
   x = c(1, 2, 3),
   y = c(1, 2, 3)
 ) %>% 
-  mutate(Æò±Õ = (x + y) /2) %>% 
-  summarise(Æò±Õ_Æò±Õ = Æò±Õ %>% mean())
+  mutate(í‰ê·  = (x + y) /2) %>% 
+  summarise(í‰ê· _í‰ê·  = í‰ê·  %>% mean())
 
 crossing(
   x = c(1, 2, 3),
   y = c(1, 2, 3)
 ) %>% 
-  mutate(Æò±Õ = (x + y) /2 ,
-           ÆíÂ÷ = 2 - Æò±Õ,
-           ÆíÂ÷_Á¦°ö = ÆíÂ÷^2) %>% 
-  summarise(across(Æò±Õ:ÆíÂ÷_Á¦°ö, mean))
+  mutate(í‰ê·  = (x + y) /2 ,
+         í¸ì°¨ = 2 - í‰ê· ,
+         í¸ì°¨_ì œê³± = í¸ì°¨^2) %>% 
+  summarise(across(í‰ê· :í¸ì°¨_ì œê³±, mean))
 
 crossing(
   x = c(1, 2, 3),
   y = c(1, 2, 3)
 ) %>% 
-  mutate(Æò±Õ = (x + y) /2 ,
-           ¿ÀÂ÷ = 2 - Æò±Õ,
-           ¿ÀÂ÷_Á¦°ö = ¿ÀÂ÷^2) %>% 
-  summarise(across(Æò±Õ:¿ÀÂ÷_Á¦°ö, mean))
+  mutate(í‰ê·  = (x + y) /2 ,
+         ì˜¤ì°¨ = 2 - í‰ê· ,
+         ì˜¤ì°¨_ì œê³± = ì˜¤ì°¨^2) %>% 
+  summarise(across(í‰ê· :ì˜¤ì°¨_ì œê³±, mean))
 
 tibble(
   x = (rnorm(n = 50000, mean = 50, sd = 10))

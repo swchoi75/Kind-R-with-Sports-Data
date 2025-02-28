@@ -6,7 +6,7 @@ pacman::p_load(tidyverse, tidymodels)
 
 set.seed(1234)
 
-tibble(³¯Â¥=1:365) %>% 
+tibble(ë‚ ì§œ=1:365) %>% 
   rep_sample_n(28)
 
 c(1, 1, 3, 3, 3, 3) %>% 
@@ -20,111 +20,111 @@ c(1, 1, 3, 3, 3, 3) %>%
   duplicated() %>% 
   any()
 
-tibble(³¯Â¥=1:365) %>% 
+tibble(ë‚ ì§œ=1:365) %>% 
   rep_sample_n(28) %>% 
-  summarise(Áßº¹ = ³¯Â¥ %>% duplicated() %>% any())
+  summarise(ì¤‘ë³µ = ë‚ ì§œ %>% duplicated() %>% any())
 
-tibble(³¯Â¥=1:365) %>% 
+tibble(ë‚ ì§œ=1:365) %>% 
   rep_sample_n(size = 28, replace = TRUE) %>% 
-  summarise(Áßº¹ = ³¯Â¥ %>% duplicated() %>% any())
+  summarise(ì¤‘ë³µ = ë‚ ì§œ %>% duplicated() %>% any())
 
-tibble(³¯Â¥ = 1:365) %>%
+tibble(ë‚ ì§œ = 1:365) %>%
   rep_sample_n(reps = 100,
                size = 28,
                replace = TRUE) %>%
   group_by(replicate) %>%
-  summarise(Áßº¹  =  ³¯Â¥  %>% duplicated() %>% any(),
-              .groups = 'drop')
+  summarise(ì¤‘ë³µ  =  ë‚ ì§œ  %>% duplicated() %>% any(),
+            .groups = 'drop')
 
-tibble(³¯Â¥ = 1:365) %>%
+tibble(ë‚ ì§œ = 1:365) %>%
   rep_sample_n(reps = 100,
                size = 28,
                replace = TRUE) %>%
   group_by(replicate) %>%
-  summarise(Áßº¹  =  ³¯Â¥  %>% duplicated() %>% any(),
-              .groups = 'drop') %>%
-  summarise(°á°ú = Áßº¹ %>% mean())
+  summarise(ì¤‘ë³µ  =  ë‚ ì§œ  %>% duplicated() %>% any(),
+            .groups = 'drop') %>%
+  summarise(ê²°ê³¼ = ì¤‘ë³µ %>% mean())
 
 tibble(
-  »ç¶÷ = 2:365
+  ì‚¬ëžŒ = 2:365
 )
 
 tibble(
-  »ç¶÷ = 2:365
+  ì‚¬ëžŒ = 2:365
 ) %>% 
   rowwise() %>% 
   mutate(
-    °á°ú = tibble(³¯Â¥ = 1:365) %>%
+    ê²°ê³¼ = tibble(ë‚ ì§œ = 1:365) %>%
       rep_sample_n(
         reps = 100,
-        size = »ç¶÷,
+        size = ì‚¬ëžŒ,
         replace = TRUE
       ) %>%
       group_by(replicate) %>%
-      summarise(Áßº¹ = ³¯Â¥ %>% duplicated() %>% any(),
-                  .groups = 'drop') %>%
-      summarise(°á°ú = Áßº¹ %>% mean())
+      summarise(ì¤‘ë³µ = ë‚ ì§œ %>% duplicated() %>% any(),
+                .groups = 'drop') %>%
+      summarise(ê²°ê³¼ = ì¤‘ë³µ %>% mean())
   ) 
 
 tibble(
-  »ç¶÷ = 2:365
+  ì‚¬ëžŒ = 2:365
 ) %>% 
   rowwise() %>% 
   mutate(
-    °á°ú = tibble(³¯Â¥ = 1:365) %>%
+    ê²°ê³¼ = tibble(ë‚ ì§œ = 1:365) %>%
       rep_sample_n(
         reps = 100,
-        size = »ç¶÷,
+        size = ì‚¬ëžŒ,
         replace = TRUE
       ) %>%
       group_by(replicate) %>%
-      summarise(Áßº¹ = ³¯Â¥ %>% duplicated() %>% any(),
-                  .groups = 'drop') %>%
-      pull(Áßº¹) %>% mean()
-    ) -> birthday_paradox_simulation
+      summarise(ì¤‘ë³µ = ë‚ ì§œ %>% duplicated() %>% any(),
+                .groups = 'drop') %>%
+      pull(ì¤‘ë³µ) %>% mean()
+  ) -> birthday_paradox_simulation
 
 birthday_paradox_simulation %>% 
-  filter(°á°ú >= .5)
+  filter(ê²°ê³¼ >= .5)
 
 birthday_paradox_simulation %>%
-  ggplot(aes(x = »ç¶÷, y = °á°ú)) +
+  ggplot(aes(x = ì‚¬ëžŒ, y = ê²°ê³¼)) +
   geom_line()
 
 birthday_paradox_simulation %>%
-  ggplot(aes(x = »ç¶÷, y = °á°ú)) +
+  ggplot(aes(x = ì‚¬ëžŒ, y = ê²°ê³¼)) +
   geom_line() +
   coord_cartesian(xlim = c(2, 75))
 
 tibble(
-  »ç¶÷ = 2:365
+  ì‚¬ëžŒ = 2:365
 ) %>% 
   rowwise() %>% 
   mutate(
-    °á°ú = tibble(³¯Â¥ = 1:365) %>%
+    ê²°ê³¼ = tibble(ë‚ ì§œ = 1:365) %>%
       rep_sample_n(
         reps = 10000,
-        size = »ç¶÷,
+        size = ì‚¬ëžŒ,
         replace = TRUE
       ) %>%
       group_by(replicate) %>%
-      summarise(Áßº¹ = ³¯Â¥ %>% duplicated() %>% any(),
-                  .groups = 'drop') %>%
-      pull(Áßº¹) %>% mean()
+      summarise(ì¤‘ë³µ = ë‚ ì§œ %>% duplicated() %>% any(),
+                .groups = 'drop') %>%
+      pull(ì¤‘ë³µ) %>% mean()
   ) -> birthday_paradox_simulation_10000
 
 birthday_paradox_simulation_10000 %>% 
-  filter(°á°ú >= .5)
+  filter(ê²°ê³¼ >= .5)
 
 pbirthday(23)
 
 birthday_paradox_simulation_10000 %>%
-  mutate(È®·ü = pbirthday(»ç¶÷)) %>%
-  ggplot(aes(x = »ç¶÷)) +
-  geom_line(aes(y = È®·ü),
+  mutate(í™•ë¥  = pbirthday(ì‚¬ëžŒ)) %>%
+  ggplot(aes(x = ì‚¬ëžŒ)) +
+  geom_line(aes(y = í™•ë¥ ),
             lwd = 2.5,
             color = '#53bfd4',
             alpha = .25) +
-  geom_line(aes(y = °á°ú), lwd = .75) +
+  geom_line(aes(y = ê²°ê³¼), lwd = .75) +
   coord_cartesian(xlim = c(2, 75))
 
 c(1, 2, 3) %>% 
@@ -135,25 +135,25 @@ crossing(
   y = c('a', 'b')
 )
 
-crossing(½ÇÇè = 1:100000,
-           Åä½º = 1:100) %>% 
+crossing(ì‹¤í—˜ = 1:100000,
+         í† ìŠ¤ = 1:100) %>% 
   rowwise() %>% 
-  mutate(¾ÕµÚ = sample(c(0, 1), 1)) -> coin_toss_simulation
+  mutate(ì•žë’¤ = sample(c(0, 1), 1)) -> coin_toss_simulation
 
 coin_toss_simulation
 
 coin_toss_simulation %>%
-  group_by(½ÇÇè) %>%
-  summarise(¾Õ = sum(¾ÕµÚ)) %>%
-  group_by(¾Õ) %>%
+  group_by(ì‹¤í—˜) %>%
+  summarise(ì•ž = sum(ì•žë’¤)) %>%
+  group_by(ì•ž) %>%
   tally() %>%
-  filter(¾Õ == 50)
+  filter(ì•ž == 50)
 
 coin_toss_simulation %>% 
-  group_by(½ÇÇè) %>%
-  summarise(¾Õ = sum(¾ÕµÚ), .groups = 'drop') %>%
-  group_by(¾Õ) %>%
-  ggplot(aes(x = ¾Õ)) +
+  group_by(ì‹¤í—˜) %>%
+  summarise(ì•ž = sum(ì•žë’¤), .groups = 'drop') %>%
+  group_by(ì•ž) %>%
+  ggplot(aes(x = ì•ž)) +
   geom_histogram(binwidth = 1, fill = 'gray70', color = 'white')
 
 dbinom(x = 50, size = 100, prob = .5)
@@ -175,7 +175,7 @@ tibble(x = 0:100) %>%
     lwd = 1,
     color = '#53bfd4'
   )
-    
+
 qnorm(p = .5, mean = 0, sd = 1)
 
 tibble(

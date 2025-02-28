@@ -2,76 +2,67 @@ pacman::p_load('tidyverse', 'tidymodels')
 set.seed(1234)
 
 tribble(
-  ~Ç×¸ñ, ~´É·ÂÄ¡,
-  '½ºÆÄÀÌÅ©', 30,
-  'µð±×', 75,
-  '¼­ºê', 45,
-  '¸®½Ãºê', 80,
-  'ºí·ÎÅ·', 25,
-  '2´Ü_¿¬°á', 70
+  ~í•­ëª©, ~ëŠ¥ë ¥ì¹˜,
+  'ìŠ¤íŒŒì´í¬', 30,
+  'ë””ê·¸', 75,
+  'ì„œë¸Œ', 45,
+  'ë¦¬ì‹œë¸Œ', 80,
+  'ë¸”ë¡œí‚¹', 25,
+  '2ë‹¨_ì—°ê²°', 70
 ) -> volleyball_status
 
 volleyball_status %>%
-  summarise(Æò±Õ = mean(´É·ÂÄ¡))
+  summarise(í‰ê·  = mean(ëŠ¥ë ¥ì¹˜))
 
 volleyball_status %>%
-  mutate(ÆíÂ÷ = ´É·ÂÄ¡ - mean(´É·ÂÄ¡)) %>%
-  arrange(ÆíÂ÷) -> volleyball_status
+  mutate(íŽ¸ì°¨ = ëŠ¥ë ¥ì¹˜ - mean(ëŠ¥ë ¥ì¹˜)) %>%
+  arrange(íŽ¸ì°¨) -> volleyball_status
 
 volleyball_status
 
 volleyball_status %>%
-  mutate(ÆíÂ÷_Á¦°ö = ÆíÂ÷ ^ 2) -> volleyball_status
+  mutate(íŽ¸ì°¨_ì œê³± = íŽ¸ì°¨ ^ 2) -> volleyball_status
 
 volleyball_status
 
 volleyball_status %>%
-  mutate(Ä«Å×°í¸® = rep(c('°ø°Ý', '¼öºñ'), each = 3)) -> volleyball_status
+  mutate(ì¹´í…Œê³ ë¦¬ = rep(c('ê³µê²©', 'ìˆ˜ë¹„'), each = 3)) -> volleyball_status
 
-rep(c('°ø°Ý', '¼öºñ'), 3)
+rep(c('ê³µê²©', 'ìˆ˜ë¹„'), 3)
 
-rep(c('°ø°Ý', '¼öºñ'), each = 3)
+rep(c('ê³µê²©', 'ìˆ˜ë¹„'), each = 3)
 
 volleyball_status %>% 
-  group_by(Ä«Å×°í¸®) %>% 
-  summarise(Ä«Å×°í¸®_Æò±Õ = mean(´É·ÂÄ¡),
+  group_by(ì¹´í…Œê³ ë¦¬) %>% 
+  summarise(ì¹´í…Œê³ ë¦¬_í‰ê·  = mean(ëŠ¥ë ¥ì¹˜),
             .groups = 'drop')
 
 volleyball_status %>% 
-  group_by(Ä«Å×°í¸®) %>% 
-  mutate(Ä«Å×°í¸®_Æò±Õ = mean(´É·ÂÄ¡)) %>% 
+  group_by(ì¹´í…Œê³ ë¦¬) %>% 
+  mutate(ì¹´í…Œê³ ë¦¬_í‰ê·  = mean(ëŠ¥ë ¥ì¹˜)) %>% 
   ungroup() %>% 
-  mutate(Ä«Å×°í¸®_ÀüÃ¼_Á¦°ö = (Ä«Å×°í¸®_Æò±Õ - mean(´É·ÂÄ¡)) ^ 2) -> volleyball_status
+  mutate(ì¹´í…Œê³ ë¦¬_ì „ì²´_ì œê³± = (ì¹´í…Œê³ ë¦¬_í‰ê·  - mean(ëŠ¥ë ¥ì¹˜)) ^ 2) -> volleyball_status
 
 volleyball_status
 
 volleyball_status %>% 
-  mutate(´É·ÂÄ¡_Ä«Å×°í¸®_Á¦°ö = (´É·ÂÄ¡ - Ä«Å×°í¸®_Æò±Õ) ^ 2) %>% 
-  relocate(ends_with('Á¦°ö'), .before=ÆíÂ÷) -> volleyball_status
+  mutate(ëŠ¥ë ¥ì¹˜_ì¹´í…Œê³ ë¦¬_ì œê³± = (ëŠ¥ë ¥ì¹˜ - ì¹´í…Œê³ ë¦¬_í‰ê· ) ^ 2) %>% 
+  relocate(ends_with('ì œê³±'), .before=íŽ¸ì°¨) -> volleyball_status
 
 volleyball_status
 
 volleyball_status %>% 
-  summarise(across(ends_with('Á¦°ö'), sum))
+  summarise(across(ends_with('ì œê³±'), sum))
 
 volleyball_status %>% 
-  specify(´É·ÂÄ¡ ~ Ä«Å×°í¸®) %>% 
-  calculate(stat = 'F', order = c('¼öºñ', '°ø°Ý'))
+  specify(ëŠ¥ë ¥ì¹˜ ~ ì¹´í…Œê³ ë¦¬) %>% 
+  calculate(stat = 'F', order = c('ìˆ˜ë¹„', 'ê³µê²©'))
 
 (2604.167 / 1) / (266.6667 / 4)
 
 volleyball_status %>% 
-  specify(´É·ÂÄ¡ ~ Ä«Å×°í¸®) %>% 
-  calculate(stat = 't', order = c('¼öºñ', '°ø°Ý'))
-
-6.25 ^ 2
-
-1 - 0.95^2
-
-tibble(
-  x = rchisq(5000, 10),
-  y = rchisq(5000, 10),
-) %>% 
+  specify(ëŠ¥ë ¥ì¹˜ ~ ì¹´í…Œê³ ë¦¬) %>% 
+  calculate(stat = 't', order = c('ìˆ˜ë¹„', 'ê³µê²©>% 
   mutate(ratio = x/y) %>% 
   ggplot(aes(x = ratio)) +
   geom_histogram(aes(y = ..density..),

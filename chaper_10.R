@@ -10,63 +10,61 @@ cheonan_attendance %>%
   glimpse()
 
 cheonan_attendance %>%
-  summarise(¿©¼ººñÀ² = mean(¼ºº° == '¿©'))
+  summarise(ì—¬ì„±ë¹„ìœ¨ = mean(ì„±ë³„ == 'ì—¬'))
 
 cheonan_attendance %>%
   rep_sample_n(reps = 10,
-             size = 20,
-             replace = TRUE) %>% 
+               size = 20,
+               replace = TRUE) %>% 
   group_by(replicate) %>% 
-  summarise(¿©¼ººñÀ² = mean(¼ºº° == '¿©'),
-                .groups='drop') -> cheonan_sample
+  summarise(ì—¬ì„±ë¹„ìœ¨ = mean(ì„±ë³„ == 'ì—¬'),
+            .groups='drop') -> cheonan_sample
 
 cheonan_sample %>% 
-  summarise(°á°ú = ¿©¼ººñÀ² %>% mean())
+  summarise(ê²°ê³¼ = ì—¬ì„±ë¹„ìœ¨ %>% mean())
 
 cheonan_sample %>% 
-  select('¿©¼ººñÀ²') %>% 
+  select('ì—¬ì„±ë¹„ìœ¨') %>% 
   rep_sample_n(reps = 1000,
-             size = 20,
-             replace = TRUE) -> cheonan_sample_bootstrap
+               size = 20,
+               replace = TRUE) -> cheonan_sample_bootstrap
 
 cheonan_sample_bootstrap %>% 
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²)) %>% 
-  summarise(°á°ú = ¿©¼ººñÀ²_Æò±Õ %>% mean())
-  
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨)) %>% 
+  summarise(ê²°ê³¼ = ì—¬ì„±ë¹„ìœ¨_í‰ê·  %>% mean())
+
 cheonan_sample %>%
-  ggplot(aes(x = ¿©¼ººñÀ²)) +
+  ggplot(aes(x = ì—¬ì„±ë¹„ìœ¨)) +
   geom_histogram(binwidth = .05, fill = 'gray75', color = 'white')
 
 cheonan_sample_bootstrap %>% 
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²)) %>% 
-  ggplot(aes(x = ¿©¼ººñÀ²_Æò±Õ)) + 
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨)) %>% 
+  ggplot(aes(x = ì—¬ì„±ë¹„ìœ¨_í‰ê· )) + 
   geom_histogram(binwidth = .01, fill = 'gray75', color = 'white')
 
 cheonan_sample_bootstrap %>%
-  summarise(¿©¼ººñÀ²_Æò±Õ = mean(¿©¼ººñÀ²)) %>%
-  summarise(low = quantile(¿©¼ººñÀ²_Æò±Õ, .025),
-            high = quantile(¿©¼ººñÀ²_Æò±Õ, .975))
+  summarise(ì—¬ì„±ë¹„ìœ¨_í‰ê·  = mean(ì—¬ì„±ë¹„ìœ¨)) %>%
+  summarise(low = quantile(ì—¬ì„±ë¹„ìœ¨_í‰ê· , .025),
+            high = quantile(ì—¬ì„±ë¹„ìœ¨_í‰ê· , .975))
 
 cheonan_sample %>% 
-  specify(response = ¿©¼ººñÀ²) 
+  specify(response = ì—¬ì„±ë¹„ìœ¨) 
 
 cheonan_sample %>% 
-  specify(response = ¿©¼ººñÀ²) %>% 
+  specify(response = ì—¬ì„±ë¹„ìœ¨) %>% 
   class()
 
 cheonan_sample %>%
-  specify(response =  ¿©¼ººñÀ²) %>%
+  specify(response =  ì—¬ì„±ë¹„ìœ¨) %>%
   generate(reps = 1000, type = 'bootstrap')
 
 cheonan_sample %>%
-  specify(response =  ¿©¼ººñÀ²) %>%
+  specify(response =  ì—¬ì„±ë¹„ìœ¨) %>%
   generate(reps = 1000, type = 'bootstrap') %>%
   calculate(stat = 'mean')
 
 cheonan_sample %>%
-  specify(response =  ¿©¼ººñÀ²) %>%
-  generate(reps = 1000, type = 'bootstrap') %>%
-  calculate(stat = 'mean') -> cheonan_bootstrap
+  specify(response =  ì—¬ì„±ë¹„ìœ¨ -> cheonan_bootstrap
 
 cheonan_bootstrap %>% 
   visualize()

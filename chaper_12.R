@@ -9,45 +9,45 @@ dt(x = 0, df = 1)
 
 uefa_big5_match_results %>%
   mutate(
-    Àå¼Ò = Àå¼Ò %>% fct_relevel('¾È¹æ', '¹æ¹®'),
-    ½Ã±â = ½Ã±â %>% fct_relevel('BC', 'AC')
+    ì¥ì†Œ = ì¥ì†Œ %>% fct_relevel('ì•ˆë°©', 'ë°©ë¬¸'),
+    ì‹œê¸° = ì‹œê¸° %>% fct_relevel('BC', 'AC')
   ) -> uefa_big5_match_results
 
 uefa_big5_match_results %>% 
-  filter(Àå¼Ò == '¾È¹æ' & ¸®±× != '¸®±×1') -> uefa_big5_match_results_period  
+  filter(ì¥ì†Œ == 'ì•ˆë°©' & ë¦¬ê·¸ != 'ë¦¬ê·¸1') -> uefa_big5_match_results_period  
 
 uefa_big5_match_results_period %>% 
-  group_by(ÆÀ, ½Ã±â) %>% 
-  summarise(½Â·ü = mean(½Â¸®), .groups = 'drop') -> uefa_big5_results_period
+  group_by(íŒ€, ì‹œê¸°) %>% 
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬), .groups = 'drop') -> uefa_big5_results_period
 
 uefa_big5_results_period %>% 
-  group_by(½Ã±â) %>% 
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop') 
+  group_by(ì‹œê¸°) %>% 
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop') 
 
 uefa_big5_results_period %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('AC', 'BC'),
          alternative = 'less')
 
 uefa_big5_results_period %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('AC', 'BC'),
          alternative = 'less',
          var.equal = TRUE)
 
 uefa_big5_results_period  %>% 
-  group_by(½Ã±â) %>% 
+  group_by(ì‹œê¸°) %>% 
   tally()
 
 uefa_big5_results_period %>% 
-  group_by(½Ã±â) %>% 
-  summarise(Æò±Õ½Â·ü = mean(½Â·ü), 
-            ºĞ»ê = var(½Â·ü),
-            °³¼ö = n(),
+  group_by(ì‹œê¸°) %>% 
+  summarise(í‰ê· ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), 
+            ë¶„ì‚° = var(ìŠ¹ë¥ ),
+            ê°œìˆ˜ = n(),
             .groups = 'drop')
 
 uefa_big5_results_period %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('AC', 'BC'),
          alternative = 'less')
 
@@ -56,14 +56,14 @@ uefa_big5_results_period %>%
 (.4213370 - .4388944) / sqrt(.07693693/78 + .03368264/78)
 
 #uefa_big5_results_period %>% 
-#  specify(½Â·ü ~ ½Ã±â) %>%
+#  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
 #  hypothesize(null = 'independence') %>%
 #  generate(reps = 1000, type = 'permute') %>%
 #  calculate(stat = 'diff in means',
 #            order = c('AC', 'BC'))
 
 uefa_big5_results_period %>% 
-  specify(½Â·ü ~ ½Ã±â) %>%
+  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
   hypothesize(null = 'independence') %>%
   calculate(stat = 't',
             order = c('AC', 'BC')) -> uefa_big5_results_period_null_theoretical
@@ -78,12 +78,12 @@ uefa_big5_results_period_null_theoretical %>%
   shade_p_value(obs_stat = -.466, direction = 'less')
 
 uefa_big5_results_period %>% 
-  specify(½Â·ü ~ ½Ã±â) %>%
+  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
   calculate(stat = 't',
             order = c('AC', 'BC')) 
 
 uefa_big5_results_period %>% 
-  specify(½Â·ü ~ ½Ã±â) %>%
+  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
   hypothesize(null = 'independence') %>%
   generate(reps = 1000, type = 'permute') %>%
   calculate(stat = 't',
@@ -92,21 +92,21 @@ uefa_big5_results_period %>%
   shade_p_value(obs_stat = -.466, direction = 'less')
 
 uefa_big5_results_period %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('AC', 'BC'),
          alternative = 'less', paired = TRUE)
 
 uefa_big5_results_period %>% 
-  pivot_wider(names_from='½Ã±â', values_from='½Â·ü') %>% 
-  mutate(Â÷ÀÌ = AC - BC) %>% 
-  summarise(Â÷ÀÌ_Æò±Õ = mean(Â÷ÀÌ),
-            Â÷ÀÌ_Ç¥ÁØÆíÂ÷ = sd(Â÷ÀÌ),
-            Â÷ÀÌ_Ç¥ÁØ¿ÀÂ÷ = Â÷ÀÌ_Ç¥ÁØÆíÂ÷ / sqrt(78))     
-                 
+  pivot_wider(names_from='ì‹œê¸°', values_from='ìŠ¹ë¥ ') %>% 
+  mutate(ì°¨ì´ = AC - BC) %>% 
+  summarise(ì°¨ì´_í‰ê·  = mean(ì°¨ì´),
+            ì°¨ì´_í‘œì¤€í¸ì°¨ = sd(ì°¨ì´),
+            ì°¨ì´_í‘œì¤€ì˜¤ì°¨ = ì°¨ì´_í‘œì¤€í¸ì°¨ / sqrt(78))     
+
 -.0176 / .0286
 
 uefa_big5_results_period %>% 
-  specify(½Â·ü ~ ½Ã±â) %>%
+  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
   hypothesize(null = 'point', mu = 0) %>%
   calculate(stat = 't',
             order = c('AC', 'BC')) %>% 
@@ -122,57 +122,57 @@ nba_match_results %>%
 
 nba_match_results %>% 
   mutate(
-    Àå¼Ò = Àå¼Ò %>% fct_relevel('¾È¹æ', '¹æ¹®'),
-    ½Ã±â = ½Ã±â %>% fct_relevel('BC', 'AC'),
-    ¸®±× = ¸®±× %>% fct_relevel('Á¤±Ô¸®±×', 'ÇÃ·¹ÀÌ¿ÀÇÁ')
+    ì¥ì†Œ = ì¥ì†Œ %>% fct_relevel('ì•ˆë°©', 'ë°©ë¬¸'),
+    ì‹œê¸° = ì‹œê¸° %>% fct_relevel('BC', 'AC'),
+    ë¦¬ê·¸ = ë¦¬ê·¸ %>% fct_relevel('ì •ê·œë¦¬ê·¸', 'í”Œë ˆì´ì˜¤í”„')
   ) -> nba_match_results
 
 nba_match_results %>%
-  filter(¸®±× != 'ÇÃ·¹ÀÌ¿ÀÇÁ') %>% 
-  group_by(ÆÀ, Àå¼Ò, ½Ã±â) %>%
-  summarise(½Â·ü  = mean(½Â¸®), .groups = 'drop') %>%
-  ggplot(aes(x = Àå¼Ò, y = ½Â·ü)) +
+  filter(ë¦¬ê·¸ != 'í”Œë ˆì´ì˜¤í”„') %>% 
+  group_by(íŒ€, ì¥ì†Œ, ì‹œê¸°) %>%
+  summarise(ìŠ¹ë¥   = mean(ìŠ¹ë¦¬), .groups = 'drop') %>%
+  ggplot(aes(x = ì¥ì†Œ, y = ìŠ¹ë¥ )) +
   geom_boxplot() +
-  facet_grid(. ~ ½Ã±â)
+  facet_grid(. ~ ì‹œê¸°)
 
 nba_match_results %>%
-  filter(¸®±× != 'ÇÃ·¹ÀÌ¿ÀÇÁ') %>% 
-  group_by(ÆÀ, Àå¼Ò, ½Ã±â) %>%
-  filter(Àå¼Ò == '¾È¹æ') %>% 
-  summarise(½Â·ü  = mean(½Â¸®), .groups = 'drop') %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  filter(ë¦¬ê·¸ != 'í”Œë ˆì´ì˜¤í”„') %>% 
+  group_by(íŒ€, ì¥ì†Œ, ì‹œê¸°) %>%
+  filter(ì¥ì†Œ == 'ì•ˆë°©') %>% 
+  summarise(ìŠ¹ë¥   = mean(ìŠ¹ë¦¬), .groups = 'drop') %>% 
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('BC', 'AC'),
          paired = TRUE)
 
 nba_match_results %>%
-  filter(¸®±× != 'ÇÃ·¹ÀÌ¿ÀÇÁ') %>% 
-  group_by(ÆÀ, Àå¼Ò, ½Ã±â) %>%
-  filter(Àå¼Ò == '¾È¹æ') %>% 
-  summarise(½Â·ü  = mean(½Â¸®), .groups = 'drop') %>% 
-  pivot_wider(names_from = '½Ã±â', values_from = '½Â·ü') %>% 
+  filter(ë¦¬ê·¸ != 'í”Œë ˆì´ì˜¤í”„') %>% 
+  group_by(íŒ€, ì¥ì†Œ, ì‹œê¸°) %>%
+  filter(ì¥ì†Œ == 'ì•ˆë°©') %>% 
+  summarise(ìŠ¹ë¥   = mean(ìŠ¹ë¦¬), .groups = 'drop') %>% 
+  pivot_wider(names_from = 'ì‹œê¸°', values_from = 'ìŠ¹ë¥ ') %>% 
   drop_na()
 
 nba_match_results %>%
-  filter(¸®±× != 'ÇÃ·¹ÀÌ¿ÀÇÁ') %>% 
-  group_by(ÆÀ, Àå¼Ò, ½Ã±â) %>%
-  filter(Àå¼Ò == '¾È¹æ') %>% 
-  summarise(½Â·ü  = mean(½Â¸®), .groups = 'drop') %>% 
-  pivot_wider(names_from = '½Ã±â', values_from = '½Â·ü') %>% 
+  filter(ë¦¬ê·¸ != 'í”Œë ˆì´ì˜¤í”„') %>% 
+  group_by(íŒ€, ì¥ì†Œ, ì‹œê¸°) %>%
+  filter(ì¥ì†Œ == 'ì•ˆë°©') %>% 
+  summarise(ìŠ¹ë¥   = mean(ìŠ¹ë¦¬), .groups = 'drop') %>% 
+  pivot_wider(names_from = 'ì‹œê¸°', values_from = 'ìŠ¹ë¥ ') %>% 
   drop_na() %>% 
-  pivot_longer(BC:AC, names_to = '½Ã±â', values_to = '½Â·ü') %>% 
-  t_test(formula =  ½Â·ü  ~  ½Ã±â,
+  pivot_longer(BC:AC, names_to = 'ì‹œê¸°', values_to = 'ìŠ¹ë¥ ') %>% 
+  t_test(formula =  ìŠ¹ë¥   ~  ì‹œê¸°,
          order = c('BC', 'AC'),
          paired = TRUE)
 
 nba_match_results %>%
-  filter(½Ã±â == 'BC') %>% 
-  group_by(ÆÀ, Àå¼Ò) %>%
-  summarise(½Â·ü  = mean(½Â¸®), .groups = 'drop') %>% 
-  specify(½Â·ü ~ Àå¼Ò) %>% 
+  filter(ì‹œê¸° == 'BC') %>% 
+  group_by(íŒ€, ì¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥   = mean(ìŠ¹ë¦¬), .groups = 'drop') %>% 
+  specify(ìŠ¹ë¥  ~ ì¥ì†Œ) %>% 
   hypothesize(null = 'independence') %>%
   generate(reps = 1000, type = 'permute') %>%
   calculate(stat = 'diff in means',
-            order = c('¾È¹æ', '¹æ¹®')) %>%
+            order = c('ì•ˆë°©', 'ë°©ë¬¸')) %>%
   select(stat) %>% 
   mutate(type = 'h0') -> nba_simulation_h0
 
@@ -180,16 +180,16 @@ nba_simulation_h0 %>%
   summarise(low = quantile(stat, .95))
 
 nba_match_results %>%
-  filter(½Ã±â == 'BC') %>% 
-  group_by(ÆÀ, Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â¸®),
-              .groups = 'drop')  %>% 
-  pivot_wider(names_from = 'Àå¼Ò',
-              values_from = '½Â·ü') %>% 
-  mutate(Â÷ÀÌ = ¾È¹æ - ¹æ¹®) %>% 
+  filter(ì‹œê¸° == 'BC') %>% 
+  group_by(íŒ€, ì¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬),
+            .groups = 'drop')  %>% 
+  pivot_wider(names_from = 'ì¥ì†Œ',
+              values_from = 'ìŠ¹ë¥ ') %>% 
+  mutate(ì°¨ì´ = ì•ˆë°© - ë°©ë¬¸) %>% 
   rep_sample_n(reps = 1000, size = 30, replace = TRUE) %>% 
   group_by(replicate) %>% 
-  summarise(stat = mean(Â÷ÀÌ), .groups = 'drop') %>% 
+  summarise(stat = mean(ì°¨ì´), .groups = 'drop') %>% 
   select(stat) %>% 
   mutate(type = 'h1') -> nba_simulation_h1
 
@@ -209,32 +209,30 @@ nba_simulation_h1 %>%
   tally()
 
 nba_match_results %>%
-  filter(½Ã±â == 'BC') %>% 
-  group_by(ÆÀ, Àå¼Ò) %>% 
-  summarise(½Â·ü = mean(½Â¸®),
-              .groups = 'drop') %>% 
-  t_test(½Â·ü ~ Àå¼Ò, order = c('¾È¹æ', '¹æ¹®'), paired = TRUE)
+  filter(ì‹œê¸° == 'BC') %>% 
+  group_by(íŒ€, ì¥ì†Œ) %>% 
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬),
+            .groups = 'drop') %>% 
+  t_test(ìŠ¹ë¥  ~ ì¥ì†Œ, order = c('ì•ˆë°©', 'ë°©ë¬¸'), paired = TRUE)
 
 pacman::p_load(pwr)
 
 args(power.t.test)
 
 nba_match_results %>%
-  filter(½Ã±â == 'BC') %>%
-  group_by(ÆÀ, Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â¸®), .groups = 'drop') %>%
-  group_by(Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop')
+  filter(ì‹œê¸° == 'BC') %>%
+  group_by(íŒ€, ì¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬), .groups = 'drop') %>%
+  group_by(ì¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop')
 
 nba_match_results %>%
-  filter(½Ã±â == 'BC') %>%
-  group_by(ÆÀ, Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â¸®), .groups = 'drop') %>%
-  pivot_wider(names_from = 'Àå¼Ò', values_from = '½Â·ü') %>%
-  mutate(Â÷ÀÌ = ¾È¹æ - ¹æ¹®) %>%
-  summarise(sd = sd(Â÷ÀÌ))
-
-power.t.test(delta = .106, sd = .158,
+  filter(ì‹œê¸° == 'BC') %>%
+  group_by(íŒ€, ì¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬), .groups = 'drop') %>%
+  pivot_wider(names_from = 'ì¥ì†Œ', values_from = 'ìŠ¹ë¥ ') %>%
+  mutate(ì°¨ì´ = ì•ˆë°© - ë°©ë¬¸) %>%
+  summarise(sd = sd(ì°¨ì´power.t.test(delta = .106, sd = .158,
              sig.level = .05,
              power = .8,
              type = 'paired',

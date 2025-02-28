@@ -11,21 +11,21 @@ uefa_big5_match_results %>%
 
 uefa_big5_match_results %>%
   mutate(
-    Àå¼Ò = Àå¼Ò %>% fct_relevel('¾È¹æ', '¹æ¹®'),
-    ½Ã±â = ½Ã±â %>% fct_relevel('BC', 'AC')
+    ìž¥ì†Œ = ìž¥ì†Œ %>% fct_relevel('ì•ˆë°©', 'ë°©ë¬¸'),
+    ì‹œê¸° = ì‹œê¸° %>% fct_relevel('BC', 'AC')
   ) -> uefa_big5_match_results
 
 uefa_big5_match_results %>%
-  group_by(ÆÀ, Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â¸®), .groups = 'drop') -> uefa_big5_results
+  group_by(íŒ€, ìž¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬), .groups = 'drop') -> uefa_big5_results
 
 uefa_big5_results %>%
-  ggplot(aes(x = Àå¼Ò, y = ½Â·ü)) +
+  ggplot(aes(x = ìž¥ì†Œ, y = ìŠ¹ë¥ )) +
   geom_boxplot()
 
 uefa_big5_results %>%
-  group_by(Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop')
+  group_by(ìž¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop')
 
 sample(100, 10)
 
@@ -36,48 +36,48 @@ tibble(
 
 uefa_big5_results %>%
   rowwise() %>%
-  mutate(³­¼ö = sample(nrow(.), 1),
-           ·£´ý_Àå¼Ò = if_else(³­¼ö %% 2 == 0, '¾È¹æ', '¹æ¹®')
+  mutate(ë‚œìˆ˜ = sample(nrow(.), 1),
+         ëžœë¤_ìž¥ì†Œ = if_else(ë‚œìˆ˜ %% 2 == 0, 'ì•ˆë°©', 'ë°©ë¬¸')
   ) -> uefa_big5_results_permutated
 
 uefa_big5_results_permutated
 
 uefa_big5_results_permutated %>%
-  pivot_longer(cols = c('Àå¼Ò', '·£´ý_Àå¼Ò'),
-               names_to = '±¸ºÐ',
-               values_to = 'Àå¼Ò') %>%
-  group_by(ÆÀ, ±¸ºÐ, Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop') %>%
-  ggplot(aes(x = Àå¼Ò %>% fct_relevel('¾È¹æ', '¹æ¹®'),
-             y = ½Â·ü)) +
+  pivot_longer(cols = c('ìž¥ì†Œ', 'ëžœë¤_ìž¥ì†Œ'),
+               names_to = 'êµ¬ë¶„',
+               values_to = 'ìž¥ì†Œ') %>%
+  group_by(íŒ€, êµ¬ë¶„, ìž¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop') %>%
+  ggplot(aes(x = ìž¥ì†Œ %>% fct_relevel('ì•ˆë°©', 'ë°©ë¬¸'),
+             y = ìŠ¹ë¥ )) +
   geom_boxplot() +
-  facet_grid(~±¸ºÐ)
+  facet_grid(~êµ¬ë¶„)
 
 uefa_big5_results_permutated %>%
-  group_by(·£´ý_Àå¼Ò) %>%
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop')
+  group_by(ëžœë¤_ìž¥ì†Œ) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop')
 
 uefa_big5_results %>%
-  specify(response = ½Â·ü, explanatory = Àå¼Ò)
+  specify(response = ìŠ¹ë¥ , explanatory = ìž¥ì†Œ)
 
 uefa_big5_results %>%
-  specify(formula = ½Â·ü ~ Àå¼Ò)
+  specify(formula = ìŠ¹ë¥  ~ ìž¥ì†Œ)
 
 uefa_big5_results %>%
-  specify(½Â·ü ~ Àå¼Ò) %>%
+  specify(ìŠ¹ë¥  ~ ìž¥ì†Œ) %>%
   hypothesize(null = 'independence')
 
 uefa_big5_results %>%
-  specify(½Â·ü ~ Àå¼Ò) %>%
+  specify(ìŠ¹ë¥  ~ ìž¥ì†Œ) %>%
   hypothesize(null = 'independence') %>%
   generate(reps=1000, type='permute')
 
 uefa_big5_results %>%
-  specify(½Â·ü ~ Àå¼Ò) %>%
+  specify(ìŠ¹ë¥  ~ ìž¥ì†Œ) %>%
   hypothesize(null = 'independence') %>%
   generate(reps = 1000, type = 'permute') %>%
   calculate(stat = 'diff in means',
-            order = c('¾È¹æ', '¹æ¹®')) -> uefa_big5_results_null
+            order = c('ì•ˆë°©', 'ë°©ë¬¸')) -> uefa_big5_results_null
 
 uefa_big5_results_null %>%
   visualize()
@@ -98,9 +98,9 @@ uefa_big5_results_null %>%
   filter(stat >= .05)
 
 uefa_big5_results %>%
-  specify(formula = ½Â·ü ~ Àå¼Ò) %>%
+  specify(formula = ìŠ¹ë¥  ~ ìž¥ì†Œ) %>%
   calculate(stat = 'diff in means',
-            order=c('¾È¹æ', '¹æ¹®'))
+            order=c('ì•ˆë°©', 'ë°©ë¬¸'))
 
 uefa_big5_results_null %>%
   get_p_value(obs_stat = .128,
@@ -119,7 +119,7 @@ uefa_big5_results_null %>%
 uefa_big5_results_null %>%
   visualize(fill = 'gray75') +
   shade_p_value(obs_stat = .05,
-                direction = ¡®two-sided¡¯,
+                direction = â€˜two-sidedâ€™,
                 fill = '#53bfd4', color = '#53bfd4')
 
 uefa_big5_results_null %>%
@@ -132,22 +132,22 @@ uefa_big5_results_null %>%
   shade_confidence_interval(endpoints = uefa_big5_ci_endpoints)
 
 uefa_big5_match_results %>%
-  filter(Àå¼Ò == '¾È¹æ' & ¸®±× != '¸®±×1') -> uefa_big5_match_results_period
+  filter(ìž¥ì†Œ == 'ì•ˆë°©' & ë¦¬ê·¸ != 'ë¦¬ê·¸1') -> uefa_big5_match_results_period
 
 uefa_big5_match_results_period %>%
-  group_by(ÆÀ, ½Ã±â) %>%
-  summarise(½Â·ü = mean(½Â¸®), .groups = 'drop') -> uefa_big5_results_period
+  group_by(íŒ€, ì‹œê¸°) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¦¬), .groups = 'drop') -> uefa_big5_results_period
 
 uefa_big5_results_period %>%
-  ggplot(aes(x = ½Ã±â, y = ½Â·ü)) +
+  ggplot(aes(x = ì‹œê¸°, y = ìŠ¹ë¥ )) +
   geom_boxplot()
 
 uefa_big5_results_period %>%
-  group_by(½Ã±â) %>%
-  summarise(½Â·ü = mean(½Â·ü), .groups = 'drop')
+  group_by(ì‹œê¸°) %>%
+  summarise(ìŠ¹ë¥  = mean(ìŠ¹ë¥ ), .groups = 'drop')
 
 uefa_big5_results_period %>%
-  specify(½Â·ü ~ ½Ã±â) %>%
+  specify(ìŠ¹ë¥  ~ ì‹œê¸°) %>%
   hypothesize(null = 'independence') %>%
   generate(reps = 1000, type = 'permute') %>%
   calculate(stat = 'diff in means',
@@ -162,6 +162,6 @@ uefa_big5_results_period_null %>%
   get_p_value(obs_stat = -.018, direction = 'less')
 
 uefa_big5_results_period %>%
-  t_test(formula = ½Â·ü ~ ½Ã±â,
+  t_test(formula = ìŠ¹ë¥  ~ ì‹œê¸°,
          order = c('AC', 'BC'),
          alternative = 'less')

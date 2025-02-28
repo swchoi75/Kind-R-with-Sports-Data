@@ -25,51 +25,51 @@ dmy('1-jan-2021')
 kbo_profile
 
 kbo_profile %>%
-  select(ÄÚµå:»ý³â¿ùÀÏ) %>%
-  mutate(»ýÀÏ = ymd(»ý³â¿ùÀÏ))
+  select(ì½”ë“œ:ìƒë…„ì›”ì¼) %>%
+  mutate(ìƒì¼ = ymd(ìƒë…„ì›”ì¼))
 
 kbo_profile %>%
-  select(ÄÚµå:»ý³â¿ùÀÏ) %>%
+  select(ì½”ë“œ:ìƒë…„ì›”ì¼) %>%
   mutate(
-    »ýÀÏ = ymd(»ý³â¿ùÀÏ),
-    ¿¬ = year(»ýÀÏ),
-    ¿ù = month(»ýÀÏ),
-    ÀÏ = day(»ýÀÏ),
-    ¿äÀÏ = wday(»ýÀÏ)
+    ìƒì¼ = ymd(ìƒë…„ì›”ì¼),
+    ì—° = year(ìƒì¼),
+    ì›” = month(ìƒì¼),
+    ì¼ = day(ìƒì¼),
+    ìš”ì¼ = wday(ìƒì¼)
   )
 
 kbo_profile %>%
-  select(ÄÚµå:»ý³â¿ùÀÏ) %>%
+  select(ì½”ë“œ:ìƒë…„ì›”ì¼) %>%
   mutate(
-    »ýÀÏ = ymd(»ý³â¿ùÀÏ),
-    ¿¬ = year(»ýÀÏ),
-    ¿ù = month(»ýÀÏ),
-    ÀÏ = day(»ýÀÏ),
-    ¿äÀÏ = wday(»ýÀÏ, label = TRUE)
+    ìƒì¼ = ymd(ìƒë…„ì›”ì¼),
+    ì—° = year(ìƒì¼),
+    ì›” = month(ìƒì¼),
+    ì¼ = day(ìƒì¼),
+    ìš”ì¼ = wday(ìƒì¼, label = TRUE)
   )
 
 kbo_profile %>%
-  select(ÄÚµå:»ý³â¿ùÀÏ,-c(ÅõÅ¸,  ÄÚµå)) %>%
+  select(ì½”ë“œ:ìƒë…„ì›”ì¼,-c(íˆ¬íƒ€,  ì½”ë“œ)) %>%
   mutate(
-    »ýÀÏ = ymd(»ý³â¿ùÀÏ),
-    ¿¬ = year(»ýÀÏ),
-    ¿ù = month(»ýÀÏ),
-    ÀÏ = day(»ýÀÏ),
-    ¿äÀÏ = wday(»ýÀÏ, label = TRUE),
-    ³¯Â¥ = yday(»ýÀÏ),
-    ¹Ý±â = semester(»ýÀÏ),
-    ºÐ±â = quarter(»ýÀÏ)
+    ìƒì¼ = ymd(ìƒë…„ì›”ì¼),
+    ì—° = year(ìƒì¼),
+    ì›” = month(ìƒì¼),
+    ì¼ = day(ìƒì¼),
+    ìš”ì¼ = wday(ìƒì¼, label = TRUE),
+    ë‚ ì§œ = yday(ìƒì¼),
+    ë°˜ê¸° = semester(ìƒì¼),
+    ë¶„ê¸° = quarter(ìƒì¼)
   )
 
 kbo_profile %>%
-  select(ÄÚµå:»ý³â¿ùÀÏ,-c(ÅõÅ¸,  ÄÚµå)) %>%
+  select(ì½”ë“œ:ìƒë…„ì›”ì¼,-c(íˆ¬íƒ€,  ì½”ë“œ)) %>%
   mutate(
-    »ýÀÏ = ymd(»ý³â¿ùÀÏ),
-    ¿ù = month(»ýÀÏ),
+    ìƒì¼ = ymd(ìƒë…„ì›”ì¼),
+    ì›” = month(ìƒì¼),
   ) %>%
-  group_by(¿ù) %>%
+  group_by(ì›”) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = ¿ù, y = count)) +
+  ggplot(aes(x = ì›”, y = count)) +
   geom_col()
 
 ymd(820327) %--% ymd(210101)

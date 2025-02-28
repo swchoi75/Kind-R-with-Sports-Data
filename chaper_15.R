@@ -26,10 +26,10 @@ tribble(
   'e', .285, .140
 ) %>% 
   mutate(
-  runs_z_score = (runs - mean(runs)) / sd(runs),
-  avg_z_score = (avg - mean(avg)) / sd(avg),
-  rectangle_size = runs_z_score * avg_z_score
-) %>%
+    runs_z_score = (runs - mean(runs)) / sd(runs),
+    avg_z_score = (avg - mean(avg)) / sd(avg),
+    rectangle_size = runs_z_score * avg_z_score
+  ) %>%
   summarise(size_sum = sum(rectangle_size) / 4) 
 
 batting_2020 %>%
@@ -240,21 +240,21 @@ team_batting %>%
             woba = cor(runs, woba))
 
 team_batting %>%
-  pivot_longer(cols = avg:woba, names_to = '±¸ºĞ', values_to = '±â·Ï') %>%
-  group_by(±¸ºĞ) %>%
-  summarise(cor.test(runs,  ±â·Ï) %>% tidy(), .groups = 'drop') %>%
+  pivot_longer(cols = avg:woba, names_to = 'êµ¬ë¶„', values_to = 'ê¸°ë¡') %>%
+  group_by(êµ¬ë¶„) %>%
+  summarise(cor.test(runs,  ê¸°ë¡) %>% tidy(), .groups = 'drop') %>%
   arrange(estimate)
 
 team_batting %>%
-  pivot_longer(cols = avg:woba, names_to = '±¸ºĞ', values_to = '±â·Ï') %>%
-  group_by(±¸ºĞ) %>%
-  summarise(lm(runs ~ ±â·Ï) %>% tidy(), .groups = 'drop') %>%
+  pivot_longer(cols = avg:woba, names_to = 'êµ¬ë¶„', values_to = 'ê¸°ë¡') %>%
+  group_by(êµ¬ë¶„) %>%
+  summarise(lm(runs ~ ê¸°ë¡) %>% tidy(), .groups = 'drop') %>%
   arrange(estimate)
 
 team_batting %>%
-  pivot_longer(cols = avg:woba, names_to = '±¸ºĞ', values_to = '±â·Ï') %>%
-  group_by(±¸ºĞ) %>%
-  summarise(lm(runs ~ ±â·Ï) %>% glance(), .groups = 'drop') %>%
+  pivot_longer(cols = avg:woba, names_to = 'êµ¬ë¶„', values_to = 'ê¸°ë¡') %>%
+  group_by(êµ¬ë¶„) %>%
+  summarise(lm(runs ~ ê¸°ë¡) %>% glance(), .groups = 'drop') %>%
   arrange(r.squared)
 
 'kbo_batting_risp.csv' %>% 
@@ -266,68 +266,68 @@ kbo_batting_risp
 kbo_batting_risp %>% 
   group_by(code) %>% 
   arrange(code, year) %>% 
-  mutate(´ÙÀ½ÇØ = lead(year),
-            .after = year) 
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         .after = year) 
 
 kbo_batting_risp %>% 
   group_by(code) %>% 
   arrange(code, year) %>% 
-  mutate(´ÙÀ½ÇØ = lead(year),
-            .after = year) %>% 
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         .after = year) %>% 
   arrange(code, year) %>% 
   drop_na()
 
 kbo_batting_risp %>% 
   group_by(code) %>% 
   arrange(code, year) %>% 
-  mutate(´ÙÀ½ÇØ = lead(year),
-         ÀÌµëÇØ = if_else(´ÙÀ½ÇØ == year + 1, 1, 0),
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         ì´ë“¬í•´ = if_else(ë‹¤ìŒí•´ == year + 1, 1, 0),
          .after = year) %>% 
-  filter(ÀÌµëÇØ == 1)
+  filter(ì´ë“¬í•´ == 1)
 
 kbo_batting_risp %>% 
   group_by(code) %>% 
   arrange(code, year) %>% 
-  mutate(´ÙÀ½ÇØ = lead(year),
-            ÀÌµëÇØ = if_else(´ÙÀ½ÇØ == year + 1, 1, 0),
-            .after = year) %>% 
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         ì´ë“¬í•´ = if_else(ë‹¤ìŒí•´ == year + 1, 1, 0),
+         .after = year) %>% 
   pivot_longer(cols = g:last_col(),
-               names_to = '±¸ºĞ',
-               values_to = '±â·Ï') %>% 
-  group_by(code, ±¸ºĞ) %>% 
-  mutate(ÀÌµëÇØ_±â·Ï = lead(±â·Ï)) %>% 
-  filter(ÀÌµëÇØ == 1)
+               names_to = 'êµ¬ë¶„',
+               values_to = 'ê¸°ë¡') %>% 
+  group_by(code, êµ¬ë¶„) %>% 
+  mutate(ì´ë“¬í•´_ê¸°ë¡ = lead(ê¸°ë¡)) %>% 
+  filter(ì´ë“¬í•´ == 1)
 
 kbo_batting_risp %>%
   group_by(code) %>%
-  mutate(´ÙÀ½ÇØ = lead(year),
-         ÀÌµëÇØ = if_else(´ÙÀ½ÇØ == year + 1, 1, 0),
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         ì´ë“¬í•´ = if_else(ë‹¤ìŒí•´ == year + 1, 1, 0),
          .after = year) %>%
   pivot_longer(cols = g:last_col(),
-               names_to = '±¸ºĞ',
-               values_to = '±â·Ï') %>%
-  group_by(code, ±¸ºĞ) %>%
-  mutate(ÀÌµëÇØ_±â·Ï = lead(±â·Ï)) %>%
-  filter(ÀÌµëÇØ == 1) %>%
-  group_by(±¸ºĞ) %>%
-  summarise(lm(ÀÌµëÇØ_±â·Ï ~ ±â·Ï) %>% glance(), .groups = 'drop') %>%
+               names_to = 'êµ¬ë¶„',
+               values_to = 'ê¸°ë¡') %>%
+  group_by(code, êµ¬ë¶„) %>%
+  mutate(ì´ë“¬í•´_ê¸°ë¡ = lead(ê¸°ë¡)) %>%
+  filter(ì´ë“¬í•´ == 1) %>%
+  group_by(êµ¬ë¶„) %>%
+  summarise(lm(ì´ë“¬í•´_ê¸°ë¡ ~ ê¸°ë¡) %>% glance(), .groups = 'drop') %>%
   arrange(-r.squared) %>%
   print(n = Inf)
 
 kbo_batting_risp %>% 
   arrange(code, year) %>% 
   group_by(code) %>% 
-  mutate(´ÙÀ½ÇØ = lead(year),
-         ÀÌµëÇØ = if_else(´ÙÀ½ÇØ == year + 1, 1, 0),
+  mutate(ë‹¤ìŒí•´ = lead(year),
+         ì´ë“¬í•´ = if_else(ë‹¤ìŒí•´ == year + 1, 1, 0),
          across(h:e, ~.x / g),
-            .after = year) %>% 
+         .after = year) %>% 
   pivot_longer(cols = h:last_col(),
-               names_to = '±â·Ï') %>% 
-  arrange(code, ±â·Ï, year) %>% 
-  group_by(code, ±â·Ï) %>% 
+               names_to = 'ê¸°ë¡') %>% 
+  arrange(code, ê¸°ë¡, year) %>% 
+  group_by(code, ê¸°ë¡) %>% 
   mutate(next_value = lead(value)) %>% 
-  filter(ÀÌµëÇØ == 1) %>% 
-  group_by(±â·Ï) %>% 
+  filter(ì´ë“¬í•´ == 1) %>% 
+  group_by(ê¸°ë¡) %>% 
   summarise(lm(next_value ~ value) %>% glance(), .groups = 'drop') %>% 
   arrange(-r.squared)
 
@@ -340,28 +340,27 @@ kbo_pythagorean_expectation %>%
 
 kbo_pythagorean_expectation %>%
   mutate(
-    ½ÇÁ¦_½Â·ü  =  ½Â / (½Â + ÆĞ),
-    ¹æ½Ä_1 =  µæÁ¡ ^ 2 / (µæÁ¡ ^ 2 + ½ÇÁ¡ ^ 2),
-    ¹æ½Ä_2 =  µæÁ¡ ^ 1.83 / (µæÁ¡ ^ 1.83 + ½ÇÁ¡ ^ 1.83),
-    x = 0.45 + 1.5 * log10((µæÁ¡ + ½ÇÁ¡) / °æ±â),
-    ¹æ½Ä_3 =  µæÁ¡ ^ x / (µæÁ¡ ^ x + ½ÇÁ¡ ^ x)
+    ì‹¤ì œ_ìŠ¹ë¥   =  ìŠ¹ / (ìŠ¹ + íŒ¨),
+    ë°©ì‹_1 =  ë“ì  ^ 2 / (ë“ì  ^ 2 + ì‹¤ì  ^ 2),
+    ë°©ì‹_2 =  ë“ì  ^ 1.83 / (ë“ì  ^ 1.83 + ì‹¤ì  ^ 1.83),
+    x = 0.45 + 1.5 * log10((ë“ì  + ì‹¤ì ) / ê²½ê¸°),
+    ë°©ì‹_3 =  ë“ì  ^ x / (ë“ì  ^ x + ì‹¤ì  ^ x)
   ) %>%
-  pivot_longer(cols = starts_with('¹æ½Ä'),
-               names_to = '¹æ½Ä',
-               values_to = '°á°ú') %>%
-  group_by(¹æ½Ä) %>%
-  summarise(lm(½ÇÁ¦_½Â·ü ~ °á°ú) %>% glance())
+  pivot_longer(cols = starts_with('ë°©ì‹'),
+               names_to = 'ë°©ì‹',
+               values_to = 'ê²°ê³¼') %>%
+  group_by(ë°©ì‹) %>%
+  summarise(lm(ì‹¤ì œ_ìŠ¹ë¥  ~ ê²°ê³¼) %>% glance())
 
 kbo_pythagorean_expectation %>% 
   mutate(
-    ½ÇÁ¦_½Â·ü  =  ½Â / (½Â + ÆĞ),
-    ¹æ½Ä_1 =  µæÁ¡ ^ 2 / (µæÁ¡ ^ 2 + ½ÇÁ¡ ^ 2),
-    ¹æ½Ä_2 =  µæÁ¡ ^ 1.83 / (µæÁ¡ ^ 1.83 + ½ÇÁ¡ ^ 1.83),
-    x = 0.45 + 1.5 * log10((µæÁ¡ + ½ÇÁ¡) / °æ±â),
-    ¹æ½Ä_3 =  µæÁ¡ ^ x / (µæÁ¡ ^ x + ½ÇÁ¡ ^ x),
-    Â÷ÀÌ_1 = (½ÇÁ¦_½Â·ü - ¹æ½Ä_1) ^ 2,
-    Â÷ÀÌ_2 = (½ÇÁ¦_½Â·ü - ¹æ½Ä_2) ^ 2,
-    Â÷ÀÌ_3 = (½ÇÁ¦_½Â·ü - ¹æ½Ä_3) ^ 2
+    ì‹¤ì œ_ìŠ¹ë¥   =  ìŠ¹ / (ìŠ¹ + íŒ¨),
+    ë°©ì‹_1 =  ë“ì  ^ 2 / (ë“ì  ^ 2 + ì‹¤ì  ^ 2),
+    ë°©ì‹_2 =  ë“ì  ^ 1.83 / (ë“ì  ^ 1.83 + ì‹¤ì  ^ 1.83),
+    x = 0.45 + 1.5 * log10((ë“ì  + ì‹¤ì ) / ê²½ê¸°),
+    ë°©ì‹_3 =  ë“ì  ^ x / (ë“ì  ^ x + ì‹¤ì  ^ x),
+    ì°¨ì´_1 = (ì‹¤ì œ_ìŠ¹ë¥  - ë°©ì‹_1) ^ 2,
+    ì°¨ì´_2 = (ì‹¤ì œ_ìŠ¹ë¥  - ë°©ì‹_2) ^ 2,
+    ì°¨ì´_3 = (ì‹¤ì œ_ìŠ¹ë¥  - ë°©ì‹_3) ^ 2
   ) %>% 
-  summarise(across(contains('Â÷ÀÌ'), mean)) %>% 
-  summarise(across(everything(), sqrt))
+  summarise(across(contains('ì°¨ì´

@@ -6,74 +6,74 @@ pacman::p_load(tidyverse, readxl)
 kbo_untidy
 
 kbo_untidy %>%
-  fill(ÆÀ)
+  fill(íŒ€)
 
 kbo_untidy %>%
-  fill(ÆÀ, .direction = 'up')
+  fill(íŒ€, .direction = 'up')
 
 
 tribble(
-  ~¼±¼ö, ~Å¸À², ~Ãâ·çÀ², ~ÀåÅ¸·Â,
+  ~ì„ ìˆ˜, ~íƒ€ìœ¨, ~ì¶œë£¨ìœ¨, ~ì¥íƒ€ë ¥,
   1, .123, .456, .789,
   2, .234, .567, .891
 ) %>% 
-  pivot_longer(cols = Å¸À²:ÀåÅ¸·Â, names_to = '±â·Ï', values_to = '¼ºÀû')
+  pivot_longer(cols = íƒ€ìœ¨:ì¥íƒ€ë ¥, names_to = 'ê¸°ë¡', values_to = 'ì„±ì ')
 
 tribble(
-  ~¼±¼ö, ~±â·Ï, ~¼ºÀû,
-  1, 'Å¸À²', .123,
-  1, 'Ãâ·çÀ²', .456,
-  1, 'ÀåÅ¸·Â', .789,
-  2, 'Å¸À²', .234,
-  2, 'Ãâ·çÀ²', .567,
-  2, 'ÀåÅ¸·Â', .891,
+  ~ì„ ìˆ˜, ~ê¸°ë¡, ~ì„±ì ,
+  1, 'íƒ€ìœ¨', .123,
+  1, 'ì¶œë£¨ìœ¨', .456,
+  1, 'ì¥íƒ€ë ¥', .789,
+  2, 'íƒ€ìœ¨', .234,
+  2, 'ì¶œë£¨ìœ¨', .567,
+  2, 'ì¥íƒ€ë ¥', .891,
 ) %>% 
-  pivot_wider(names_from='±â·Ï', values_from='¼ºÀû')
+  pivot_wider(names_from='ê¸°ë¡', values_from='ì„±ì ')
 
 kbo_untidy %>%
-  fill(ÆÀ) %>%
+  fill(íŒ€) %>%
   pivot_longer(
     cols = `1982`:`2020`,
-    names_to = '¿¬µµ',
-    values_to = '±â·Ï'
+    names_to = 'ì—°ë„',
+    values_to = 'ê¸°ë¡'
   ) 
 
 kbo_untidy %>%
-  fill(ÆÀ) %>%
+  fill(íŒ€) %>%
   pivot_longer(
     cols = `1982`:`2020`,
-    names_to = '¿¬µµ',
-    values_to = '±â·Ï'
+    names_to = 'ì—°ë„',
+    values_to = 'ê¸°ë¡'
   ) %>% 
   sample_n(10)
 
 kbo_untidy %>%
-  fill(ÆÀ) %>%
+  fill(íŒ€) %>%
   pivot_longer(
     cols = `1982`:`2020`,
-    names_to = '¿¬µµ',
-    values_to = '±â·Ï',
+    names_to = 'ì—°ë„',
+    values_to = 'ê¸°ë¡',
     values_drop_na = TRUE
   ) %>% 
   sample_n(10)
 
 kbo_untidy %>%
-  fill(ÆÀ) %>%
+  fill(íŒ€) %>%
   pivot_longer(
     cols = `1982`:`2020`,
-    names_to = '¿¬µµ',
-    values_to = '±â·Ï',
+    names_to = 'ì—°ë„',
+    values_to = 'ê¸°ë¡',
     values_drop_na = TRUE
   ) %>%
-  pivot_wider(names_from = '±¸ºĞ', values_from = '±â·Ï')
+  pivot_wider(names_from = 'êµ¬ë¶„', values_from = 'ê¸°ë¡')
 
 kbo_untidy %>%
-  fill(ÆÀ) %>%
+  fill(íŒ€) %>%
   pivot_longer(
     cols = `1982`:last_col(),
-    names_to = '¿¬µµ',
-    values_to = '±â·Ï',
+    names_to = 'ì—°ë„',
+    values_to = 'ê¸°ë¡',
     values_drop_na = TRUE
   ) %>%
-  pivot_wider(names_from = '±¸ºĞ', values_from = '±â·Ï') %>%
-  mutate(¿¬µµ = ¿¬µµ %>% as_factor())
+  pivot_wider(names_from = 'êµ¬ë¶„', values_from = 'ê¸°ë¡') %>%
+  mutate(ì—°ë„ = ì—°ë„

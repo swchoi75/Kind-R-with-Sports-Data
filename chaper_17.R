@@ -2,21 +2,21 @@ pacman::p_load(tidyverse, tidymodels)
 set.seed(1234)
 
 tibble(
-  Ãß°¡_½Â¼ö = rbinom(100000, 100, .5),
-  ¿¹»ó_½Â·ü = (Ãß°¡_½Â¼ö + 22) / 144,
-  ¸¶Áö³ë¼± = sample(seq(.486, .559, .010), 100000, replace = TRUE),
-  ÁøÃâ_¼º°ø = if_else(¿¹»ó_½Â·ü >= ¸¶Áö³ë¼±, 1, 0)
+  ì¶”ê°€_ìŠ¹ìˆ˜ = rbinom(100000, 100, .5),
+  ì˜ˆìƒ_ìŠ¹ë¥  = (ì¶”ê°€_ìŠ¹ìˆ˜ + 22) / 144,
+  ë§ˆì§€ë…¸ì„  = sample(seq(.486, .559, .010), 100000, replace = TRUE),
+  ì§„ì¶œ_ì„±ê³µ = if_else(ì˜ˆìƒ_ìŠ¹ë¥  >= ë§ˆì§€ë…¸ì„ , 1, 0)
 ) -> lotte_simulation
 
 lotte_simulation %>% 
-  group_by(Ãß°¡_½Â¼ö) %>% 
+  group_by(ì¶”ê°€_ìŠ¹ìˆ˜) %>% 
   summarise(
-    ÀüÃ¼_È½¼ö = n(),
-    ÁøÃâ_¼º°ø = sum(ÁøÃâ_¼º°ø),
-    ÁøÃâ_È®·ü =  ÁøÃâ_¼º°ø / ÀüÃ¼_È½¼ö,
+    ì „ì²´_íšŸìˆ˜ = n(),
+    ì§„ì¶œ_ì„±ê³µ = sum(ì§„ì¶œ_ì„±ê³µ),
+    ì§„ì¶œ_í™•ë¥  =  ì§„ì¶œ_ì„±ê³µ / ì „ì²´_íšŸìˆ˜,
     .groups = 'drop'
   ) %>% 
-  ggplot(aes(x = Ãß°¡_½Â¼ö, y = ÁøÃâ_È®·ü)) +
+  ggplot(aes(x = ì¶”ê°€_ìŠ¹ìˆ˜, y = ì§„ì¶œ_í™•ë¥ )) +
   geom_line()
 
 tibble(
@@ -62,40 +62,40 @@ tibble(
 kovo_sets
 
 kovo_sets %>%
-  mutate(½Â¸® = ½Â¸® %>% as_factor()) -> kovo_sets
+  mutate(ìŠ¹ë¦¬ = ìŠ¹ë¦¬ %>% as_factor()) -> kovo_sets
 
 kovo_sets %>% 
-  filter(³²³àºÎ == '³²') -> kovo_set_male
+  filter(ë‚¨ë…€ë¶€ == 'ë‚¨') -> kovo_set_male
 
 kovo_set_male %>%
-  glm(½Â¸®  ~  ¼­ºêÈ¿À² + ¸®½ÃºêÈ¿À² + °ø°ÝÈ¿À² + ºí·ÎÅ· + µð±×,
-        family = binomial,
-        data = .) %>% 
+  glm(ìŠ¹ë¦¬  ~  ì„œë¸Œíš¨ìœ¨ + ë¦¬ì‹œë¸Œíš¨ìœ¨ + ê³µê²©íš¨ìœ¨ + ë¸”ë¡œí‚¹ + ë””ê·¸,
+      family = binomial,
+      data = .) %>% 
   tidy()
 
 kovo_set_male %>%
-  glm(½Â¸®  ~  ¼­ºêÈ¿À² + ¸®½ÃºêÈ¿À² + °ø°ÝÈ¿À² + ºí·ÎÅ· + µð±×,
-        family = binomial,
-        data = .) %>% 
+  glm(ìŠ¹ë¦¬  ~  ì„œë¸Œíš¨ìœ¨ + ë¦¬ì‹œë¸Œíš¨ìœ¨ + ê³µê²©íš¨ìœ¨ + ë¸”ë¡œí‚¹ + ë””ê·¸,
+      family = binomial,
+      data = .) %>% 
   vip::vi()
 
 kovo_set_male %>%
-  lm(°ø°ÝÈ¿À² ~ ¸®½ÃºêÈ¿À², data = .) %>% 
+  lm(ê³µê²©íš¨ìœ¨ ~ ë¦¬ì‹œë¸Œíš¨ìœ¨, data = .) %>% 
   glance()
 
 kovo_set_male %>% 
-  initial_split(strata = '½Â¸®') -> set_split
+  initial_split(strata = 'ìŠ¹ë¦¬') -> set_split
 
 set_split %>% training() -> set_train
 
 set_split %>% testing() -> set_test
 
-recipe(½Â¸® ~ ¼­ºêÈ¿À² + ¸®½ÃºêÈ¿À² + °ø°ÝÈ¿À² + ºí·ÎÅ· + µð±×, data = set_train)
+recipe(ìŠ¹ë¦¬ ~ ì„œë¸Œíš¨ìœ¨ + ë¦¬ì‹œë¸Œíš¨ìœ¨ + ê³µê²©íš¨ìœ¨ + ë¸”ë¡œí‚¹ + ë””ê·¸, data = set_train)
 
-#ÁÖ¼® ÄÚµå
+#ì£¼ì„ ì½”ë“œ
 grep("^step_", ls("package:recipes"), value = TRUE)
 
-recipe(½Â¸® ~ ¼­ºêÈ¿À² + ¸®½ÃºêÈ¿À² + °ø°ÝÈ¿À² + ºí·ÎÅ· + µð±×, data = set_train) %>% 
+recipe(ìŠ¹ë¦¬ ~ ì„œë¸Œíš¨ìœ¨ + ë¦¬ì‹œë¸Œíš¨ìœ¨ + ê³µê²©íš¨ìœ¨ + ë¸”ë¡œí‚¹ + ë””ê·¸, data = set_train) %>% 
   step_corr(all_predictors()) %>%
   step_normalize(all_predictors(), -all_outcomes()) -> set_recipe
 
@@ -131,22 +131,22 @@ set_lr_fit %>%
 set_lr_fit %>% 
   predict(set_train) %>% 
   bind_cols(set_train) %>% 
-  relocate(½Â¸®, .before = ½ÃÁð)
+  relocate(ìŠ¹ë¦¬, .before = ì‹œì¦Œ)
 
 set_lr_fit %>% 
   predict(set_train) %>% 
   bind_cols(set_train) %>% 
-  metrics(truth = ½Â¸®, estimate = .pred_class)
+  metrics(truth = ìŠ¹ë¦¬, estimate = .pred_class)
 
 set_lr_fit %>% 
   predict(set_train) %>% 
   bind_cols(set_train) %>% 
-  conf_mat(truth = ½Â¸®, estimate = .pred_class) 
+  conf_mat(truth = ìŠ¹ë¦¬, estimate = .pred_class) 
 
 set_lr_fit %>% 
   predict(set_test) %>% 
   bind_cols(set_test) %>% 
-  metrics(truth = ½Â¸®, estimate = .pred_class)
+  metrics(truth = ìŠ¹ë¦¬, estimate = .pred_class)
 
 set_lr_fit %>% 
   predict(set_train, type='prob') 
@@ -173,18 +173,18 @@ tibble(
 set_lr_fit %>% 
   predict(set_train, type='prob') %>% 
   bind_cols(set_train) %>% 
-  roc_curve(truth = ½Â¸®, estimate = .pred_0)
+  roc_curve(truth = ìŠ¹ë¦¬, estimate = .pred_0)
 
 set_lr_fit %>% 
   predict(set_train, type='prob') %>% 
   bind_cols(set_train) %>% 
-  roc_curve(truth = ½Â¸®, estimate = .pred_0) %>% 
+  roc_curve(truth = ìŠ¹ë¦¬, estimate = .pred_0) %>% 
   autoplot()
 
 set_lr_fit %>% 
   predict(set_test, type='prob') %>% 
   bind_cols(set_test) %>% 
-  roc_curve(truth = ½Â¸®, estimate = .pred_0) %>% 
+  roc_curve(truth = ìŠ¹ë¦¬, estimate = .pred_0) %>% 
   ggplot(aes(x = 1 - specificity, y = sensitivity)) +
   geom_path() +
   geom_abline(linetype = 'dotted') +
@@ -193,9 +193,9 @@ set_lr_fit %>%
 set_lr_fit %>% 
   predict(set_train, type='prob') %>% 
   bind_cols(set_train) %>% 
-  roc_auc(truth = ½Â¸®, .pred_0) 
+  roc_auc(truth = ìŠ¹ë¦¬, .pred_0) 
 
 set_lr_fit %>% 
   predict(set_test, type='prob') %>% 
   bind_cols(set_test) %>% 
-  roc_auc(truth = ½Â¸®, .pred_0)
+  roc_auc(truth = ìŠ¹ë¦¬
