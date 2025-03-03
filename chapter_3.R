@@ -133,11 +133,11 @@ batting[batting$rank == 1,] %>%
              y = avg)) +
   geom_line(lty = 2)
 
-'2020_ryu.csv' %>% 
-  read.csv() %>% 
+'2020_ryu.csv' %>%
+  read.csv() %>%
   as_tibble() -> ryu
 
-ryu %>% 
+ryu %>%
   dim()
 
 ryu %>% 
@@ -166,7 +166,7 @@ ryu %>%
 
 ryu %>%
   ggplot(aes(x = plate_x, plate_z)) +
-  geom_point() 
+  geom_point()
 
 ryu %>%
   ggplot(aes(x = plate_x, plate_z)) +
@@ -211,11 +211,11 @@ ryu %>%
   geom_density(fill = 'gray75') +
   facet_grid(pitch_name %>% fct_reorder(-release_speed) ~ .)
 
-tibble(x = -5:5) %>% 
+tibble(x = -5:5) %>%
   ggplot(aes(x = x)) +
   geom_function(fun = dnorm)
 
-tibble(x = -5:5) %>% 
+tibble(x = -5:5) %>%
   ggplot(aes(x = x)) +
   geom_area(stat = 'function', fun = dnorm)
 
@@ -264,7 +264,3 @@ batting[batting$rank == 1,] %>%
              y = avg)) +
   geom_line() +
   coord_cartesian(ylim=c(.350, .420))
-
-
-
-
