@@ -6,6 +6,8 @@ pacman::p_load(tidyverse)
 
 ggplot(data = batting)
 
+
+# Histogram
 ggplot(data = batting, mapping = aes(x = avg)) + 
   geom_histogram()
 
@@ -38,6 +40,8 @@ batting %>%
   ggplot(aes(avg)) +
   geom_histogram(bins = 30, fill = '#53bfd4', color = 'white')
 
+
+# Bar
 batting %>%
   ggplot(aes(throw_bat)) +
   geom_bar()
@@ -111,6 +115,8 @@ batting %>%
   ggplot(aes(x = throw_bat %>% fct_infreq())) +
   geom_bar()
 
+
+# Line
 batting[batting$rank == 1,]
 
 batting[batting$rank == 1,] %>%
