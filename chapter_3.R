@@ -4,7 +4,7 @@ pacman::p_load(tidyverse)
   read.csv() %>%
   as_tibble() -> batting
 
-ggplot(data = batting)
+ggplot(data = batting) # nothing shows up
 
 
 # Histogram
@@ -70,11 +70,16 @@ batting$throw_bat %>%
   table()
 
 tribble(
-  ~throw_bat, ~count,
-  "우양", 30,
-  "우우", 1001,
-  "우좌", 155,
-  "좌좌", 435
+  ~throw_bat,
+  ~count,
+  "우양",
+  30,
+  "우우",
+  1001,
+  "우좌",
+  155,
+  "좌좌",
+  435
 ) -> bar_example
 
 bar_example %>%
@@ -256,16 +261,26 @@ tibble(x = -5:5) %>%
   geom_area(stat = "function", fun = dnorm)
 
 tribble(
-  ~response, ~value,
-  "이름 짓기", 49,
-  "개발 가능 혹은 불가능한 사항 설명하기", 16,
-  "개발 작업이 끝나는 시간 산정하기", 10,
-  "다른 사람과 함께 일하기", 8,
-  "다른 개발자 코드 작업하기", 8,
-  "내가 수긍 못할 기능 구현하기", 3,
-  "문서 작성", 2,
-  "테스트 작성", 2,
-  "해법 찾기", 2
+  ~response,
+  ~value,
+  "이름 짓기",
+  49,
+  "개발 가능 혹은 불가능한 사항 설명하기",
+  16,
+  "개발 작업이 끝나는 시간 산정하기",
+  10,
+  "다른 사람과 함께 일하기",
+  8,
+  "다른 개발자 코드 작업하기",
+  8,
+  "내가 수긍 못할 기능 구현하기",
+  3,
+  "문서 작성",
+  2,
+  "테스트 작성",
+  2,
+  "해법 찾기",
+  2
 ) -> developers_chore
 
 developers_chore %>%
