@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, lubridate)
 
@@ -9,9 +10,6 @@ as.Date(2021 - 01 - 01)
 
 # %%
 as.Date(20210101)
-
-# %%
-as.Date('20210101')
 
 # %%
 ymd('20210101')

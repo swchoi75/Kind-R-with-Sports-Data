@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, tidymodels)
 set.seed(1234)
@@ -82,8 +83,10 @@ batting_2020 %>%
 # %%
 batting_2020 %>%
   specify(runs ~ avg) %>%
-  hypothesize(null = 'point', mu = 0) %>%
-  generate(reps = 1000, type = 'bootstrap') %>%
+  # Change 'point' to 'independence'
+  hypothesize(null = 'independence') %>% 
+  # Use 'permute' for independence nulls
+  generate(reps = 1000, type = 'permute') %>%
   calculate(stat = 'slope') %>%
   visualize() +
   shade_p_value(obs_stat = .8965, direction = 'both')

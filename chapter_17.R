@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, tidymodels)
 set.seed(1234)
@@ -210,23 +211,23 @@ tibble(
   geom_path()
 
 # %%
-set_lr_fit %>%
-  predict(set_train, type = 'prob') %>%
-  bind_cols(set_train) %>%
-  roc_curve(truth = 승리, estimate = .pred_0)
+set_lr_fit %>% 
+  predict(set_train, type='prob') %>% 
+  bind_cols(set_train) %>% 
+  roc_curve(truth = 승리, .pred_0)
 
 # %%
 set_lr_fit %>%
   predict(set_train, type = 'prob') %>%
   bind_cols(set_train) %>%
-  roc_curve(truth = 승리, estimate = .pred_0) %>%
+  roc_curve(truth = 승리, .pred_0) %>%
   autoplot()
 
 # %%
 set_lr_fit %>%
   predict(set_test, type = 'prob') %>%
   bind_cols(set_test) %>%
-  roc_curve(truth = 승리, estimate = .pred_0) %>%
+  roc_curve(truth = 승리, .pred_0) %>%
   ggplot(aes(x = 1 - specificity, y = sensitivity)) +
   geom_path() +
   geom_abline(linetype = 'dotted') +

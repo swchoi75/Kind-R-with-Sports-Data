@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, tidymodels)
 
@@ -145,7 +146,7 @@ uefa_big5_results_null %>%
 uefa_big5_results_null %>%
   visualize(fill = 'gray75') +
   shade_p_value(obs_stat = .05,
-                direction = ‘two-sided’,
+                direction = "two-sided",
                 fill = '#53bfd4', color = '#53bfd4')
 
 # %%

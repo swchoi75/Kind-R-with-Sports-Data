@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, tidymodels)
 set.seed(1234)
@@ -113,11 +114,14 @@ uefa_big5_results_period %>%
   shade_p_value(obs_stat = -.466, direction = 'less')
 
 # %%
-uefa_big5_results_period %>% 
-  t_test(formula =  승률  ~  시기,
-         order = c('AC', 'BC'),
-         alternative = 'less', paired = TRUE)
+uefa_big5_results_period %>%
+  # Pivot to wide format to create a 'difference' column
+  tidyr::pivot_wider(names_from = 시기, values_from = 승률) %>%
+  mutate(diff = AC - BC) %>%
+  # Now run a one-sample t-test on the difference
+  t_test(response = diff, mu = 0, alternative = "less")
 
+# %%
 uefa_big5_results_period %>% 
   pivot_wider(names_from='시기', values_from='승률') %>% 
   mutate(차이 = AC - BC) %>% 
@@ -165,13 +169,14 @@ nba_match_results %>%
 
 # %%
 nba_match_results %>%
-  filter(리그 != '플레이오프') %>% 
-  group_by(팀, 장소, 시기) %>%
-  filter(장소 == '안방') %>% 
-  summarise(승률  = mean(승리), .groups = 'drop') %>% 
-  t_test(formula =  승률  ~  시기,
-         order = c('BC', 'AC'),
-         paired = TRUE)
+  filter(리그 != '플레이오프', 장소 == '안방') %>% 
+  group_by(팀, 시기) %>%
+  summarise(승률 = mean(승리), .groups = 'drop') %>%
+  pivot_wider(names_from = 시기, values_from = 승률) %>%
+  # Filter out teams that don't have data for both periods
+  drop_na(BC, AC) %>% 
+  mutate(diff = BC - AC) %>%
+  t_test(response = diff, mu = 0)
 
 # %%
 nba_match_results %>%
@@ -184,16 +189,15 @@ nba_match_results %>%
 
 # %%
 nba_match_results %>%
-  filter(리그 != '플레이오프') %>% 
-  group_by(팀, 장소, 시기) %>%
-  filter(장소 == '안방') %>% 
-  summarise(승률  = mean(승리), .groups = 'drop') %>% 
-  pivot_wider(names_from = '시기', values_from = '승률') %>% 
-  drop_na() %>% 
-  pivot_longer(BC:AC, names_to = '시기', values_to = '승률') %>% 
-  t_test(formula =  승률  ~  시기,
-         order = c('BC', 'AC'),
-         paired = TRUE)
+  filter(리그 != '플레이오프', 장소 == '안방') %>% 
+  group_by(팀, 시기) %>%
+  summarise(승률 = mean(승리), .groups = 'drop') %>% 
+  pivot_wider(names_from = 시기, values_from = 승률) %>% 
+  drop_na(BC, AC) %>% 
+  # 1. Create the difference column
+  mutate(diff = BC - AC) %>% 
+  # 2. Test if the mean difference is significantly different from 0
+  t_test(response = diff, mu = 0)
 
 # %%
 nba_match_results %>%
@@ -248,9 +252,15 @@ nba_simulation_h1 %>%
 nba_match_results %>%
   filter(시기 == 'BC') %>% 
   group_by(팀, 장소) %>% 
-  summarise(승률 = mean(승리),
-            .groups = 'drop') %>% 
-  t_test(승률 ~ 장소, order = c('안방', '방문'), paired = TRUE)
+  summarise(승률 = mean(승리), .groups = 'drop') %>% 
+  # 1. Move '안방' and '방문' into their own columns
+  tidyr::pivot_wider(names_from = 장소, values_from = 승률) %>% 
+  # 2. Remove teams that don't have both Home and Away data (if any)
+  tidyr::drop_na(안방, 방문) %>% 
+  # 3. Calculate the difference
+  mutate(diff = 안방 - 방문) %>% 
+  # 4. Use the one-sample t_test on the difference
+  t_test(response = diff, mu = 0)
 
 # %%
 pacman::p_load(pwr)
@@ -272,7 +282,10 @@ nba_match_results %>%
   summarise(승률 = mean(승리), .groups = 'drop') %>%
   pivot_wider(names_from = '장소', values_from = '승률') %>%
   mutate(차이 = 안방 - 방문) %>%
-  summarise(sd = sd(차이power.t.test(delta = .106, sd = .158,
+  summarise(sd = sd(차이))
+
+# %%
+power.t.test(delta = .106, sd = .158,
              sig.level = .05,
              power = .8,
              type = 'paired',

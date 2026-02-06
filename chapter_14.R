@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load('tidyverse', 'tidymodels')
 set.seed(1234)
@@ -67,9 +68,10 @@ volleyball_status %>%
   summarise(across(ends_with('제곱'), sum))
 
 # %%
-volleyball_status %>% 
-  specify(능력치 ~ 카테고리) %>% 
-  calculate(stat = 'F', order = c('수비', '공격'))
+volleyball_status %>%  
+  specify(능력치 ~ 카테고리) %>%  
+  # Change 'F' to 't'
+  calculate(stat = "t", order = c("수비", "공격"))
 
 # %%
 (2604.167 / 1) / (266.6667 / 4)
@@ -77,7 +79,19 @@ volleyball_status %>%
 # %%
 volleyball_status %>% 
   specify(능력치 ~ 카테고리) %>% 
-  calculate(stat = 't', order = c('수비', '공격>% 
+  calculate(stat = 't', order = c('수비', '공격'))
+
+# %%
+6.25 ^ 2
+
+# %%
+1 - 0.95^2
+
+# %%
+tibble(
+  x = rchisq(5000, 10),
+  y = rchisq(5000, 10),
+) %>% 
   mutate(ratio = x/y) %>% 
   ggplot(aes(x = ratio)) +
   geom_histogram(aes(y = ..density..),

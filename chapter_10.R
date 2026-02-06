@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # %%
 pacman::p_load(tidyverse, tidymodels)
 
@@ -80,7 +81,9 @@ cheonan_sample %>%
 
 # %%
 cheonan_sample %>%
-  specify(response =  여성비율 -> cheonan_bootstrap
+  specify(response =  여성비율) %>%
+  generate(reps = 1000, type = 'bootstrap') %>%
+  calculate(stat = 'mean') -> cheonan_bootstrap
 
 cheonan_bootstrap %>% 
   visualize()

@@ -3,7 +3,7 @@
 pacman::p_load(tidyverse, here)
 
 # Path
-path <- here("Kind_R_with_Sports_data")
+path <- here("")
 
 here(path, "kbo_batting_qualified.csv") %>%
   read.csv() %>%
@@ -101,12 +101,16 @@ tribble(
 ) -> bar_example
 
 # %%
+# bar_example %>%
+#   ggplot(aes(
+#     x = throw_bat,
+#     y = count
+#   )) +
+#   geom_bar()
+
 bar_example %>%
-  ggplot(aes(
-    x = throw_bat,
-    y = count
-  )) +
-  geom_bar()
+  ggplot(aes(x = throw_bat, y = count)) +
+  geom_col()  # Use this when y is already in your data
 
 # %%
 bar_example %>%

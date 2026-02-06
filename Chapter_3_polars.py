@@ -178,22 +178,4 @@ p + facet_grid(y="pitch_name")
 # %%
 p + facet_grid(y="pitch_name", y_order=1)
 
-# %% [markdown]
-# ## geom_function
-
-# %%
-# Create the Polars DataFrame
-df = pl.DataFrame({"x": list(range(-5, 6))})
-
-
-# %%
-# Define the normal distribution function
-def dnorm(x):
-    return norm.pdf(x)
-
-
-# %%
-# Create the Lets-Plot plot
-p = ggplot(df, aes(x="x")) + geom_function(fun=dnorm)
-
 # %%
