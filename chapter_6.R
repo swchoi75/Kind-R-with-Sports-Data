@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+# %%
 rm(list=ls())
 
+# %%
 pacman::p_load(tidyverse)
 
+# %%
 tribble(
   ~연도, ~이름, ~홈런, ~팀,
   2003, '이승엽', 56, '삼성',
@@ -16,6 +20,7 @@ tribble(
   2002, '심정수', 46, '현대',
 ) -> 홈런
 
+# %%
 tribble(
   ~팀, ~애칭,
   '넥센', '히어로즈',
@@ -30,18 +35,25 @@ tribble(
   'SK', '와이번스'
 ) -> 팀
 
+# %%
 홈런 %>% inner_join(팀)
 
+# %%
 홈런 %>% left_join(팀)
 
+# %%
 홈런 %>% right_join(팀)
 
+# %%
 홈런 %>% full_join(팀)
 
+# %%
 홈런 %>% semi_join(팀)
 
+# %%
 홈런 %>% anti_join(팀)
 
+# %%
 tribble(
   ~구단, ~애칭,
   '넥센', '히어로즈',
@@ -56,15 +68,21 @@ tribble(
   'SK', '와이번스'
 ) -> 팀
 
-홈런 %>% left_join(팀)
+# %%
+홈런 %>% left_join(팀, by = c('팀' = '구단'))
 
-홈런 %>% left_join(팀, by = c('팀' = '구단er_matches_results.csv' %>% 
+# %%
+'international_soccer_matches_results.csv' %>% 
   read.csv() %>% 
   as_tibble() -> results
 
+results
+
+# %%
 results %>% 
   glimpse()  
 
+# %%
 results %>%
   select(
     date,
@@ -75,19 +93,29 @@ results %>%
     tournament:last_col()
   ) -> results_away
 
+results_away
+
+# %%
 tribble(
   ~a, ~b, ~c,
   1, 2, 3,
 ) -> tbl1
 
+tbl1
+
+# %%
 tribble(
   ~a, ~b, ~c,
   4, 5, 6
 ) -> tbl2
 
+tbl2
+
+# %%
 tbl1 %>% 
   bind_rows(tbl2)
 
+# %%
 results %>%
   rename(
     team = home_team,
@@ -99,6 +127,7 @@ results %>%
 
 results
 
+# %%
 results %>%
   mutate(
     win = ifelse(team_score > opponent_score, 1, 0),
@@ -116,6 +145,7 @@ results %>%
   ) %>%
   arrange(-wins)
 
+# %%
 results %>%
   mutate(
     win = ifelse(team_score > opponent_score, 1, 0),
@@ -133,6 +163,7 @@ results %>%
   ) %>%
   arrange(-win_percent)
 
+# %%
 results %>%
   mutate(
     win = ifelse(team_score > opponent_score, 1, 0),
@@ -150,6 +181,7 @@ results %>%
   ) %>%
   arrange(-wins)
 
+# %%
 results %>%
   mutate(
     win = ifelse(team_score > opponent_score, 1, 0),
@@ -168,19 +200,24 @@ results %>%
   filter(team == 'South Korea') %>%
   arrange(-wins)
 
+# %%
 'fifa_ranking.csv' %>% 
   read.csv() %>% 
   as_tibble() -> fifa_ranking
 
+# %%
 fifa_ranking %>% 
   glimpse()
 
+# %%
 fifa_ranking %>% 
   filter(country_full == 'South Korea')
 
+# %%
 fifa_ranking %>% 
   filter(country_full == 'Korea Republic')
 
+# %%
 results %>%
   filter(date >= '1993-08-08') %>%
   select(team) %>%
@@ -188,12 +225,14 @@ results %>%
 
 results_countries
 
+# %%
 fifa_ranking %>%
   select(country_full, country_abrv) %>%
   distinct() -> fifa_ranking_countries
 
 fifa_ranking_countries
 
+# %%
 results_countries %>%
   left_join(fifa_ranking_countries,
             by = c('team' = 'country_full')) %>%
@@ -201,12 +240,15 @@ results_countries %>%
 
 countries_to_match
 
+# %%
 pacman::p_load(countrycode)
 
+# %%
 c('South Korea', 'Korea Republic') %>%
   countrycode(origin = 'country.name',
               destination = 'iso3c')
 
+# %%
 tribble(
   ~x, ~y, ~z,
   8, 1, 6,
@@ -215,6 +257,7 @@ tribble(
 ) %>% 
   mutate(sum = sum(x, y, z))
 
+# %%
 tribble(
   ~x, ~y, ~z,
   8, 1, 6,
@@ -231,6 +274,7 @@ countries_to_match %>%
                        origin = 'country.name',
                        destination = 'iso3c')) -> country_codes_result
 
+# %%
 results_countries %>%
   left_join(fifa_ranking_countries,
             by = c('team' = 'country_full')) %>% 
@@ -239,6 +283,7 @@ results_countries %>%
 
 country_code_result
 
+# %%
 results %>% 
   filter(date >= '1993-08-08') %>%
   left_join(country_code_result) %>% 
@@ -246,6 +291,7 @@ results %>%
             by = c('country_abrv', 'date' = 'rank_date')) %>% 
   select(id:last_col())
 
+# %%
 results %>% 
   filter(date >= '1993-08-08') %>%
   left_join(country_code_result) %>% 
@@ -253,6 +299,7 @@ results %>%
             by = c('country_abrv', 'date' = 'rank_date')) %>% 
   drop_na()
 
+# %%
 results %>%
   filter(date >= '1993-08-08') %>%
   left_join(country_code_result) %>%
@@ -261,6 +308,7 @@ results %>%
             by = c('opponent' = 'team')) %>%
   rename(opponent_abrv = country_abrv)
 
+# %%
 results %>%
   filter(date > '1993-08-08') %>%
   left_join(country_code_result) %>%
@@ -270,3 +318,5 @@ results %>%
   rename(opponent_abrv = country_abrv) %>%
   drop_na() %>%
   write.csv('soccer_matches_results_in_progress.csv')
+
+# %%

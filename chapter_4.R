@@ -1,134 +1,171 @@
+# -*- coding: utf-8 -*-
+# %%
 pacman::p_load(tidyverse)
 
+# %%
 'kbo_team_batting.csv' %>% 
   read.csv() %>% 
   as_tibble() -> team_batting
 
 team_batting
 
+# %%
 team_batting %>%
   arrange(team)
 
+# %%
 team_batting %>%
   arrange(team %>% desc())
 
+# %%
 team_batting %>%
   arrange(team, year)
 
+# %%
 team_batting %>%
   filter(year == 1982)
 
+# %%
 team_batting[team_batting$year == 1982,]
 
+# %%
 team_batting[1:6, ]
 
+# %%
 team_batting %>%
   slice(1:6)
 
+# %%
 team_batting[sample(1:nrow(team_batting), 5), ]
 
+# %%
 team_batting %>% 
   sample_n(5)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   arrange(hr %>% desc())
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   arrange(-hr)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(year, team, h, X2b, X3b, hr)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   relocate(year, .before = team)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   relocate(g, .after = year)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(season = year, team, h, X2b, X3b, hr)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(year, team, h, X2b, X3b, hr) %>%
   select(-X3b)
 
+# %%
 team_batting %>% 
   filter(year == 1982) %>%
   select(bb:last_col())
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(2, 1, 7:10)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(year, team, h:hr)
 
+# %%
 team_batting %>%
   filter(year == 1982) %>%
   select(year, team, h:hr) %>% 
   mutate(tb = h + X2b + 2 * X3b + 3 * hr)
 
+# %%
 team_batting %>%
   mutate(avg = h / ab) %>%
   select(year, team, avg)
 
+# %%
 team_batting %>%
   transmute(year, team, avg = h / ab)
 
+# %%
 team_batting %>%
   mutate(avg = h / ab, .keep = 'used')
 
+# %%
 team_batting %>%
   mutate(avg = h / ab, .keep = 'unused')
 
+# %%
 team_batting %>%
   mutate(avg = h / ab, .before = g)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   mutate(avg = sum(h) / sum(ab), .before = g)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   mutate(avg = h / ab, .before = g)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab))
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab), .groups = 'drop')
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab), .groups = 'drop') %>%
   ggplot(aes(x = year, y = avg)) +
   geom_line()
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab), .groups = 'drop') %>%
   filter(year == 1999)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab), .groups = 'drop') %>%
   arrange(-avg)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(avg = sum(h) / sum(ab), .groups = 'drop') %>%
   filter(avg == max(avg))
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -138,6 +175,7 @@ team_batting %>%
     .before = g
   )
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -148,6 +186,7 @@ team_batting %>%
   ) %>%
   filter(ops >= 0.7 & hr < 70)
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -159,6 +198,7 @@ team_batting %>%
   filter(ops >= 0.7 & hr < 70) %>%
   summarise(count = n())
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -170,6 +210,7 @@ team_batting %>%
   filter(ops >= 0.7, hr < 70) %>%
   tally()
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -180,6 +221,7 @@ team_batting %>%
   ) %>%
   filter(ops >= 0.7, hr < 70, year %in% 1991:2000)
 
+# %%
 team_batting %>%
   mutate(
     avg = h / ab,
@@ -191,6 +233,7 @@ team_batting %>%
   filter(ops >= 0.7, hr < 70, year %in% 1991:2000) %>%
   transmute(year, team, rg = r / g, sb = sb / g)
 
+# %%
 team_batting %>%
   transmute(decades = if_else(year <= 1990, '1980',
                               if_else(
@@ -199,6 +242,7 @@ team_batting %>%
                               )),
             g, sh)
 
+# %%
 team_batting %>%
   distinct(year) %>%
   mutate(
@@ -210,10 +254,12 @@ team_batting %>%
     )
   )
 
+# %%
 c(1, 1, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5) %>%
   as_tibble() %>%
   distinct()
 
+# %%
 team_batting %>%
   mutate(
     decades = case_when(
@@ -226,6 +272,7 @@ team_batting %>%
   group_by(decades) %>%
   summarise(sh_mean = sum(sh) / sum(g))
 
+# %%
 team_batting %>%
   mutate(
     decades = case_when(
@@ -238,15 +285,18 @@ team_batting %>%
   group_by(decades) %>%
   summarise(error_mean = e %>% sum() / g %>% sum())
 
+# %%
 team_batting %>%
   group_by(team) %>%
   summarise(gidp = sum(gidp)) %>%
   arrange(-gidp) %>%
   head(3)
 
+# %%
 team_batting %>%
   distinct(team)
 
+# %%
 team_batting %>%
   mutate(
     team_id = fct_collapse(
@@ -260,6 +310,7 @@ team_batting %>%
     ), .before = year
   ) 
 
+# %%
 team_batting %>%
   mutate(
     team_id = fct_collapse(
@@ -276,69 +327,86 @@ team_batting %>%
   summarise(gidp = sum(gidp), .groups = 'drop') %>%
   arrange(-gidp)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(batters = sum(batters) / sum(g))
 
+# %%
 map(1:5, ~.x+1)
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(across(-team, ~sum(.x) / sum(g)), .groups = 'drop')
 
+# %%
 team_batting %>%
   group_by(year) %>%
   summarise(across(-team, list(
     sum = ~sum(.x),
     mean = ~sum(.x) / sum(g))
     ), .groups = 'drop')
-    
+
+# %%
 letters
 
+# %%
 letters[1:11]
 
+# %%
 rep(1:3, 3)
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1))
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   table()
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   fct_lump(3) %>%
   table()
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   fct_lump(3)
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   fct_lump(3, other_level = '??Ÿ') %>%
   table()
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   fct_lump(prop = .2)
 
+# %%
 letters[1:11] %>%
   rep(c(64, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1)) %>%
   fct_lump_min(2)
 
+# %%
 'kovo_team.csv' %>% 
   read.csv() %>% 
   as_tibble() -> kovo_team
 
 kovo_team
 
+# %%
 kovo_team %>%
   distinct(팀) %>%
   arrange(팀) %>% 
   pull()
 
+# %%
 kovo_team %>%
   mutate(
     팀 = case_when(
@@ -359,59 +427,76 @@ kovo_team %>%
       IBK기업은행 = 'IBK',
       KGC인삼공사 = c('인삼공사', 'KGC인삼공사', 'KT&G'),
       한국도로공사 = c('도공', '도로공사'),
-      흥국생명 = '흥국-,> kovo_team
+      흥국생명 = '흥국'
+    )
+  ) -> kovo_team
 
+# %%
 kovo_team %>% 
-  distinct(????) %>% 
- 시즌l()
+  distinct(시즌) %>% 
+  pull()
 
+# %%
 'volleyball' %>%
   str_sub(1)
 
+# %%
 'volleyball' %>%
   str_sub(2)
 
+# %%
 'volleyball' %>%
   str_sub(1, 2)
 
+# %%
 'volleyball' %>%
   str_sub(-4)
 
+# %%
 kovo_team %>% 
-  mutate(????_?̸?=??시즌_이름=시즌,
-         시즌=시즌 %>% str_sub(-4)) -> kovo_team
+  mutate(시즌_이름=시즌,
+              시즌=시즌 %>% str_sub(-4)) -> kovo_team
 
 kovo_team
 
+# %%
 kovo_team %>% 
   select(시즌, 팀, contains('공격종합'))
 
+# %%
 kovo_team %>% 
   select(-contains('_'))
 
+# %%
 kovo_team %>% 
   select(시즌, 팀, starts_with('세트'))
 
+# %%
 kovo_team %>% 
   select(시즌, 팀, ends_with('세트당_평균'))
 
+# %%
 tribble(
   ~x, ~y,
   1, 2,
 ) %>% 
   rename(z = x)
 
+# %%
 kovo_team %>%
   select(시즌,  팀, ends_with('세트당_평균')) %>%
   rename(블로킹 =  블로킹_세트당_평균,
          서브 =  서브_세트당_평균)
 
+# %%
 str_replace('블로킹_세트당_평균', '_세트당_평균', '')
 
+# %%
 kovo_team %>% 
   select(시즌, 팀, ends_with('세트당_평균')) %>% 
   rename_with(~str_replace(., '_세트당_평균', ''))
 
+# %%
 kovo_team %>%
   group_by(시즌, 남녀부) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도),
@@ -419,22 +504,26 @@ kovo_team %>%
   ggplot(aes(x = 시즌, y = 리시브_효율, group = 남녀부, color = 남녀부)) +
   geom_line()
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도)) %>%
   mutate(전_시즌 = lag(리시브_효율))
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도)) %>%
   mutate(다음_시즌 = lead(리시브_효율)) %>%
   print(n = 17)
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도)) %>% 
   mutate(차이 = 리시브_효율 - lag(리시브_효율))
 
+# %%
 kovo_team %>%
   group_by(남녀부,  시즌) %>%
   summarise(리시브_효율  = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도),
@@ -442,6 +531,7 @@ kovo_team %>%
   mutate(차이 = 리시브_효율 -lag(리시브_효율)) %>%
   summarise(차이_평균 = mean(차이))
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도),
@@ -449,6 +539,7 @@ kovo_team %>%
   mutate(차이 = 리시브_효율 -lag(리시브_효율)) %>%
   summarise(차이_평균 = mean(차이, na.rm = TRUE))
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도),
@@ -457,9 +548,12 @@ kovo_team %>%
   drop_na() %>% 
   summarise(차이_평균 = mean(차이))
 
+# %%
 kovo_team %>%
   group_by(남녀부, 시즌) %>%
   summarise(리시브_효율 = (sum(리시브_정확) - sum(리시브_실패)) / sum(리시브_시도)) %>% 
   mutate(차이 = 리시브_효율 -lag(리시브_효율)) %>%
   drop_na() %>% 
-  arrange(차이
+  arrange(차이)
+
+# %%

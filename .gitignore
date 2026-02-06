@@ -1,2 +1,4 @@
 .Rproj.user
 *.ipynb
+.ipynb_checkpoints
+.virtual_documents
