@@ -34,9 +34,9 @@ np.random.seed(1234)
 # %%
 # Load and prepare data
 try:
-    team_batting = pd.read_csv('R/kbo_team_batting.csv')
+    team_batting = pd.read_csv(kbo_team_batting.csv')
 except FileNotFoundError:
-    print("Could not find 'R/kbo_team_batting.csv'.")
+    print("Could not find kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()
 
 # %%
@@ -101,10 +101,10 @@ Root Mean Squared Error (RMSE) on test data: {rmse:.4f}")
 # %%
 # --- Interaction Terms ---
 try:
-    kovo_sets_results = pd.read_csv('R/kovo_sets_results.csv')
+    kovo_sets_results = pd.read_csv(kovo_sets_results.csv')
 except FileNotFoundError:
     print("
-Could not find 'R/kovo_sets_results.csv'.")
+Could not find kovo_sets_results.csv'.")
     kovo_sets_results = pd.DataFrame()
 
 # %%

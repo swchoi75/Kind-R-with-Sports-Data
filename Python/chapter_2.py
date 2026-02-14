@@ -9,6 +9,10 @@
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 """
@@ -36,13 +40,13 @@ print(mtcars.sample(n=10))
 # In R: batting <- read_csv('kbo_batting_qualified.csv')
 # The file path needs to be relative to the project root.
 try:
-    batting = pd.read_csv('R/kbo_batting_qualified.csv', encoding='utf-8')
-    print("Successfully read 'R/kbo_batting_qualified.csv'")
+    batting = pd.read_csv(kbo_batting_qualified.csv', encoding='utf-8')
+    print("Successfully read kbo_batting_qualified.csv'")
     # In R: glimpse(batting)
     batting.info()
     print(batting)
 except FileNotFoundError:
-    print("Could not find 'R/kbo_batting_qualified.csv'.")
+    print("Could not find kbo_batting_qualified.csv'.")
     batting = pd.DataFrame() # Create an empty DataFrame
 
 # In R: class(batting)
@@ -79,9 +83,11 @@ print(batting.head(20))
 # This is another way to write the file reading using pipes.
 # The Python equivalent is a simple read_csv.
 try:
-    batting_from_pipe = pd.read_csv('R/kbo_batting_qualified.csv')
-    print("Successfully read 'R/kbo_batting_qualified.csv' again.")
+    batting_from_pipe = pd.read_csv('kbo_batting_qualified.csv')
+    print("Successfully read kbo_batting_qualified.csv' again.")
     print(batting_from_pipe)
 except FileNotFoundError:
-    print("Could not find 'R/kbo_batting_qualified.csv'.")
+    print("Could not find kbo_batting_qualified.csv'.")
+
+
 

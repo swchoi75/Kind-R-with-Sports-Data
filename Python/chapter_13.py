@@ -29,7 +29,7 @@ np.random.seed(1234)
 # %%
 # Load and prepare tennis data
 try:
-    tennis_big3_results = pd.read_csv('R/tennis_big3_results.csv')
+    tennis_big3_results = pd.read_csv(tennis_big3_results.csv')
     
     # Clean column names (like janitor::make_clean_names)
     tennis_big3_results.columns = tennis_big3_results.columns.str.lower().str.replace('[. %]', '_', regex=True).str.replace('__', '_')
@@ -40,7 +40,7 @@ try:
 
 # %%
 except FileNotFoundError:
-    print("Could not find 'R/tennis_big3_results.csv'.")
+    print("Could not find tennis_big3_results.csv'.")
     tennis_big3_results = pd.DataFrame()
 
 # %%
@@ -78,10 +78,10 @@ Chi-squared Test for Nadal:")
 # %%
 # Chi-squared Goodness-of-Fit Test: KBO Player Birth Months
 try:
-    kbo_profile = pd.read_csv('R/kbo_players_profiles.csv')
+    kbo_profile = pd.read_csv(kbo_players_profiles.csv')
 except FileNotFoundError:
     print("
-Could not find 'R/kbo_players_profiles.csv'.")
+Could not find kbo_players_profiles.csv'.")
     kbo_profile = pd.DataFrame()
 
 # %%

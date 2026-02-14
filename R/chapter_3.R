@@ -16,12 +16,9 @@
 # ---
 
 # %%
-pacman::p_load(tidyverse, here)
+pacman::p_load(tidyverse)
 
-# Path
-path <- here("")
-
-here(path, "kbo_batting_qualified.csv") %>%
+"kbo_batting_qualified.csv" %>%
   read.csv() %>%
   as_tibble() -> batting
 
@@ -222,7 +219,7 @@ batting[batting$rank == 1, ] %>%
   geom_line(lty = 2)
 
 # %%
-here(path, "2020_ryu.csv") %>%
+"2020_ryu.csv" %>%
   read.csv() %>%
   as_tibble() -> ryu
 

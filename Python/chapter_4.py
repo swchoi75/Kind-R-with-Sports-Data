@@ -22,9 +22,9 @@ from plotnine import ggplot, aes, geom_line
 
 # Load the data
 try:
-    team_batting = pd.read_csv('R/kbo_team_batting.csv')
+    team_batting = pd.read_csv(kbo_team_batting.csv')
 except FileNotFoundError:
-    print("Could not find 'R/kbo_team_batting.csv'.")
+    print("Could not find kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()
 
 if not team_batting.empty:
@@ -130,9 +130,9 @@ if not team_batting.empty:
     # It can be implemented with value_counts and masking.
     
     try:
-        kovo_team = pd.read_csv('R/kovo_team.csv')
+        kovo_team = pd.read_csv(kovo_team.csv')
     except FileNotFoundError:
-        print("Could not find 'R/kovo_team.csv'.")
+        print("Could not find kovo_team.csv'.")
         kovo_team = pd.DataFrame()
         
     if not kovo_team.empty:

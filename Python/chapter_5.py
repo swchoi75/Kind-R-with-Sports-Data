@@ -20,11 +20,11 @@ import pandas as pd
 
 # Load the data from the Excel file
 try:
-    kbo_untidy = pd.read_excel('R/kbo_team_slash_untidy.xlsx')
-    print("Successfully read 'R/kbo_team_slash_untidy.xlsx'")
+    kbo_untidy = pd.read_excel(kbo_team_slash_untidy.xlsx')
+    print("Successfully read kbo_team_slash_untidy.xlsx'")
     print(kbo_untidy)
 except FileNotFoundError:
-    print("Could not find 'R/kbo_team_slash_untidy.xlsx'.")
+    print("Could not find kbo_team_slash_untidy.xlsx'.")
     kbo_untidy = pd.DataFrame()
 
 if not kbo_untidy.empty:

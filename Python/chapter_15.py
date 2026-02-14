@@ -31,9 +31,9 @@ np.random.seed(1234)
 # %%
 # --- Correlation ---
 try:
-    batting_2020 = pd.read_csv('R/2020_kbo_team_batting.csv')
+    batting_2020 = pd.read_csv(2020_kbo_team_batting.csv')
 except FileNotFoundError:
-    print("Could not find 'R/2020_kbo_team_batting.csv'.")
+    print("Could not find 2020_kbo_team_batting.csv'.")
     batting_2020 = pd.DataFrame()
 
 # %%
@@ -106,10 +106,10 @@ Shapiro-Wilk test for residuals: statistic={shapiro_stat:.3f}, p-value={shapiro_
 # %%
 # --- Application: Finding best predictor for runs ---
 try:
-    team_batting = pd.read_csv('R/kbo_team_batting.csv')
+    team_batting = pd.read_csv(kbo_team_batting.csv')
 except FileNotFoundError:
     print("
-Could not find 'R/kbo_team_batting.csv'.")
+Could not find kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()
 
 # %%

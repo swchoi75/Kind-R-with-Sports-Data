@@ -30,7 +30,7 @@ path = '.'
 try:
     batting = pd.read_csv(f'{path}/R/kbo_batting_qualified.csv')
 except FileNotFoundError:
-    print("Could not find 'R/kbo_batting_qualified.csv'.")
+    print("Could not find kbo_batting_qualified.csv'.")
     batting = pd.DataFrame()
 
 # In plotnine, plots are created by initializing ggplot and adding layers with '+'
@@ -135,7 +135,7 @@ if not batting.empty:
     try:
         ryu = pd.read_csv(f'{path}/R/2020_ryu.csv')
     except FileNotFoundError:
-        print("Could not find 'R/2020_ryu.csv'.")
+        print("Could not find 2020_ryu.csv'.")
         ryu = pd.DataFrame()
 
     if not ryu.empty:

@@ -9,6 +9,10 @@
 #       format_name: light
 #       format_version: '1.5'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 """
@@ -86,16 +90,17 @@ print(type(df1))
 print(os.getcwd())
 
 # The URL from the R script needs to be the "raw" version to be read by pandas
-batting = pd.read_csv(
-  'https://raw.githubusercontent.com/bigkini/kindeR/main/kbo_batting_qualified.csv'
-)
+# batting = pd.read_csv(
+#   'https://raw.githubusercontent.com/bigkini/kindeR/main/kbo_batting_qualified.csv'
+# )
+batting = pd.read_csv('kbo_batting_qualified.csv')
 
 # Assuming 'kbo_batting_qualified.csv' is in the 'R' directory as per the context
 try:
-    batting_local = pd.read_csv('R/kbo_batting_qualified.csv')
+    batting_local = pd.read_csv('kbo_batting_qualified.csv')
     print("Successfully read local file.")
 except FileNotFoundError:
-    print("Local file 'R/kbo_batting_qualified.csv' not found, using remote.")
+    print("Local file kbo_batting_qualified.csv' not found, using remote.")
     batting_local = batting
 
 print(type(batting))

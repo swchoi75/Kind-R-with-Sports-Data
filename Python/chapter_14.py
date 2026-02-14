@@ -82,10 +82,10 @@ print(f"Manual F-statistic: {F_stat_manual:.2f}")
 # %%
 # --- ANOVA on NBA Draft Data ---
 try:
-    nba_players = pd.read_csv('R/nba_draft_data.csv')
+    nba_players = pd.read_csv(nba_draft_data.csv')
 except FileNotFoundError:
     print("
-Could not find 'R/nba_draft_data.csv'.")
+Could not find nba_draft_data.csv'.")
     nba_players = pd.DataFrame()
 
 # %%

@@ -29,9 +29,9 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    uefa_big5_match_results = pd.read_csv('R/19_20_uefa_big_5.csv')
+    uefa_big5_match_results = pd.read_csv(19_20_uefa_big_5.csv')
 except FileNotFoundError:
-    print("Could not find 'R/19_20_uefa_big_5.csv'.")
+    print("Could not find 19_20_uefa_big_5.csv'.")
     uefa_big5_match_results = pd.DataFrame()
 
 # %%
