@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+# ---
+# jupyter:
+#   jupytext:
+#     cell_metadata_filter: -all
+#     formats: ipynb,R:percent
+#     text_representation:
+#       extension: .R
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.1
+# ---
+
 # %%
 pacman::p_load(tidyverse, tidymodels)
 
