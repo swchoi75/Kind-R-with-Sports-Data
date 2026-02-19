@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -29,9 +33,9 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    gocheock_attendance = pd.read_csv(gocheock_attendance.csv')
+    gocheock_attendance = pd.read_csv('gocheock_attendance.csv')
 except FileNotFoundError:
-    print("Could not find gocheock_attendance.csv'.")
+    print("Could not find gocheock_attendance.csv.")
     gocheock_attendance = pd.DataFrame()
 
 # %%

@@ -46,7 +46,7 @@ print(mtcars.sample(n=10))
 # In R: batting <- read_csv('kbo_batting_qualified.csv')
 # The file path needs to be relative to the project root.
 try:
-    batting = pd.read_csv(kbo_batting_qualified.csv', encoding='utf-8')
+    batting = pd.read_csv('kbo_batting_qualified.csv', encoding='utf-8')
     print("Successfully read kbo_batting_qualified.csv'")
     # In R: glimpse(batting)
     batting.info()

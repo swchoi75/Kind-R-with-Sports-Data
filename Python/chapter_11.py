@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -29,9 +33,9 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    uefa_big5_match_results = pd.read_csv(19_20_uefa_big_5.csv')
+    uefa_big5_match_results = pd.read_csv('19_20_uefa_big_5.csv')
 except FileNotFoundError:
-    print("Could not find 19_20_uefa_big_5.csv'.")
+    print("Could not find 19_20_uefa_big_5.csv.")
     uefa_big5_match_results = pd.DataFrame()
 
 # %%
@@ -100,8 +104,7 @@ if not uefa_big5_match_results.empty:
     # Observed difference
     obs_means_period = uefa_big5_results_period.groupby('시기')['승률'].mean()
     obs_diff_period = obs_means_period['AC'] - obs_means_period['BC']
-    print(f"
-Observed difference in mean win rate (AC - BC): {obs_diff_period:.3f}")
+    print(f"Observed difference in mean win rate (AC - BC): {obs_diff_period:.3f}")
 
     # T-test comparison
     ac_rates = uefa_big5_results_period[uefa_big5_results_period['시기'] == 'AC']['승률']

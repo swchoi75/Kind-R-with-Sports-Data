@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -32,9 +36,9 @@ print(pd.to_datetime('1-jan-2021'))
 # %%
 # Load data
 try:
-    kbo_profile = pd.read_csv(kbo_players_profiles.csv')
+    kbo_profile = pd.read_csv('kbo_players_profiles.csv')
 except FileNotFoundError:
-    print("Could not find kbo_players_profiles.csv'.")
+    print("Could not find kbo_players_profiles.csv.")
     kbo_profile = pd.DataFrame()
 
 # %%
@@ -49,7 +53,7 @@ if not kbo_profile.empty:
     kbo_profile['반기'] = (kbo_profile['생일'].dt.month - 1) // 6 + 1
     kbo_profile['분기'] = kbo_profile['생일'].dt.quarter
 
-    print(kbo_profile[['선수명', '생일', '연', '월', '일', '요일', '날짜', '반기', '분기']].head())
+    print(kbo_profile[['이름', '생일', '연', '월', '일', '요일', '날짜', '반기', '분기']].head())
     
     # Plotting monthly counts
     monthly_counts = kbo_profile['월'].value_counts().sort_index()
@@ -71,10 +75,13 @@ print(date_with_tz)
 print(date_with_tz.tz_convert('America/New_York'))
 
 # %%
+pd.read_csv('soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
+
+# %%
 # Joining soccer data
 try:
-    fifa_ranking = pd.read_csv(fifa_ranking.csv')
-    results_in_progress = pd.read_csv('Python/soccer_matches_results_in_progress.csv')
+    fifa_ranking = pd.read_csv('fifa_ranking.csv')
+    results_in_progress = pd.read_csv('soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
 except FileNotFoundError:
     print("Could not find required soccer data files.")
     fifa_ranking = pd.DataFrame()
@@ -117,3 +124,5 @@ if not fifa_ranking.empty and not results_in_progress.empty:
 
 # %%
 print("Conversion of chapter_7.R to Python is complete.")
+
+# %%

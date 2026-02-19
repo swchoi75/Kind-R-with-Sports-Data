@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -20,25 +24,28 @@ It covers the Chi-squared test for independence and goodness-of-fit using scipy.
 # %%
 import pandas as pd
 import numpy as np
-from plotnine import ggplot, aes, geom_col, facet_grid, scale_x_continuous, geom_text
+from plotnine import ggplot, aes, geom_col, facet_grid, scale_x_continuous, geom_text, geom_line, geom_vline
 from scipy.stats import chi2_contingency, chisquare, chi2
 
 # %%
 np.random.seed(1234)
 
 # %%
+tennis_big3_results = pd.read_csv('tennis_big3_results.csv')
+tennis_big3_results.columns = tennis_big3_results.columns.str.lower().str.replace('[. %]', '_', regex=True).str.replace('__', '_')
+tennis_big3_results
+
+# %%
 # Load and prepare tennis data
 try:
-    tennis_big3_results = pd.read_csv(tennis_big3_results.csv')
+    tennis_big3_results = pd.read_csv('tennis_big3_results.csv')
     
     # Clean column names (like janitor::make_clean_names)
     tennis_big3_results.columns = tennis_big3_results.columns.str.lower().str.replace('[. %]', '_', regex=True).str.replace('__', '_')
     
     # Clean data
     tennis_big3_results['surface'] = tennis_big3_results['surface'].str.lower()
-    tennis_big3_results['w_l'] = tennis_big3_results['w_l'].str.lower()
-
-# %%
+    tennis_big3_results['w/l'] = tennis_big3_results['w/l'].str.lower()
 except FileNotFoundError:
     print("Could not find tennis_big3_results.csv'.")
     tennis_big3_results = pd.DataFrame()
@@ -49,18 +56,17 @@ if not tennis_big3_results.empty:
     nadal_data = tennis_big3_results[
         (tennis_big3_results['player'] == 'Rafael Nadal') &
         (tennis_big3_results['surface'].isin(['clay', 'grass', 'hard'])) &
-        (tennis_big3_results['w_l'].isin(['w', 'l']))
+        (tennis_big3_results['w/l'].isin(['w', 'l']))
     ].copy()
 
     # Create a contingency table
-    contingency_table = pd.crosstab(nadal_data['surface'], nadal_data['w_l'])
+    contingency_table = pd.crosstab(nadal_data['surface'], nadal_data['w/l'])
     print("Contingency Table (Nadal):")
     print(contingency_table)
 
     # Perform the Chi-squared test
     chi2_stat, p_val, dof, expected = chi2_contingency(contingency_table)
-    print(f"
-Chi-squared Test for Nadal:")
+    print(f"Chi-squared Test for Nadal:")
     print(f"Statistic: {chi2_stat:.3f}")
     print(f"P-value: {p_val}")
     print(f"Degrees of Freedom: {dof}")
@@ -78,10 +84,9 @@ Chi-squared Test for Nadal:")
 # %%
 # Chi-squared Goodness-of-Fit Test: KBO Player Birth Months
 try:
-    kbo_profile = pd.read_csv(kbo_players_profiles.csv')
+    kbo_profile = pd.read_csv('kbo_players_profiles.csv')
 except FileNotFoundError:
-    print("
-Could not find kbo_players_profiles.csv'.")
+    print("Could not find kbo_players_profiles.csv'.")
     kbo_profile = pd.DataFrame()
 
 # %%
@@ -92,8 +97,7 @@ if not kbo_profile.empty:
     
     # Get observed frequencies
     observed_counts = kbo_profile_korean['월'].value_counts().sort_index()
-    print("
-Observed Birth Month Counts:")
+    print("Observed Birth Month Counts:")
     print(observed_counts)
     
     # Expected frequencies (uniform distribution)
@@ -103,8 +107,7 @@ Observed Birth Month Counts:")
     
     # The chisquare function can take probabilities directly
     gof_stat, gof_p_val = chisquare(f_obs=observed_counts) # default p is uniform
-    print(f"
-Goodness-of-Fit Test for Birth Months:")
+    print(f"Goodness-of-Fit Test for Birth Months:")
     print(f"Statistic: {gof_stat:.3f}")
     print(f"P-value: {gof_p_val:.3f}")
 
@@ -121,18 +124,17 @@ Goodness-of-Fit Test for Birth Months:")
             
     kbo_profile_korean['분기'] = kbo_profile_korean['월'].apply(get_quarter)
     observed_quarter_counts = kbo_profile_korean['분기'].value_counts().sort_index()
-    print("
-Observed Birth Quarter Counts:")
+    print("Observed Birth Quarter Counts:")
     print(observed_quarter_counts)
 
     gof_stat_q, gof_p_val_q = chisquare(f_obs=observed_quarter_counts)
-    print(f"
-Goodness-of-Fit Test for Birth Quarters:")
+    print(f"Goodness-of-Fit Test for Birth Quarters:")
     print(f"Statistic: {gof_stat_q:.3f}")
     print(f"P-value: {gof_p_val_q:.3f}")
 
 
 # %%
-print("
-Conversion of chapter_13.R to Python is complete.")
+print("Conversion of chapter_13.R to Python is complete.")
 
+
+# %%

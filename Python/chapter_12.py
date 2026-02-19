@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -30,9 +34,9 @@ np.random.seed(1234)
 # %%
 # Load and prepare data
 try:
-    uefa_big5_match_results = pd.read_csv(19_20_uefa_big_5.csv')
+    uefa_big5_match_results = pd.read_csv('19_20_uefa_big_5.csv')
 except FileNotFoundError:
-    print("Could not find 19_20_uefa_big_5.csv'.")
+    print("Could not find 19_20_uefa_big_5.csv.")
     uefa_big5_match_results = pd.DataFrame()
 
 # %%
@@ -65,8 +69,7 @@ if not uefa_big5_match_results.empty:
     paired_data['diff'] = paired_data['AC'] - paired_data['BC']
     
     t_stat_paired, p_val_paired = ttest_1samp(paired_data['diff'], popmean=0, alternative='less')
-    print(f"
-Paired t-test: statistic={t_stat_paired:.3f}, p-value={p_val_paired:.3f}")
+    print(f"Paired t-test: statistic={t_stat_paired:.3f}, p-value={p_val_paired:.3f}")
 
     # Power analysis
     # First, find the parameters needed
@@ -79,8 +82,7 @@ Paired t-test: statistic={t_stat_paired:.3f}, p-value={p_val_paired:.3f}")
     
     # Calculate required sample size
     required_n = ttest_power(effect_size=effect_size, nobs=None, alpha=alpha, power=power, alternative='smaller')
-    print(f"
-Required sample size for power=0.8: {np.ceil(required_n)}")
+    print(f"Required sample size for power=0.8: {np.ceil(required_n)}")
     
     # Using parameters from the R script for NBA data
     # power.t.test(delta = .106, sd = .158, ...)
@@ -92,10 +94,9 @@ Required sample size for power=0.8: {np.ceil(required_n)}")
     
     # Simulating H0 and H1 distributions for NBA data
     try:
-        nba_match_results = pd.read_csv(19_20_nba.csv')
+        nba_match_results = pd.read_csv('19_20_nba.csv')
     except FileNotFoundError:
-        print("
-Could not find 19_20_nba.csv'. Skipping H0/H1 simulation.")
+        print("Could not find '19_20_nba.csv'. Skipping H0/H1 simulation.")
         nba_match_results = pd.DataFrame()
 
     if not nba_match_results.empty:
@@ -134,8 +135,7 @@ Could not find 19_20_nba.csv'. Skipping H0/H1 simulation.")
         critical_value = nba_simulation_h0['stat'].quantile(0.95)
         
         power_simulated = (nba_simulation_h1['stat'] > critical_value).mean()
-        print(f"
-Simulated Power: {power_simulated:.3f}")
+        print(f"Simulated Power: {power_simulated:.3f}")
         
         p = (ggplot(nba_simulations, aes(x='stat', fill='type')) +
              geom_density(alpha=0.5) +

@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -28,9 +32,9 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    cheonan_attendance = pd.read_csv(cheonan_attendance.csv')
+    cheonan_attendance = pd.read_csv('cheonan_attendance.csv')
 except FileNotFoundError:
-    print("Could not find cheonan_attendance.csv'.")
+    print("Could not find cheonan_attendance.csv.")
     cheonan_attendance = pd.DataFrame()
 
 # %%
@@ -72,7 +76,7 @@ if not cheonan_attendance.empty:
     # 3. Visualize the bootstrap distribution
     p = (ggplot(cheonan_bootstrap, aes(x='stat')) +
          geom_histogram(binwidth=0.01, fill='gray75', color='white', alpha=0.8))
-    # print(p)
+    p
 
     # 4. Calculate the percentile confidence interval
     ci_endpoints = cheonan_bootstrap['stat'].quantile([0.025, 0.975]).to_dict()
@@ -84,7 +88,7 @@ if not cheonan_attendance.empty:
     p = (p +
          annotate("rect", xmin=low, xmax=high, ymin=-np.inf, ymax=np.inf, fill="blue", alpha=0.2) +
          geom_vline(xintercept=[low, high], color='blue', linetype='dashed'))
-    # print(p)
+    p
 
     # 6. Calculate confidence interval using the standard error method
     point_estimate = cheonan_sample['여성비율'].mean()
@@ -95,7 +99,7 @@ if not cheonan_attendance.empty:
     
     p = (p +
          geom_vline(xintercept=[ci_se_low, ci_se_high], color='darkorange', linetype='dashed', size=1))
-    print(p)
+    p
 
 
 # %%

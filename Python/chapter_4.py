@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -25,9 +29,9 @@ from plotnine import ggplot, aes, geom_line
 # %%
 # Load the data
 try:
-    team_batting = pd.read_csv(kbo_team_batting.csv')
+    team_batting = pd.read_csv('kbo_team_batting.csv')
 except FileNotFoundError:
-    print("Could not find kbo_team_batting.csv'.")
+    print("Could not find kbo_team_batting.csv.")
     team_batting = pd.DataFrame()
 
 # %%
@@ -55,8 +59,8 @@ if not team_batting.empty:
     # filter(year == 1982) %>% arrange(desc(hr))
     print(team_batting[team_batting['year'] == 1982].sort_values(by='hr', ascending=False))
 
-    # select(year, team, h, X2b, X3b, hr)
-    print(team_batting[team_batting['year'] == 1982][['year', 'team', 'h', 'X2b', 'X3b', 'hr']])
+    # select(year, team, h, 2b, 3b, hr)
+    print(team_batting[team_batting['year'] == 1982][['year', 'team', 'h', '2b', '3b', 'hr']])
 
     # relocate(g, .after = year)
     cols = list(team_batting.columns)
@@ -64,10 +68,10 @@ if not team_batting.empty:
     print(team_batting[team_batting['year'] == 1982][cols])
 
     # select(season = year, ...) -> rename
-    print(team_batting[team_batting['year'] == 1982].rename(columns={'year': 'season'})[['season', 'team', 'h', 'X2b', 'X3b', 'hr']])
+    print(team_batting[team_batting['year'] == 1982].rename(columns={'year': 'season'})[['season', 'team', 'h', '2b', '3b', 'hr']])
 
     # select(-X3b) -> drop
-    print(team_batting[team_batting['year'] == 1982][['year', 'team', 'h', 'X2b', 'X3b', 'hr']].drop(columns='X3b'))
+    print(team_batting[team_batting['year'] == 1982][['year', 'team', 'h', '2b', '3b', 'hr']].drop(columns='3b'))
 
     # select(bb:last_col())
     print(team_batting[team_batting['year'] == 1982].loc[:, 'bb':])
@@ -79,7 +83,7 @@ if not team_batting.empty:
     print(team_batting[team_batting['year'] == 1982].loc[:, 'h':'hr'])
 
     # mutate(tb = ...)
-    print(team_batting[team_batting['year'] == 1982].loc[:, 'h':'hr'].assign(tb=lambda df: df['h'] + df['X2b'] + 2 * df['X3b'] + 3 * df['hr']))
+    print(team_batting[team_batting['year'] == 1982].loc[:, 'h':'hr'].assign(tb=lambda df: df['h'] + df['2b'] + 2 * df['3b'] + 3 * df['hr']))
 
     # transmute(...)
     print(team_batting.assign(avg=lambda df: df['h'] / df['ab'])[['year', 'team', 'avg']])
@@ -96,7 +100,7 @@ if not team_batting.empty:
     print(team_batting.assign(
         avg=lambda df: df['h'] / df['ab'],
         obp=lambda df: (df['h'] + df['bb'] + df['hbp']) / (df['ab'] + df['bb'] + df['hbp'] + df['sf']),
-        slg=lambda df: (df['h'] + df['X2b'] + 2 * df['X3b'] + 3 * df['hr']) / df['ab']
+        slg=lambda df: (df['h'] + df['2b'] + 2 * df['3b'] + 3 * df['hr']) / df['ab']
     ).assign(ops=lambda df: df['obp'] + df['slg']))
     
     # case_when -> np.select
@@ -134,7 +138,7 @@ if not team_batting.empty:
     # It can be implemented with value_counts and masking.
     
     try:
-        kovo_team = pd.read_csv(kovo_team.csv')
+        kovo_team = pd.read_csv('kovo_team.csv')
     except FileNotFoundError:
         print("Could not find kovo_team.csv'.")
         kovo_team = pd.DataFrame()

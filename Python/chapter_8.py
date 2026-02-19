@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -71,7 +75,7 @@ print(birthday_paradox_simulation[birthday_paradox_simulation['결과'] >= 0.5].
 p = (ggplot(birthday_paradox_simulation, aes(x='사람', y='결과')) +
      geom_line() +
      coord_cartesian(xlim=(2, 75)))
-# print(p)
+p
 
 # %%
 # Add theoretical probability
@@ -80,7 +84,7 @@ p = (ggplot(birthday_paradox_simulation, aes(x='사람')) +
      geom_line(aes(y='확률'), size=2.5, color='#53bfd4', alpha=0.25) +
      geom_line(aes(y='결과'), size=0.75) +
      coord_cartesian(xlim=(2, 75)))
-# print(p)
+p
 
 
 # %%
@@ -95,8 +99,8 @@ print(f"Number of experiments with exactly 50 heads: {(heads_counts == 50).sum()
 
 # %%
 p = (ggplot(pd.DataFrame({'앞': heads_counts}), aes(x='앞')) +
-     geom_histogram(binwidth=1, fill='gray70', color='white'))
-# print(p)
+     geom_histogram(binwidth=1, fill='gray', color='white'))
+p
 
 
 # %%
@@ -124,9 +128,9 @@ dbinom_data = pd.DataFrame({
 
 # %%
 p = (ggplot(dbinom_data, aes(x='x', y='prob')) +
-     geom_col(fill='gray70', color='white') +
+     geom_col(fill='gray', color='white') +
      stat_function(fun=norm.pdf, args={'loc': 50, 'scale': 5}, size=1, color='#53bfd4'))
-# print(p)
+p
 
 # %%
 # Normal distribution
@@ -137,8 +141,8 @@ print(norm.ppf(q=0.5, loc=0, scale=1))
 # rnorm(10000, mean=0, sd=1)
 rnorm_data = pd.DataFrame({'x': norm.rvs(size=10000, loc=0, scale=1)})
 p = (ggplot(rnorm_data, aes(x='x')) +
-     geom_histogram(fill='gray70', color='white', bins=30))
-# print(p)
+     geom_histogram(fill='gray', color='white', bins=30))
+p
 
 # %%
 print("Conversion of chapter_8.R to Python is complete.")

@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -20,7 +24,7 @@ It uses pandas for data manipulation and joining, and the countrycode library.
 # %%
 import pandas as pd
 import numpy as np
-import countrycode
+# import countrycode
 
 # %%
 # Create the initial dataframes
@@ -60,9 +64,9 @@ print(pd.merge(homerun, teams_renamed, left_on='팀', right_on='구단', how='le
 # %%
 # International soccer matches
 try:
-    results = pd.read_csv(international_soccer_matches_results.csv')
+    results = pd.read_csv('international_soccer_matches_results.csv', encoding="iso-8859-1")
 except FileNotFoundError:
-    print("Could not find international_soccer_matches_results.csv'.")
+    print("Could not find 'international_soccer_matches_results.csv'.")
     results = pd.DataFrame()
 
 # %%
@@ -102,9 +106,9 @@ if not results.empty:
 
     # Country code matching
     try:
-        fifa_ranking = pd.read_csv(fifa_ranking.csv')
+        fifa_ranking = pd.read_csv('fifa_ranking.csv')
     except FileNotFoundError:
-        print("Could not find fifa_ranking.csv'.")
+        print("Could not find 'fifa_ranking.csv'.")
         fifa_ranking = pd.DataFrame()
     
     if not fifa_ranking.empty:
@@ -131,7 +135,7 @@ if not results.empty:
         # This simplified version demonstrates the core concepts.
 
         # Save to csv
-        results_full[results_full['date'] > '1993-08-08'].to_csv('Python/soccer_matches_results_in_progress.csv', index=False)
+        results_full[results_full['date'] > '1993-08-08'].to_csv('soccer_matches_results_in_progress.csv', index=False)
 
 # %%
 print("Conversion of chapter_6.R to Python is complete.")

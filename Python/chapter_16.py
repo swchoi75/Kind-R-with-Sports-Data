@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -34,9 +38,9 @@ np.random.seed(1234)
 # %%
 # Load and prepare data
 try:
-    team_batting = pd.read_csv(kbo_team_batting.csv')
+    team_batting = pd.read_csv('kbo_team_batting.csv')
 except FileNotFoundError:
-    print("Could not find kbo_team_batting.csv'.")
+    print("Could not find 'kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()
 
 # %%
@@ -45,7 +49,7 @@ if not team_batting.empty:
         runs = lambda df: df['r'] / df['tpa'],
         avg = lambda df: df['h'] / df['ab'],
         obp = lambda df: (df['h'] + df['bb'] + df['hbp']) / (df['ab'] + df['bb'] + df['hbp'] + df['sf']),
-        slg = lambda df: (df['h'] + 2*df['X2b'] + 3*df['X3b'] + 4*df['hr']) / df['ab']
+        slg = lambda df: (df['h'] + 2*df['2b'] + 3*df['3b'] + 4*df['hr']) / df['ab']
     )
 
     # --- Multicollinearity (VIF) ---
@@ -66,14 +70,12 @@ if not team_batting.empty:
     # --- Multiple Regression with statsmodels ---
     # Model with all three predictors
     model_full = ols('runs ~ avg + obp + slg', data=team_batting).fit()
-    print("
---- Full Model Summary ---")
+    print("--- Full Model Summary ---")
     print(model_full.summary())
     
     # Model without 'avg' due to high VIF
     model_reduced = ols('runs ~ obp + slg', data=team_batting).fit()
-    print("
---- Reduced Model Summary (without avg) ---")
+    print("--- Reduced Model Summary (without avg) ---")
     print(model_reduced.summary())
 
     # --- scikit-learn for Predictive Modeling Workflow ---
@@ -83,8 +85,7 @@ if not team_batting.empty:
 
     # 2. Split data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X_skl, y_skl, test_size=0.3, random_state=1234)
-    print(f"
-Training set size: {len(X_train)}, Testing set size: {len(X_test)}")
+    print(f"Training set size: {len(X_train)}, Testing set size: {len(X_test)}")
 
     # 3. Create and fit the model
     lm = LinearRegression()
@@ -95,27 +96,25 @@ Training set size: {len(X_train)}, Testing set size: {len(X_test)}")
 
     # 5. Evaluate the model with RMSE
     rmse = np.sqrt(mean_squared_error(y_test, predictions))
-    print(f"
-Root Mean Squared Error (RMSE) on test data: {rmse:.4f}")
+    print(f"Root Mean Squared Error (RMSE) on test data: {rmse:.4f}")
 
 # %%
 # --- Interaction Terms ---
 try:
-    kovo_sets_results = pd.read_csv(kovo_sets_results.csv')
+    kovo_sets_results = pd.read_csv('kovo_sets_results.csv')
 except FileNotFoundError:
-    print("
-Could not find kovo_sets_results.csv'.")
+    print("Could not find 'kovo_sets_results.csv'.")
     kovo_sets_results = pd.DataFrame()
 
 # %%
 if not kovo_sets_results.empty:
     # Fit a model with an interaction term
     interaction_model = ols('승률 ~ 리시브_효율 * 남녀부', data=kovo_sets_results).fit()
-    print("
---- Model with Interaction Term ---")
+    print("--- Model with Interaction Term ---")
     print(interaction_model.summary().tables[1]) # Print just the coefficients table
 
 
 # %%
-print("
-Conversion of chapter_16.R to Python is complete.")
+print("Conversion of chapter_16.R to Python is complete.")
+
+# %%

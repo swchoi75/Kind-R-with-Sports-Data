@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -23,7 +27,7 @@ import pandas as pd
 # %%
 # Load the data from the Excel file
 try:
-    kbo_untidy = pd.read_excel(kbo_team_slash_untidy.xlsx')
+    kbo_untidy = pd.read_excel('kbo_team_slash_untidy.xlsx')
     print("Successfully read kbo_team_slash_untidy.xlsx'")
     print(kbo_untidy)
 except FileNotFoundError:

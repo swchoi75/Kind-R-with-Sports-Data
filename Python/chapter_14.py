@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %%
@@ -20,7 +24,7 @@ It introduces the F-statistic and Analysis of Variance (ANOVA).
 # %%
 import pandas as pd
 import numpy as np
-from plotnine import ggplot, aes, geom_histogram, geom_density, geom_function, geom_boxplot, geom_vline
+from plotnine import ggplot, aes, geom_histogram, geom_density, geom_boxplot, geom_vline
 from scipy.stats import f, f_oneway
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
@@ -82,10 +86,9 @@ print(f"Manual F-statistic: {F_stat_manual:.2f}")
 # %%
 # --- ANOVA on NBA Draft Data ---
 try:
-    nba_players = pd.read_csv(nba_draft_data.csv')
+    nba_players = pd.read_csv('nba_draft_data.csv', encoding="iso-8859-1")
 except FileNotFoundError:
-    print("
-Could not find nba_draft_data.csv'.")
+    print("Could not find nba_draft_data.csv.")
     nba_players = pd.DataFrame()
 
 # %%
@@ -112,8 +115,7 @@ if not nba_players.empty:
     grouped_pts = [nba_position[nba_position['pos'] == pos]['pts'] for pos in positions]
     
     F_stat, p_val = f_oneway(*grouped_pts)
-    print(f"
-One-way ANOVA for PTS by POS:")
+    print(f"One-way ANOVA for PTS by POS:")
     print(f"F-statistic: {F_stat:.3f}")
     print(f"P-value: {p_val}")
 
@@ -131,10 +133,8 @@ One-way ANOVA for PTS by POS:")
     # Connection to Linear Regression using statsmodels
     model = ols('pts ~ pos', data=nba_position).fit()
     anova_table = sm.stats.anova_lm(model, typ=2)
-    print("
-ANOVA table from Linear Model:")
+    print("ANOVA table from Linear Model:")
     print(anova_table)
 
 # %%
-print("
-Conversion of chapter_14.R to Python is complete.")
+print("Conversion of chapter_14.R to Python is complete.")
