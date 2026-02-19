@@ -3,21 +3,24 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: -all
-#     formats: ipynb,py:light
+#     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
+#       format_name: percent
+#       format_version: '1.3'
 #       jupytext_version: 1.19.1
 # ---
 
+# %%
 """
 This script is a Python conversion of the R script chapter_5.R.
 It uses the pandas library for data tidying, which is the Python equivalent of tidyr.
 """
 
+# %%
 import pandas as pd
 
+# %%
 # Load the data from the Excel file
 try:
     kbo_untidy = pd.read_excel(kbo_team_slash_untidy.xlsx')
@@ -27,6 +30,7 @@ except FileNotFoundError:
     print("Could not find kbo_team_slash_untidy.xlsx'.")
     kbo_untidy = pd.DataFrame()
 
+# %%
 if not kbo_untidy.empty:
     # fill(팀) -> ffill()
     kbo_filled_down = kbo_untidy.copy()
@@ -80,4 +84,5 @@ if not kbo_untidy.empty:
     kbo_tidy['연도'] = kbo_tidy['연도'].astype('category')
     print(kbo_tidy.info())
 
+# %%
 print("Conversion of chapter_5.R to Python is complete.")

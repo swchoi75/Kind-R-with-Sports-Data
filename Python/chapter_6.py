@@ -3,23 +3,26 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: -all
-#     formats: ipynb,py:light
+#     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
+#       format_name: percent
+#       format_version: '1.3'
 #       jupytext_version: 1.19.1
 # ---
 
+# %%
 """
 This script is a Python conversion of the R script chapter_6.R.
 It uses pandas for data manipulation and joining, and the countrycode library.
 """
 
+# %%
 import pandas as pd
 import numpy as np
 import countrycode
 
+# %%
 # Create the initial dataframes
 homerun = pd.DataFrame({
     '연도': [2003, 1999, 2003, 2015, 2014, 2015, 2002, 2015, 2020, 2002],
@@ -28,27 +31,33 @@ homerun = pd.DataFrame({
     '팀': ['삼성', '삼성', '현대', '넥센', '넥센', '삼성', '삼성', 'NC', 'KT', '현대']
 })
 
+# %%
 teams = pd.DataFrame({
     '팀': ['넥센', '두산', '롯데', '삼성', '한화', 'KIA', 'KT', 'LG', 'NC', 'SK'],
     '애칭': ['히어로즈', '베어스', '자이언츠', '라이온즈', '이글스', '타이거즈', '위즈', '트윈스', '와이번스', '다이노스']
 })
 
+# %%
 # Joins
 print(pd.merge(homerun, teams, on='팀', how='inner'))
 print(pd.merge(homerun, teams, on='팀', how='left'))
 print(pd.merge(homerun, teams, on='팀', how='right'))
 print(pd.merge(homerun, teams, on='팀', how='outer'))
 
+# %%
 # semi_join
 print(homerun[homerun['팀'].isin(teams['팀'])])
 
+# %%
 # anti_join
 print(homerun[~homerun['팀'].isin(teams['팀'])])
 
+# %%
 teams_renamed = teams.rename(columns={'팀': '구단'})
 print(pd.merge(homerun, teams_renamed, left_on='팀', right_on='구단', how='left'))
 
 
+# %%
 # International soccer matches
 try:
     results = pd.read_csv(international_soccer_matches_results.csv')
@@ -56,6 +65,7 @@ except FileNotFoundError:
     print("Could not find international_soccer_matches_results.csv'.")
     results = pd.DataFrame()
 
+# %%
 if not results.empty:
     print(results.info())
 
@@ -123,4 +133,5 @@ if not results.empty:
         # Save to csv
         results_full[results_full['date'] > '1993-08-08'].to_csv('Python/soccer_matches_results_in_progress.csv', index=False)
 
+# %%
 print("Conversion of chapter_6.R to Python is complete.")

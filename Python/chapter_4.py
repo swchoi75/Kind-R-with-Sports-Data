@@ -3,23 +3,26 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: -all
-#     formats: ipynb,py:light
+#     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
+#       format_name: percent
+#       format_version: '1.3'
 #       jupytext_version: 1.19.1
 # ---
 
+# %%
 """
 This script is a Python conversion of the R script chapter_4.R.
 It uses the pandas library for data manipulation, which is the Python equivalent of dplyr.
 """
 
+# %%
 import pandas as pd
 import numpy as np
 from plotnine import ggplot, aes, geom_line
 
+# %%
 # Load the data
 try:
     team_batting = pd.read_csv(kbo_team_batting.csv')
@@ -27,6 +30,7 @@ except FileNotFoundError:
     print("Could not find kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()
 
+# %%
 if not team_batting.empty:
     print(team_batting)
 
@@ -170,5 +174,6 @@ if not team_batting.empty:
         print(reception_eff.groupby('남녀부')['차이'].mean())
         print(reception_eff.dropna(subset=['차이']).groupby('남녀부')['차이'].mean())
 
+# %%
 print("Conversion of chapter_4.R to Python is complete.")
 

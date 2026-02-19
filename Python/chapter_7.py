@@ -3,22 +3,25 @@
 # jupyter:
 #   jupytext:
 #     cell_metadata_filter: -all
-#     formats: ipynb,py:light
+#     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
+#       format_name: percent
+#       format_version: '1.3'
 #       jupytext_version: 1.19.1
 # ---
 
+# %%
 """
 This script is a Python conversion of the R script chapter_7.R.
 It uses pandas for date and time manipulation.
 """
 
+# %%
 import pandas as pd
 import numpy as np
 
+# %%
 # Date parsing
 print(pd.to_datetime('2021-01-01'))
 # Note: pd.to_datetime(20210101) would be an integer, not a date string.
@@ -26,6 +29,7 @@ print(pd.to_datetime('20210101', format='%Y%m%d'))
 print(pd.to_datetime('January 1st 2021'))
 print(pd.to_datetime('1-jan-2021'))
 
+# %%
 # Load data
 try:
     kbo_profile = pd.read_csv(kbo_players_profiles.csv')
@@ -33,6 +37,7 @@ except FileNotFoundError:
     print("Could not find kbo_players_profiles.csv'.")
     kbo_profile = pd.DataFrame()
 
+# %%
 if not kbo_profile.empty:
     kbo_profile['생일'] = pd.to_datetime(kbo_profile['생년월일'], format='%Y%m%d', errors='coerce')
     
@@ -51,6 +56,7 @@ if not kbo_profile.empty:
     # In a real plotting scenario, you would use matplotlib or seaborn
     print(monthly_counts)
 
+# %%
 # Time intervals and durations
 date1 = pd.to_datetime('19820327', format='%Y%m%d')
 date2 = pd.to_datetime('20210101', format='%Y%m%d')
@@ -58,11 +64,13 @@ delta = date2 - date1
 print(delta)
 print(delta.days)
 
+# %%
 # Timezones
 date_with_tz = pd.to_datetime('1982-03-27 14:30').tz_localize('Asia/Seoul')
 print(date_with_tz)
 print(date_with_tz.tz_convert('America/New_York'))
 
+# %%
 # Joining soccer data
 try:
     fifa_ranking = pd.read_csv(fifa_ranking.csv')
@@ -72,6 +80,7 @@ except FileNotFoundError:
     fifa_ranking = pd.DataFrame()
     results_in_progress = pd.DataFrame()
 
+# %%
 if not fifa_ranking.empty and not results_in_progress.empty:
     fifa_ranking['rank_date'] = pd.to_datetime(fifa_ranking['rank_date'])
     fifa_ranking['floor_date'] = fifa_ranking['rank_date'].dt.to_period('M').dt.to_timestamp()
@@ -106,4 +115,5 @@ if not fifa_ranking.empty and not results_in_progress.empty:
     print("Complex join logic would follow here.")
 
 
+# %%
 print("Conversion of chapter_7.R to Python is complete.")
