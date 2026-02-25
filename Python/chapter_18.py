@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python (WSL)
+#     language: python
+#     name: wsl-ds
 # ---
 
 # %%
@@ -87,10 +91,9 @@ p = (ggplot(results_df, aes(x='trial', y='success_rate')) +
 # %%
 # --- Bayesian Batting Average Estimation ---
 try:
-    kbo_batting_bayesian = pd.read_csv(kbo_batting_bayesian.csv')
+    kbo_batting_bayesian = pd.read_csv('kbo_batting_bayesian.csv')
 except FileNotFoundError:
-    print("
-Could not find kbo_batting_bayesian.csv'.")
+    print("Could not find 'kbo_batting_bayesian.csv'.")
     kbo_batting_bayesian = pd.DataFrame()
 
 # %%
@@ -107,8 +110,7 @@ if not kbo_batting_bayesian.empty:
     # beta.fit returns (alpha, beta, loc, scale). We want alpha and beta.
     alpha_fit, beta_fit, _, _ = beta.fit(kbo_batting_250['avg'], floc=0, fscale=1)
     
-    print(f"
-Fitted Beta Distribution Parameters: alpha={alpha_fit:.2f}, beta={beta_fit:.2f}")
+    print(f"Fitted Beta Distribution Parameters: alpha={alpha_fit:.2f}, beta={beta_fit:.2f}")
 
     # Overlay fitted Beta distribution PDF
     p_beta = (p_hist +
@@ -130,11 +132,11 @@ Fitted Beta Distribution Parameters: alpha={alpha_fit:.2f}, beta={beta_fit:.2f}"
     beta_posterior = beta_fit + (player_ab - player_h)
     
     posterior_mean = alpha_posterior / (alpha_posterior + beta_posterior)
-    print(f"
-Player with {player_h} hits in {player_ab} at-bats:")
+    print(f"Player with {player_h} hits in {player_ab} at-bats:")
     print(f"Observed average: {player_h / player_ab:.3f}")
     print(f"Posterior mean batting average: {posterior_mean:.3f}")
 
 # %%
-print("
-Conversion of chapter_18.R to Python is complete.")
+print("Conversion of chapter_18.R to Python is complete.")
+
+# %%

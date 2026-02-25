@@ -9,6 +9,10 @@
 #       format_name: percent
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
+#   kernelspec:
+#     display_name: Python (WSL)
+#     language: python
+#     name: wsl-ds
 # ---
 
 # %%
@@ -74,11 +78,10 @@ p_sigmoid = (ggplot(sigmoid_df, aes(x='x', y='y')) + geom_line())
 # %%
 # --- Logistic Regression ---
 try:
-    kovo_sets = pd.read_csv(kovo_set_by_set.csv')
+    kovo_sets = pd.read_csv('kovo_set_by_set.csv')
     kovo_sets['승리'] = kovo_sets['승리'].astype('category') # Target variable
 except FileNotFoundError:
-    print("
-Could not find kovo_set_by_set.csv'.")
+    print("Could not find 'kovo_set_by_set.csv'.")
     kovo_sets = pd.DataFrame()
 
 # %%
@@ -88,8 +91,7 @@ if not kovo_sets.empty:
     # Using statsmodels for logistic regression with formula API
     model_formula = '승리 ~ 서브효율 + 리시브효율 + 공격효율 + 블로킹 + 디그'
     glm_model = logit(model_formula, data=kovo_set_male).fit()
-    print("
---- Statsmodels Logistic Regression Summary ---")
+    print("--- Statsmodels Logistic Regression Summary ---")
     print(glm_model.summary().tables[1]) # Coefficients table
 
     # --- scikit-learn ML Workflow ---
@@ -114,16 +116,14 @@ if not kovo_sets.empty:
     y_pred_proba_train = set_lr_fit.predict_proba(X_train) # Probabilities for each class
 
     # 5. Evaluate on training set
-    print("
---- Training Set Evaluation ---")
+    print("--- Training Set Evaluation ---")
     print(f"Accuracy: {accuracy_score(y_train, y_pred_class_train):.3f}")
     print("Confusion Matrix:")
     print(confusion_matrix(y_train, y_pred_class_train))
     
     # Predict and evaluate on test set
     y_pred_class_test = set_lr_fit.predict(X_test)
-    print("
---- Test Set Evaluation ---")
+    print("--- Test Set Evaluation ---")
     print(f"Accuracy: {accuracy_score(y_test, y_pred_class_test):.3f}")
     print("Confusion Matrix:")
     print(confusion_matrix(y_test, y_pred_class_test))
@@ -151,5 +151,6 @@ if not kovo_sets.empty:
 
 
 # %%
-print("
-Conversion of chapter_17.R to Python is complete.")
+print("Conversion of chapter_17.R to Python is complete.")
+
+# %%
