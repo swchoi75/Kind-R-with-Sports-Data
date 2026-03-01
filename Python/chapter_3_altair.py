@@ -14,15 +14,15 @@
 # ---
 
 # %%
-import pandas as pd
+import polars as pl
 import numpy as np
 import altair as alt
 from scipy.stats import norm # For the geom_function equivalent
 
 # %%
 # --- Data Loading
-batting = pd.read_csv("kbo_batting_qualified.csv")
-ryu = pd.read_csv("2020_ryu.csv")
+batting = pl.read_csv("kbo_batting_qualified.csv")
+ryu = pl.read_csv("2020_ryu.csv")
 
 # %% [markdown]
 # ## Histogram Chart
@@ -32,8 +32,8 @@ alt.Chart(batting).mark_bar().encode(
     alt.X("avg:Q", bin=alt.Bin(maxbins=40)),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Histogram of AVG",
 )
 
@@ -42,8 +42,8 @@ alt.Chart(batting).mark_bar().encode(
     alt.X("avg:Q", bin=alt.Bin(step=0.001)),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Histogram of AVG (Binwidth=0.001)",
 )
 
@@ -56,8 +56,8 @@ alt.Chart(batting).mark_bar(
     alt.X("avg:Q", bin=alt.Bin(maxbins=30)),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Histogram of AVG (Bins=30, Gray fill, Red edge)",
 )
 
@@ -70,8 +70,8 @@ alt.Chart(batting).mark_bar(
     alt.X("avg:Q", bin=alt.Bin(maxbins=30)),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Histogram of AVG (Bins=30, Blue fill, White edge)",
 )
 
@@ -84,8 +84,8 @@ alt.Chart(batting).mark_bar(
     alt.X("avg:Q", bin=alt.Bin(maxbins=30)),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Histogram of AVG (Bins=30, Hex fill, White edge)",
 )
 
@@ -93,18 +93,18 @@ alt.Chart(batting).mark_bar(
 # ## Bar Chart
 
 # %%
-alt.Chart(batting).mark_bar().encode(
+alt.Chart(batting).mark_bar(size=80).encode(
     x=alt.X("throw_bat:N", sort='-y'),
     y='count()',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Bar Plot (Count) of throw_bat",
 )
 
 # %%
 # Pre-summarized data example
-bar_example = pd.DataFrame(
+bar_example = pl.DataFrame(
     {
         "throw_bat": ["우양", "우우", "우좌", "좌좌"],
         "count": [30, 1001, 155, 435],
@@ -117,8 +117,8 @@ alt.Chart(bar_example).mark_bar().encode(
     x="throw_bat:N",
     y='count',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Bar Plot (Identity) of throw_bat vs count",
 )
 
@@ -127,8 +127,8 @@ alt.Chart(bar_example).mark_bar().encode(
     x=alt.X("throw_bat:N", sort='-y'),
     y='count',
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Bar Plot (Identity) of throw_bat vs count",
 )
 
@@ -137,15 +137,15 @@ alt.Chart(bar_example).mark_bar().encode(
 
 # %%
 # Filter data
-batting_rank_1 = batting[batting["rank"] == 1]
+batting_rank_1 = batting.filter(pl.col("rank") == 1)
 
 # %%
 alt.Chart(batting_rank_1).mark_line().encode(
     x="year:N",
     y=alt.Y('avg:Q', scale=alt.Scale(zero=False)),
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Line Plot of AVG vs Year (Rank 1 players)",
 )
 
@@ -156,8 +156,8 @@ alt.Chart(batting_rank_1).mark_line(
     x="year:N",
     y=alt.Y('avg:Q', scale=alt.Scale(zero=False)),
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Line Plot of AVG vs Year (strokeWidth=5)",
 )
 
@@ -169,8 +169,8 @@ alt.Chart(batting_rank_1).mark_line(
     x="year:N",
     y=alt.Y('avg:Q', scale=alt.Scale(zero=False)),
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Line Plot of AVG vs Year (Dashed linestyle)",
 )
 
@@ -182,8 +182,8 @@ alt.Chart(ryu).mark_point().encode(
     x="pitch_name:N",
     y=alt.Y("release_speed:Q", scale=alt.Scale(zero=False)),
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Scatter Plot of Release Speed vs Pitch Name",
 )
 
@@ -195,8 +195,8 @@ alt.Chart(ryu).transform_calculate(
     y=alt.Y("release_speed:Q", scale=alt.Scale(zero=False)),
     xOffset="jitter:Q"
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Scatter Plot of Release Speed vs Pitch Name",
 )
 
@@ -205,8 +205,8 @@ base = alt.Chart(ryu).encode(
     x=alt.X("pitch_name:N"),
     y=alt.Y("release_speed:Q"),
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Violin Plot with Jittered Points",
 )
 
@@ -246,8 +246,8 @@ alt.Chart(ryu).mark_boxplot(
     x="pitch_name:N",
     y=alt.Y("release_speed:Q", scale=alt.Scale(zero=False))
 ).properties(
-    width=800,
-    height=500,
+    width=600,
+    height=400,
     title = "Box Plot of Release Speed vs Pitch Name",
 )
 
@@ -324,7 +324,7 @@ chart
 
 # %%
 # Conditional plot for 4-Seam Fastball and Changeup
-ryu_filtered = ryu[ryu["pitch_name"].isin(["4-Seam Fastball", "Changeup"])]
+ryu_filtered = ryu.filter(pl.col("pitch_name").is_in(["4-Seam Fastball", "Changeup"]))
 
 # %%
 base = alt.Chart(ryu_filtered).mark_rect().encode(
@@ -410,20 +410,29 @@ chart = total & by_pitch
 chart
 
 # %%
-# Create the Pandas DataFrame
-df = pd.DataFrame({"x": list(range(-5, 6))})
+# Create the Polars DataFrame
+df = pl.DataFrame({"x": list(range(-5, 6))})
 
 # %%
 # Define the normal distribution function (dnorm)
-# Function definition is the same since it relies on scipy.stats
+# 1. Get range using Polars aggregations
+min_val, max_val = df.select(
+    pl.col("x").min().alias("min"), 
+    pl.col("x").max().alias("max")
+).to_dicts()[0].values()
 
-# p = ggplot(df, aes(x="x")) + geom_function(fun=dnorm)
-# Seaborn/Matplotlib approach is to calculate y values and plot a line
-x_values = np.linspace(df['x'].min(), df['x'].max(), 500)
+# 2. Generate the values
+x_values = np.linspace(min_val, max_val, 500)
 y_values = norm.pdf(x_values)
 
+# 3. Create a Polars DataFrame for plotting
+df_dist = pl.DataFrame({
+    "x": x_values,
+    "y": y_values
+})
+
 # %%
-df = pd.DataFrame({
+df = pl.DataFrame({
     "x": x_values,
     "y": y_values
 })
