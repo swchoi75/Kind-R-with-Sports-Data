@@ -1,0 +1,351 @@
+---
+jupyter:
+  jupytext:
+    cell_metadata_filter: '-all'
+    encoding: '# -*- coding: utf-8 -*-'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.19.5
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+```{r}
+pacman::p_load(tidyverse, lubridate)
+```
+
+```{r}
+as.Date('2021-01-01')
+```
+
+```{r}
+as.Date(2021 - 01 - 01)
+```
+
+```{r}
+as.Date(20210101)
+```
+
+```{r}
+ymd('20210101')
+```
+
+```{r}
+ymd(20210101)
+```
+
+```{r}
+ymd(210101)
+```
+
+```{r}
+mdy('January 1st 2021')
+```
+
+```{r}
+dmy('1-jan-2021')
+```
+
+```{r}
+'kbo_players_profiles.csv' %>%
+  read.csv() %>%
+  as_tibble -> kbo_profile
+
+kbo_profile
+```
+
+```{r}
+kbo_profile %>%
+  select(코드:생년월일) %>%
+  mutate(생일 = ymd(생년월일))
+```
+
+```{r}
+kbo_profile %>%
+  select(코드:생년월일) %>%
+  mutate(
+    생일 = ymd(생년월일),
+    연 = year(생일),
+    월 = month(생일),
+    일 = day(생일),
+    요일 = wday(생일)
+  )
+```
+
+```{r}
+kbo_profile %>%
+  select(코드:생년월일) %>%
+  mutate(
+    생일 = ymd(생년월일),
+    연 = year(생일),
+    월 = month(생일),
+    일 = day(생일),
+    요일 = wday(생일, label = TRUE)
+  )
+```
+
+```{r}
+kbo_profile %>%
+  select(코드:생년월일, -c(투타, 코드)) %>%
+  mutate(
+    생일 = ymd(생년월일),
+    연 = year(생일),
+    월 = month(생일),
+    일 = day(생일),
+    요일 = wday(생일, label = TRUE),
+    날짜 = yday(생일),
+    반기 = semester(생일),
+    분기 = quarter(생일)
+  )
+```
+
+```{r}
+kbo_profile %>%
+  select(코드:생년월일, -c(투타, 코드)) %>%
+  mutate(
+    생일 = ymd(생년월일),
+    월 = month(생일),
+  ) %>%
+  group_by(월) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(x = 월, y = count)) +
+  geom_col()
+```
+
+```{r}
+ymd(820327) %--% ymd(210101)
+```
+
+```{r}
+ymd(820327) %--% ymd(210101) %>% as.period()
+```
+
+```{r}
+ymd(820327) %--% ymd(210101) %>% as.period() / days(1)
+```
+
+```{r}
+ymd(820327) %--% ymd(210101) %>% as.duration()
+```
+
+```{r}
+ymd(820327) %--% ymd(210101) %>% as.duration() / ddays(1)
+```
+
+```{r}
+ymd(200101) + years(1)
+```
+
+```{r}
+ymd(200101) + dyears(1)
+```
+
+```{r}
+ymd(210101) + dyears(1)
+```
+
+```{r}
+leap_year(c(2020, 2021))
+```
+
+```{r}
+ymd_hm('820327 14:30')
+```
+
+```{r}
+ymd_hm('820327 14:30', tz = 'Asia/Seoul')
+```
+
+```{r}
+ymd_hm('820327 14:30', tz = 'Asia/Seoul') %>%
+  with_tz('America/New_York')
+```
+
+```{r}
+ymd_hm('820327 14:30', tz = 'Europe/London') -
+  ymd_hm('820327 14:30', tz = 'UTC')
+```
+
+```{r}
+ymd(820327) %>%
+  round_date(unit = 'year')
+```
+
+```{r}
+ymd(820327) %>%
+  round_date(unit = 'month')
+```
+
+```{r}
+ymd_hm('820327 14:30') %>%
+  round_date(unit = 'day')
+```
+
+```{r}
+ymd(820327) %>%
+  ceiling_date(unit = 'year')
+```
+
+```{r}
+ymd(820327) %>%
+  floor_date(unit = 'year')
+```
+
+```{r}
+'fifa_ranking.csv' %>%
+  read.csv() %>%
+  as_tibble() -> fifa_ranking
+```
+
+```{r}
+'soccer_matches_results_in_progress.csv' %>%
+  read.csv() %>%
+  as_tibble() -> results_in_progess
+```
+
+```{r}
+fifa_ranking %>%
+  group_by(country_full) %>%
+  mutate(previous_rank = lag(rank))
+```
+
+```{r}
+fifa_ranking %>%
+  group_by(country_full) %>%
+  mutate(
+    previous_rank = lag(rank),
+    rank_date = ymd(rank_date),
+    floor_date = floor_date(rank_date, unit = 'month')
+  )
+```
+
+```{r}
+fifa_ranking %>%
+  group_by(country_full) %>%
+  mutate(
+    previous_rank = lag(rank),
+    rank_date = ymd(rank_date),
+    floor_date = floor_date(rank_date, unit = 'month')
+  ) -> fifa_ranking_to_join
+```
+
+```{r}
+results_in_progess %>%
+  arrange(team, date) %>%
+  mutate(date = ymd(date), floor_date = floor_date(date, unit = 'month'))
+```
+
+```{r}
+results_in_progess %>%
+  arrange(team, date) %>%
+  mutate(date = ymd(date), floor_date = floor_date(date, unit = 'month')) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('team_abrv' = 'country_abrv', 'floor_date')
+  ) %>%
+  rename(team_rank = rank, team_previous_rank = previous_rank)
+```
+
+```{r}
+results_in_progess %>%
+  arrange(team, date) %>%
+  mutate(date = ymd(date), floor_date = floor_date(date, unit = 'month')) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('team_abrv' = 'country_abrv', 'floor_date')
+  ) %>%
+  rename(team_rank = rank, team_previous_rank = previous_rank) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('opponent_abrv' = 'country_abrv', 'floor_date', 'rank_date')
+  ) %>%
+  rename(opponent_rank = rank, opponent_previous_rank = previous_rank)
+```
+
+```{r}
+(ymd(201231) - ymd(210101)) / ddays(1)
+```
+
+```{r}
+results_in_progess %>%
+  arrange(team, date) %>%
+  mutate(date = ymd(date), floor_date = floor_date(date, unit = 'month')) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('team_abrv' = 'country_abrv', 'floor_date')
+  ) %>%
+  rename(team_rank = rank, team_previous_rank = previous_rank) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('opponent_abrv' = 'country_abrv', 'floor_date', 'rank_date')
+  ) %>%
+  rename(opponent_rank = rank, opponent_previous_rank = previous_rank) %>%
+  select(date, rank_date, team:tournament, team_rank:last_col()) %>%
+  mutate(
+    difference_date = (date - rank_date) / ddays(1),
+    team_rank = if_else(difference_date < 0, team_previous_rank, team_rank),
+    opponent_rank = if_else(
+      difference_date < 0,
+      opponent_previous_rank,
+      opponent_rank
+    )
+  )
+```
+
+```{r}
+results_in_progess %>%
+  arrange(team, date) %>%
+  mutate(date = ymd(date), floor_date = floor_date(date, unit = 'month')) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('team_abrv' = 'country_abrv', 'floor_date')
+  ) %>%
+  rename(team_rank = rank, team_previous_rank = previous_rank) %>%
+  left_join(
+    fifa_ranking_to_join,
+    by = c('opponent_abrv' = 'country_abrv', 'floor_date', 'rank_date')
+  ) %>%
+  rename(opponent_rank = rank, opponent_previous_rank = previous_rank) %>%
+  select(date, rank_date, team:tournament, team_rank:last_col()) %>%
+  mutate(
+    difference_date = (date - rank_date) / ddays(1),
+    team_rank = ifelse(difference_date < 0, team_previous_rank, team_rank),
+    opponent_rank = ifelse(
+      difference_date < 0,
+      opponent_previous_rank,
+      opponent_rank
+    )
+  ) %>%
+  select(
+    date,
+    team,
+    opponent,
+    team_score,
+    opponent_score,
+    tournament,
+    team_rank,
+    opponent_rank
+  ) -> results_final
+```
+
+```{r}
+results_final %>%
+  mutate(
+    win = ifelse(team_score > opponent_score, 1, 0),
+    draw = ifelse(team_score == opponent_score, 1, 0),
+    lose = ifelse(team_score < opponent_score, 1, 0)
+  ) -> results_final
+
+results_final %>%
+  filter(team == 'South Korea', win == 1) %>%
+  arrange(opponent_rank)
+
+results_final %>%
+  filter(win == 1, opponent_rank == 1) %>%
+  arrange(-team_rank)
+```
+
