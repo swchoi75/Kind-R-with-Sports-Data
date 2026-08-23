@@ -199,4 +199,3 @@ length(ls('package:base'))
 ```{r}
 args(rm)
 ```
-

@@ -8,7 +8,7 @@
 #       extension: .R
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.19.1
+#       jupytext_version: 1.19.5
 #   kernelspec:
 #     display_name: R
 #     language: R
@@ -99,8 +99,8 @@ team_batting %>%
 # %%
 team_batting %>%
   lm(runs ~ obp + slg, data = .) %>%
-  vip() +
-  geom_text(aes(label = Importance))
+  vip(geom = "col", aesthetics = list(fill = "steelblue")) +
+  geom_text(aes(label = round(Importance, 2)), vjust = -0.5)
 
 # %%
 linear_reg() %>%
@@ -240,5 +240,7 @@ linear_reg() %>%
     data = kovo_sets_results %>% filter(남녀부 == '여')
   ) %>%
   tidy()
+
+# %%
 
 # %%
