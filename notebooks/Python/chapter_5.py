@@ -8,7 +8,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.19.1
+#       jupytext_version: 1.19.5
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -38,12 +38,12 @@ except FileNotFoundError:
 if not kbo_untidy.empty:
     # fill(팀) -> ffill()
     kbo_filled_down = kbo_untidy.copy()
-    kbo_filled_down['팀'] = kbo_filled_down['팀'].fillna(method='ffill')
+    kbo_filled_down['팀'] = kbo_filled_down['팀'].ffill()
     print(kbo_filled_down)
 
     # fill(팀, .direction = 'up') -> bfill()
     kbo_filled_up = kbo_untidy.copy()
-    kbo_filled_up['팀'] = kbo_filled_up['팀'].fillna(method='bfill')
+    kbo_filled_up['팀'] = kbo_filled_up['팀'].bfill()
     print(kbo_filled_up)
 
     # pivot_longer -> melt
