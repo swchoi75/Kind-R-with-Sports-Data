@@ -1,17 +1,6 @@
 ---
-jupyter:
-  jupytext:
-    cell_metadata_filter: '-all'
-    encoding: '# -*- coding: utf-8 -*-'
-    text_representation:
-      extension: .qmd
-      format_name: quarto
-      format_version: '1.0'
-      jupytext_version: 1.19.5
-  kernelspec:
-    display_name: R
-    language: R
-    name: ir
+title: "Chapter 6"
+engine: knitr
 ---
 
 ```{r}
