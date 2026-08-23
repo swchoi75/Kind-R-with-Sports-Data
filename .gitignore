@@ -1,4 +1,12 @@
+# R Studio
 .Rproj.user
+
+# Jupyter
 *.ipynb
 .ipynb_checkpoints
 .virtual_documents
+
+# Quarto
+*.html
+libs/
+figure-html/
