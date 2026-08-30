@@ -1,16 +1,15 @@
 import duckdb
 from pathlib import Path
 
+
 # Path
 path = Path(__file__).resolve().parents[1]
 
 
-# Folder names
+# Find SQL files
 sql_folder = path / "sql"
-
-
-# Get all SQL files
 sql_files = sorted(sql_folder.rglob("*.sql"))
+print(f"Found SQL files: {len(sql_files)}")
 
 
 # DuckDB execution
@@ -28,3 +27,7 @@ for file in sql_files:
 # Close connection
 con.close()
 print("Connection closed")
+
+
+# 실제로 파일이 생성되었는지 확인
+print((path / "db.db").exists())
