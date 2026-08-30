@@ -88,8 +88,8 @@ tribble(
 ```
 
 ```{r}
-'international_soccer_matches_results.csv' %>% 
-  read.csv() %>% 
+'data/international_soccer_matches_results.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> results
 
 results
@@ -228,8 +228,8 @@ results %>%
 ```
 
 ```{r}
-'fifa_ranking.csv' %>% 
-  read.csv() %>% 
+'data/fifa_ranking.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> fifa_ranking
 ```
 

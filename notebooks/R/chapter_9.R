@@ -21,8 +21,8 @@ pacman::p_load(tidyverse, tidymodels)
 set.seed(1234)
 
 # %%
-'gocheock_attendance.csv' %>%
-  read.csv() %>%
+'data/gocheock_attendance.csv' %>%
+  read_csv() %>%
   as_tibble() -> gocheock_attendance
 
 # %%

@@ -91,7 +91,7 @@ p = (ggplot(results_df, aes(x='trial', y='success_rate')) +
 # %%
 # --- Bayesian Batting Average Estimation ---
 try:
-    kbo_batting_bayesian = pd.read_csv('kbo_batting_bayesian.csv')
+    kbo_batting_bayesian = pd.read_csv('data/kbo_batting_bayesian.csv')
 except FileNotFoundError:
     print("Could not find 'kbo_batting_bayesian.csv'.")
     kbo_batting_bayesian = pd.DataFrame()

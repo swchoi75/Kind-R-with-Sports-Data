@@ -64,7 +64,7 @@ print(pd.merge(homerun, teams_renamed, left_on='팀', right_on='구단', how='le
 # %%
 # International soccer matches
 try:
-    results = pd.read_csv('international_soccer_matches_results.csv', encoding="iso-8859-1")
+    results = pd.read_csv('data/international_soccer_matches_results.csv', encoding="iso-8859-1")
 except FileNotFoundError:
     print("Could not find 'international_soccer_matches_results.csv'.")
     results = pd.DataFrame()
@@ -106,7 +106,7 @@ if not results.empty:
 
     # Country code matching
     try:
-        fifa_ranking = pd.read_csv('fifa_ranking.csv')
+        fifa_ranking = pd.read_csv('data/fifa_ranking.csv')
     except FileNotFoundError:
         print("Could not find 'fifa_ranking.csv'.")
         fifa_ranking = pd.DataFrame()

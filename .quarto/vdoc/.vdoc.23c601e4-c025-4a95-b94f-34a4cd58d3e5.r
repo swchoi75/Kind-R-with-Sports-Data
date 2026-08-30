@@ -143,13 +143,13 @@ getwd()
 #
 #
 #
-batting <- read.csv(
+batting <- read_csv(
   'https://github.com/bigkini/kindeR/blob/main/kbo_batting_qualified.csv'
 )
 #
 #
 #
-batting <- read.csv('kbo_batting_qualified.csv')
+batting <- read_csv('data/kbo_batting_qualified.csv')
 #
 #
 #

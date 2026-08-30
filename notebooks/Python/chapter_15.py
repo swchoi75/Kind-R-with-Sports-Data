@@ -35,7 +35,7 @@ np.random.seed(1234)
 # %%
 # --- Correlation ---
 try:
-    batting_2020 = pd.read_csv('2020_kbo_team_batting.csv')
+    batting_2020 = pd.read_csv('data/2020_kbo_team_batting.csv')
 except FileNotFoundError:
     print("Could not find 2020_kbo_team_batting.csv.")
     batting_2020 = pd.DataFrame()
@@ -105,7 +105,7 @@ if not batting_2020.empty:
 # %%
 # --- Application: Finding best predictor for runs ---
 try:
-    team_batting = pd.read_csv('kbo_team_batting.csv')
+    team_batting = pd.read_csv('data/kbo_team_batting.csv')
 except FileNotFoundError:
     print("Could not find 'kbo_team_batting.csv'.")
     team_batting = pd.DataFrame()

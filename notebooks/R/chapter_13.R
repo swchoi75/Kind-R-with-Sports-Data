@@ -62,7 +62,7 @@ crossing(
 
 # %%
 'tennis_big3_results.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> tennis_big3_results
 
 # %%
@@ -327,8 +327,8 @@ tennis_big3_results %>%
   ) %>%
   chisq_test(surface ~ w_l)
 
-'kbo_players_profiles.csv' %>%
-  read.csv() %>%
+'data/kbo_players_profiles.csv' %>%
+  read_csv() %>%
   as_tibble -> kbo_profile
 
 # %%

@@ -86,7 +86,7 @@ print(f"Manual F-statistic: {F_stat_manual:.2f}")
 # %%
 # --- ANOVA on NBA Draft Data ---
 try:
-    nba_players = pd.read_csv('nba_draft_data.csv', encoding="iso-8859-1")
+    nba_players = pd.read_csv('data/nba_draft_data.csv', encoding="iso-8859-1")
 except FileNotFoundError:
     print("Could not find nba_draft_data.csv.")
     nba_players = pd.DataFrame()

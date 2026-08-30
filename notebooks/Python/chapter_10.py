@@ -32,7 +32,7 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    cheonan_attendance = pd.read_csv('cheonan_attendance.csv')
+    cheonan_attendance = pd.read_csv('data/cheonan_attendance.csv')
 except FileNotFoundError:
     print("Could not find cheonan_attendance.csv.")
     cheonan_attendance = pd.DataFrame()

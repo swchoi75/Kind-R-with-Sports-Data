@@ -1,15 +1,7 @@
 require 'duckdb'
 
-# # Path
-# path = File.expand_path('../', __dir__)
 
-# # Folder names
-# sql_folder = File.join(path, 'sql')
-
-# # Get all SQL files
-# sql_files = Dir.glob(File.join(sql_folder, '**/*.sql')).sort
-
-# # Path
+# Path
 project_root = File.expand_path('../', __dir__)
 Dir.chdir(project_root)
 

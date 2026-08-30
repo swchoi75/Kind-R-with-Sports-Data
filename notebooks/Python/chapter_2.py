@@ -43,10 +43,10 @@ mtcars = mtcars_data.data
 print(mtcars.sample(n=10))
 
 # %%
-# In R: batting <- read_csv('kbo_batting_qualified.csv')
+# In R: batting <- read_csv('data/kbo_batting_qualified.csv')
 # The file path needs to be relative to the project root.
 try:
-    batting = pd.read_csv('kbo_batting_qualified.csv', encoding='utf-8')
+    batting = pd.read_csv('data/kbo_batting_qualified.csv', encoding='utf-8')
     print("Successfully read kbo_batting_qualified.csv'")
     # In R: glimpse(batting)
     batting.info()
@@ -62,7 +62,7 @@ print(type(batting))
 # %% [markdown]
 # In R, a data.frame can be converted to a tibble. In pandas, we just use DataFrames.
 # The following R code is not necessary in Python:
-# batting <- read.csv('kbo_batting_qualified.csv')
+# batting <- read_csv('data/kbo_batting_qualified.csv')
 # batting <- as_tibble(batting)
 
 # %%
@@ -92,11 +92,11 @@ print(sum(range(1, 11)))
 print(batting.head(20))
 
 # %%
-# In R: 'kbo_batting_qualified.csv' %>% read.csv() %>% as_tibble() -> batting
+# In R: 'kbo_batting_qualified.csv' %>% read_csv() %>% as_tibble() -> batting
 # This is another way to write the file reading using pipes.
 # The Python equivalent is a simple read_csv.
 try:
-    batting_from_pipe = pd.read_csv('kbo_batting_qualified.csv')
+    batting_from_pipe = pd.read_csv('data/kbo_batting_qualified.csv')
     print("Successfully read kbo_batting_qualified.csv' again.")
     print(batting_from_pipe)
 except FileNotFoundError:

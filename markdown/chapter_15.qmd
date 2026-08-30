@@ -10,7 +10,7 @@ set.seed(1234)
 
 ```{r}
 '2020_kbo_team_batting.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> batting_2020
 
 batting_2020
@@ -190,7 +190,7 @@ batting_2020 %>%
 
 ```{r}
 'kbo_team_batting.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> team_batting
 
 team_batting
@@ -202,14 +202,14 @@ team_batting %>%
     runs = r / tpa,
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     woba = (0.69 *
       (bb - ibb) +
       0.719 * hbp +
-      0.87 * (h - X2b - X3b - hr) +
-      1.217 * X2b +
-      1.529 * X3b +
+      0.87 * (h - `2b` - `3b` - hr) +
+      1.217 * `2b` +
+      1.529 * `3b` +
       1.94 * hr) /
       (ab + bb - ibb + sf + hbp),
     .before = g
@@ -370,7 +370,7 @@ team_batting %>%
 
 ```{r}
 'kbo_batting_risp.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> kbo_batting_risp
 
 kbo_batting_risp
@@ -459,7 +459,7 @@ kbo_batting_risp %>%
 
 ```{r}
 'kbo_pythagorean_expectation.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> kbo_pythagorean_expectation
 
 kbo_pythagorean_expectation %>%

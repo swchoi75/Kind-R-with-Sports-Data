@@ -22,7 +22,7 @@ set.seed(1234)
 
 # %%
 'cheonan_attendance.csv' %>% 
-  read.csv() %>% 
+  read_csv() %>% 
   as_tibble() -> cheonan_attendance
 
 # %%

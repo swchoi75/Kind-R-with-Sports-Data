@@ -29,7 +29,7 @@ from plotnine import ggplot, aes, geom_line
 # %%
 # Load the data
 try:
-    team_batting = pd.read_csv('kbo_team_batting.csv')
+    team_batting = pd.read_csv('data/kbo_team_batting.csv')
 except FileNotFoundError:
     print("Could not find kbo_team_batting.csv.")
     team_batting = pd.DataFrame()
@@ -70,7 +70,7 @@ if not team_batting.empty:
     # select(season = year, ...) -> rename
     print(team_batting[team_batting['year'] == 1982].rename(columns={'year': 'season'})[['season', 'team', 'h', '2b', '3b', 'hr']])
 
-    # select(-X3b) -> drop
+    # select(-`3b`) -> drop
     print(team_batting[team_batting['year'] == 1982][['year', 'team', 'h', '2b', '3b', 'hr']].drop(columns='3b'))
 
     # select(bb:last_col())
@@ -138,7 +138,7 @@ if not team_batting.empty:
     # It can be implemented with value_counts and masking.
     
     try:
-        kovo_team = pd.read_csv('kovo_team.csv')
+        kovo_team = pd.read_csv('data/kovo_team.csv')
     except FileNotFoundError:
         print("Could not find kovo_team.csv'.")
         kovo_team = pd.DataFrame()

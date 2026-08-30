@@ -18,8 +18,8 @@
 # %%
 pacman::p_load(tidyverse)
 
-"kbo_batting_qualified.csv" %>%
-  read.csv() %>%
+"data/kbo_batting_qualified.csv" %>%
+  read_csv() %>%
   as_tibble() -> batting
 
 # %%
@@ -219,8 +219,8 @@ batting[batting$rank == 1, ] %>%
   geom_line(lty = 2)
 
 # %%
-"2020_ryu.csv" %>%
-  read.csv() %>%
+"data/2020_ryu.csv" %>%
+  read_csv() %>%
   as_tibble() -> ryu
 
 # %%

@@ -31,14 +31,14 @@ from scipy.stats import chi2_contingency, chisquare, chi2
 np.random.seed(1234)
 
 # %%
-tennis_big3_results = pd.read_csv('tennis_big3_results.csv')
+tennis_big3_results = pd.read_csv('data/tennis_big3_results.csv')
 tennis_big3_results.columns = tennis_big3_results.columns.str.lower().str.replace('[. %]', '_', regex=True).str.replace('__', '_')
 tennis_big3_results
 
 # %%
 # Load and prepare tennis data
 try:
-    tennis_big3_results = pd.read_csv('tennis_big3_results.csv')
+    tennis_big3_results = pd.read_csv('data/tennis_big3_results.csv')
     
     # Clean column names (like janitor::make_clean_names)
     tennis_big3_results.columns = tennis_big3_results.columns.str.lower().str.replace('[. %]', '_', regex=True).str.replace('__', '_')
@@ -84,7 +84,7 @@ if not tennis_big3_results.empty:
 # %%
 # Chi-squared Goodness-of-Fit Test: KBO Player Birth Months
 try:
-    kbo_profile = pd.read_csv('kbo_players_profiles.csv')
+    kbo_profile = pd.read_csv('data/kbo_players_profiles.csv')
 except FileNotFoundError:
     print("Could not find kbo_players_profiles.csv'.")
     kbo_profile = pd.DataFrame()

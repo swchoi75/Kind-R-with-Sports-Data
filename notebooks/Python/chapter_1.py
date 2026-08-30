@@ -123,12 +123,12 @@ print(os.getcwd())
 # batting = pd.read_csv(
 #   'https://raw.githubusercontent.com/bigkini/kindeR/main/kbo_batting_qualified.csv'
 # )
-batting = pd.read_csv('kbo_batting_qualified.csv')
+batting = pd.read_csv('data/kbo_batting_qualified.csv')
 
 # %%
 # Assuming 'kbo_batting_qualified.csv' is in the 'R' directory as per the context
 try:
-    batting_local = pd.read_csv('kbo_batting_qualified.csv')
+    batting_local = pd.read_csv('data/kbo_batting_qualified.csv')
     print("Successfully read local file.")
 except FileNotFoundError:
     print("Local file kbo_batting_qualified.csv' not found, using remote.")

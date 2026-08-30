@@ -22,7 +22,7 @@ set.seed(1234)
 
 # %%
 '19_20_uefa_big_5.csv' %>% 
-  read.csv() %>% 
+  read_csv() %>% 
   as_tibble -> uefa_big5_match_results
 
 # %%

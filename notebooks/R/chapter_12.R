@@ -24,7 +24,7 @@ dt(x = 0, df = 1)
 
 # %%
 '19_20_uefa_big_5.csv' %>% 
-  read.csv() %>% 
+  read_csv() %>% 
   as_tibble -> uefa_big5_match_results
 
 # %%
@@ -159,7 +159,7 @@ uefa_big5_results_period %>%
 
 # %%
 '19_20_nba.csv' %>% 
-  read.csv() %>% 
+  read_csv() %>% 
   as_tibble -> nba_match_results
 
 # %%

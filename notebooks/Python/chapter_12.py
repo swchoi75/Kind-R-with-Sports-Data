@@ -34,7 +34,7 @@ np.random.seed(1234)
 # %%
 # Load and prepare data
 try:
-    uefa_big5_match_results = pd.read_csv('19_20_uefa_big_5.csv')
+    uefa_big5_match_results = pd.read_csv('data/19_20_uefa_big_5.csv')
 except FileNotFoundError:
     print("Could not find 19_20_uefa_big_5.csv.")
     uefa_big5_match_results = pd.DataFrame()
@@ -94,7 +94,7 @@ if not uefa_big5_match_results.empty:
     
     # Simulating H0 and H1 distributions for NBA data
     try:
-        nba_match_results = pd.read_csv('19_20_nba.csv')
+        nba_match_results = pd.read_csv('data/19_20_nba.csv')
     except FileNotFoundError:
         print("Could not find '19_20_nba.csv'. Skipping H0/H1 simulation.")
         nba_match_results = pd.DataFrame()

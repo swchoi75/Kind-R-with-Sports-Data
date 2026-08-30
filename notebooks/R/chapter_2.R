@@ -35,12 +35,12 @@ library('tidyverse')
 pacman::p_load(tidyverse, tidymodels)
 
 # %%
-batting <- read_csv('kbo_batting_qualified.csv')
+batting <- read_csv('data/kbo_batting_qualified.csv')
 batting
 
 # %%
 batting <- read_csv(
-  'kbo_batting_qualified.csv',
+  'data/kbo_batting_qualified.csv',
   locale = locale('ko', encoding = 'utf-8'),
   show_col_types = FALSE
 )
@@ -53,7 +53,7 @@ batting
 class(batting)
 
 # %%
-batting <- read.csv('kbo_batting_qualified.csv')
+batting <- read_csv('data/kbo_batting_qualified.csv')
 
 # %%
 batting <- as_tibble(batting)
@@ -80,7 +80,7 @@ df2 <- tribble(
 df2
 
 # %%
-df2 <- read.csv(textConnection(
+df2 <- read_csv(textConnection(
   "
 x, y
 1, 4
@@ -99,7 +99,7 @@ batting %>%
 
 # %%
 'kbo_batting_qualified.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> batting
 batting
 

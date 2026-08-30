@@ -43,8 +43,8 @@ mdy('January 1st 2021')
 dmy('1-jan-2021')
 
 # %%
-'kbo_players_profiles.csv' %>%
-  read.csv() %>%
+'data/kbo_players_profiles.csv' %>%
+  read_csv() %>%
   as_tibble -> kbo_profile
 
 kbo_profile
@@ -164,13 +164,13 @@ ymd(820327) %>%
   floor_date(unit = 'year')
 
 # %%
-'fifa_ranking.csv' %>%
-  read.csv() %>%
+'data/fifa_ranking.csv' %>%
+  read_csv() %>%
   as_tibble() -> fifa_ranking
 
 # %%
 'soccer_matches_results_in_progress.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> results_in_progess
 
 # %%

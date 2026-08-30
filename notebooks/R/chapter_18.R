@@ -53,7 +53,7 @@ tibble(
 
 # %%
 'kbo_batting_bayesian.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> kbo_batting
 
 # %%

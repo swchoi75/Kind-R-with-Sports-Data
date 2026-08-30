@@ -88,8 +88,8 @@ tribble(
 홈런 %>% left_join(팀, by = c('팀' = '구단'))
 
 # %%
-'international_soccer_matches_results.csv' %>% 
-  read.csv() %>% 
+'data/international_soccer_matches_results.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> results
 
 results
@@ -217,8 +217,8 @@ results %>%
   arrange(-wins)
 
 # %%
-'fifa_ranking.csv' %>% 
-  read.csv() %>% 
+'data/fifa_ranking.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> fifa_ranking
 
 # %%

@@ -78,7 +78,7 @@ p_sigmoid = (ggplot(sigmoid_df, aes(x='x', y='y')) + geom_line())
 # %%
 # --- Logistic Regression ---
 try:
-    kovo_sets = pd.read_csv('kovo_set_by_set.csv')
+    kovo_sets = pd.read_csv('data/kovo_set_by_set.csv')
     kovo_sets['승리'] = kovo_sets['승리'].astype('category') # Target variable
 except FileNotFoundError:
     print("Could not find 'kovo_set_by_set.csv'.")

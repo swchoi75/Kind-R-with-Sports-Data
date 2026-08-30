@@ -10,8 +10,8 @@ set.seed(1234)
 ```
 
 ```{r}
-'gocheock_attendance.csv' %>%
-  read.csv() %>%
+'data/gocheock_attendance.csv' %>%
+  read_csv() %>%
   as_tibble() -> gocheock_attendance
 ```
 

@@ -19,8 +19,8 @@
 pacman::p_load(tidyverse)
 
 # %%
-'kbo_team_batting.csv' %>% 
-  read.csv() %>% 
+'data/kbo_team_batting.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> team_batting
 
 team_batting
@@ -71,7 +71,7 @@ team_batting %>%
 # %%
 team_batting %>%
   filter(year == 1982) %>%
-  select(year, team, h, X2b, X3b, hr)
+  select(year, team, h, `2b`, `3b`, hr)
 
 # %%
 team_batting %>%
@@ -86,13 +86,13 @@ team_batting %>%
 # %%
 team_batting %>%
   filter(year == 1982) %>%
-  select(season = year, team, h, X2b, X3b, hr)
+  select(season = year, team, h, `2b`, `3b`, hr)
 
 # %%
 team_batting %>%
   filter(year == 1982) %>%
-  select(year, team, h, X2b, X3b, hr) %>%
-  select(-X3b)
+  select(year, team, h, `2b`, `3b`, hr) %>%
+  select(-`3b`)
 
 # %%
 team_batting %>% 
@@ -113,7 +113,7 @@ team_batting %>%
 team_batting %>%
   filter(year == 1982) %>%
   select(year, team, h:hr) %>% 
-  mutate(tb = h + X2b + 2 * X3b + 3 * hr)
+  mutate(tb = h + `2b` + 2 * `3b` + 3 * hr)
 
 # %%
 team_batting %>%
@@ -186,7 +186,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   )
@@ -196,7 +196,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   ) %>%
@@ -207,7 +207,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   ) %>%
@@ -219,7 +219,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   ) %>%
@@ -231,7 +231,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   ) %>%
@@ -242,7 +242,7 @@ team_batting %>%
   mutate(
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab,
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab,
     ops = obp + slg,
     .before = g
   ) %>%
@@ -410,8 +410,8 @@ letters[1:11] %>%
   fct_lump_min(2)
 
 # %%
-'kovo_team.csv' %>% 
-  read.csv() %>% 
+'data/kovo_team.csv' %>% 
+  read_csv() %>% 
   as_tibble() -> kovo_team
 
 kovo_team

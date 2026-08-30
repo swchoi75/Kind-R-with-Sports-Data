@@ -79,7 +79,7 @@ tibble(
 
 # %%
 'kovo_set_by_set.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> kovo_sets
 
 kovo_sets

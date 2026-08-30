@@ -33,7 +33,7 @@ np.random.seed(1234)
 # %%
 # Load data
 try:
-    gocheock_attendance = pd.read_csv('gocheock_attendance.csv')
+    gocheock_attendance = pd.read_csv('data/gocheock_attendance.csv')
 except FileNotFoundError:
     print("Could not find gocheock_attendance.csv.")
     gocheock_attendance = pd.DataFrame()

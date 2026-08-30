@@ -21,7 +21,7 @@ set.seed(1234)
 
 # %%
 'kbo_team_batting.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> team_batting
 
 # %%
@@ -30,7 +30,7 @@ team_batting %>%
     runs = r / tpa,
     avg = h / ab,
     obp = (h + bb + hbp) / (ab + bb + hbp + sf),
-    slg = (h + X2b + 2 * X3b + 3 * hr) / ab
+    slg = (h + `2b` + 2 * `3b` + 3 * hr) / ab
   ) -> team_batting
 
 # %%
@@ -174,7 +174,7 @@ team_batting_fit %>%
 
 # %%
 'kovo_sets_results.csv' %>%
-  read.csv() %>%
+  read_csv() %>%
   as_tibble() -> kovo_sets_results
 
 kovo_sets_results

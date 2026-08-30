@@ -36,7 +36,7 @@ print(pd.to_datetime('1-jan-2021'))
 # %%
 # Load data
 try:
-    kbo_profile = pd.read_csv('kbo_players_profiles.csv')
+    kbo_profile = pd.read_csv('data/kbo_players_profiles.csv')
 except FileNotFoundError:
     print("Could not find kbo_players_profiles.csv.")
     kbo_profile = pd.DataFrame()
@@ -75,13 +75,13 @@ print(date_with_tz)
 print(date_with_tz.tz_convert('America/New_York'))
 
 # %%
-pd.read_csv('soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
+pd.read_csv('data/soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
 
 # %%
 # Joining soccer data
 try:
-    fifa_ranking = pd.read_csv('fifa_ranking.csv')
-    results_in_progress = pd.read_csv('soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
+    fifa_ranking = pd.read_csv('data/fifa_ranking.csv')
+    results_in_progress = pd.read_csv('data/soccer_matches_results_in_progress.csv', encoding="iso-8859-1")
 except FileNotFoundError:
     print("Could not find required soccer data files.")
     fifa_ranking = pd.DataFrame()

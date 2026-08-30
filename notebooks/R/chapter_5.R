@@ -19,7 +19,7 @@
 pacman::p_load(tidyverse, readxl)
 
 # %%
-'kbo_team_slash_untidy.xlsx' %>%
+'data/kbo_team_slash_untidy.xlsx' %>%
   read_excel() -> kbo_untidy
 
 kbo_untidy
