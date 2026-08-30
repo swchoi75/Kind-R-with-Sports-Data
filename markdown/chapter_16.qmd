@@ -4,12 +4,12 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
 ```{r}
-'kbo_team_batting.csv' %>%
+here('data', 'kbo_team_batting.csv') %>%
   read_csv() %>%
   as_tibble() -> team_batting
 ```
@@ -191,7 +191,7 @@ team_batting_fit %>%
 ```
 
 ```{r}
-'kovo_sets_results.csv' %>%
+here('data', 'kovo_sets_results.csv') %>%
   read_csv() %>%
   as_tibble() -> kovo_sets_results
 
