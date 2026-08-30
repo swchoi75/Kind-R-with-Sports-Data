@@ -1,0 +1,62 @@
+CREATE TABLE IF NOT EXISTS "19_20_nba" AS
+SELECT * FROM read_csv_auto('data/19_20_nba.csv');
+
+CREATE TABLE IF NOT EXISTS "19_20_uefa_big_5" AS
+SELECT * FROM read_csv_auto('data/19_20_uefa_big_5.csv');
+
+CREATE TABLE IF NOT EXISTS "2020_kbo_team_batting" AS
+SELECT * FROM read_csv_auto('data/2020_kbo_team_batting.csv');
+
+CREATE TABLE IF NOT EXISTS "2020_ryu" AS
+SELECT * FROM read_csv_auto('data/2020_ryu.csv');
+
+CREATE TABLE IF NOT EXISTS "cheonan_attendance" AS
+SELECT * FROM read_csv_auto('data/cheonan_attendance.csv');
+
+CREATE TABLE IF NOT EXISTS "fifa_ranking" AS
+SELECT * FROM read_csv_auto('data/fifa_ranking.csv');
+
+CREATE TABLE IF NOT EXISTS "gocheock_attendance" AS
+SELECT * FROM read_csv_auto('data/gocheock_attendance.csv');
+
+CREATE TABLE IF NOT EXISTS "international_soccer_matches_results" AS
+SELECT * FROM read_csv_auto('data/international_soccer_matches_results.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_batting_bayesian" AS
+SELECT * FROM read_csv_auto('data/kbo_batting_bayesian.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_batting_qualified" AS
+SELECT * FROM read_csv_auto('data/kbo_batting_qualified.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_batting_risp" AS
+SELECT * FROM read_csv_auto('data/kbo_batting_risp.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_players_profiles" AS
+SELECT * FROM read_csv_auto('data/kbo_players_profiles.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_pythagorean_expectation" AS
+SELECT * FROM read_csv_auto('data/kbo_pythagorean_expectation.csv');
+
+CREATE TABLE IF NOT EXISTS "data/kbo_team_batting.csv" AS
+SELECT * FROM read_csv_auto('data/kbo_team_batting.csv');
+
+CREATE TABLE IF NOT EXISTS "kbo_team_slash_untidy" AS
+SELECT * FROM read_csv_auto('data/kbo_team_slash_untidy.csv');
+
+CREATE TABLE IF NOT EXISTS "kovo_set_by_set" AS
+SELECT * FROM read_csv_auto('data/kovo_set_by_set.csv');
+
+CREATE TABLE IF NOT EXISTS "kovo_sets_results" AS
+SELECT * FROM read_csv_auto('data/kovo_sets_results.csv');
+
+CREATE TABLE IF NOT EXISTS "kovo_team" AS
+SELECT * FROM read_csv_auto('data/kovo_team.csv');
+
+CREATE TABLE IF NOT EXISTS "nba_draft_data" AS
+SELECT * FROM read_csv_auto('data/nba_draft_data.csv');
+
+CREATE TABLE IF NOT EXISTS "soccer_matches_results_in_progress" AS
+SELECT * FROM read_csv_auto('data/soccer_matches_results_in_progress.csv');
+
+CREATE TABLE IF NOT EXISTS "tennis_big3_results" AS
+SELECT * FROM read_csv_auto('data/tennis_big3_results.csv');
