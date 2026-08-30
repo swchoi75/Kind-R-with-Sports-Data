@@ -1,6 +1,9 @@
 project:
-  type: website # 또는 default, book 등
-  output-dir: docs # 출력 결과물이 저장될 폴더명 (예: docs, _site, dist 등)
+  type: default
+  output-dir: docs
+
+execute:
+  freeze: auto   # 코드가 수정되었거나 렌더링에 성공하지 못한 파일만 선택적 실행
 
 format:
   html:

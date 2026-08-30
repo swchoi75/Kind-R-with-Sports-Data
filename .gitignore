@@ -7,10 +7,12 @@
 .virtual_documents
 
 # Quarto
+_freeze/
+.quarto
 docs/
-*.html
 libs/
 figure-html/
+*.html
 
 /.quarto/
 **/*.quarto_ipynb

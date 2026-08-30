@@ -358,7 +358,7 @@ results %>%
   left_join(country_code_result,
             by = c('opponent' = 'team')) %>%
   rename(opponent_abrv = country_abrv) %>%
-  drop_na() %>%
-  write.csv('chapter_6_soccer_matches_results_in_progress.csv')
+  drop_na() # %>%
+  # write.csv('soccer_matches_results_in_progress.csv')
 ```
 
