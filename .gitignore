@@ -10,3 +10,6 @@
 *.html
 libs/
 figure-html/
+
+/.quarto/
+**/*.quarto_ipynb

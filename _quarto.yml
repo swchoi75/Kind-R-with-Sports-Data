@@ -1,0 +1,7 @@
+project:
+  type: website # 또는 default, book 등
+  output-dir: docs # 출력 결과물이 저장될 폴더명 (예: docs, _site, dist 등)
+
+format:
+  html:
+    theme: cosmo

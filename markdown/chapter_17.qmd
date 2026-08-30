@@ -4,7 +4,7 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
@@ -71,7 +71,7 @@ tibble(
 ```
 
 ```{r}
-'kovo_set_by_set.csv' %>%
+here('data', 'kovo_set_by_set.csv') %>%
   read_csv() %>%
   as_tibble() -> kovo_sets
 

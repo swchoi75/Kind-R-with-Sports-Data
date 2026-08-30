@@ -4,7 +4,7 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
@@ -54,7 +54,7 @@ crossing(
 ```
 
 ```{r}
-'tennis_big3_results.csv' %>%
+here('data', 'tennis_big3_results.csv') %>%
   read_csv() %>%
   as_tibble() -> tennis_big3_results
 ```
@@ -344,7 +344,7 @@ tennis_big3_results %>%
   ) %>%
   chisq_test(surface ~ w_l)
 
-'data/kbo_players_profiles.csv' %>%
+here('data', 'kbo_players_profiles.csv') %>%
   read_csv() %>%
   as_tibble -> kbo_profile
 ```

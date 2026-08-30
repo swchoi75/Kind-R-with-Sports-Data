@@ -4,7 +4,7 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load('tidyverse', 'tidymodels')
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
@@ -122,7 +122,7 @@ tibble(
   geom_function(fun = df, args = list(df1 = 10, df2 = 10),
                 color = '#53bfd4', lwd = 1)
 
-'nba_draft_data.csv' %>% 
+here('data', 'nba_draft_data.csv') %>% 
   read_csv() %>% 
   as_tibble() -> nba_players
 ```

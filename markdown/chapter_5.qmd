@@ -4,11 +4,11 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, readxl)
+pacman::p_load(tidyverse, readxl, here)
 ```
 
 ```{r}
-'data/kbo_team_slash_untidy.xlsx' %>%
+here('data', 'kbo_team_slash_untidy.xlsx') %>%
   read_excel() -> kbo_untidy
 
 kbo_untidy

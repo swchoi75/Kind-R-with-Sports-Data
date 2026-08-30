@@ -4,7 +4,7 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, lubridate)
+pacman::p_load(tidyverse, lubridate, here)
 ```
 
 ```{r}
@@ -40,7 +40,7 @@ dmy('1-jan-2021')
 ```
 
 ```{r}
-'data/kbo_players_profiles.csv' %>%
+here('data', 'kbo_players_profiles.csv') %>%
   read_csv() %>%
   as_tibble -> kbo_profile
 
@@ -185,13 +185,13 @@ ymd(820327) %>%
 ```
 
 ```{r}
-'data/fifa_ranking.csv' %>%
+here('data', 'fifa_ranking.csv') %>%
   read_csv() %>%
   as_tibble() -> fifa_ranking
 ```
 
 ```{r}
-'soccer_matches_results_in_progress.csv' %>%
+here('data', 'soccer_matches_results_in_progress.csv') %>%
   read_csv() %>%
   as_tibble() -> results_in_progess
 ```

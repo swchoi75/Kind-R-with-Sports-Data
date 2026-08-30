@@ -4,11 +4,11 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, here)
 ```
 
 ```{r}
-'data/kbo_team_batting.csv' %>% 
+here('data', 'kbo_team_batting.csv') %>% 
   read_csv() %>% 
   as_tibble() -> team_batting
 
@@ -462,7 +462,7 @@ letters[1:11] %>%
 ```
 
 ```{r}
-'data/kovo_team.csv' %>% 
+here('data', 'kovo_team.csv') %>% 
   read_csv() %>% 
   as_tibble() -> kovo_team
 

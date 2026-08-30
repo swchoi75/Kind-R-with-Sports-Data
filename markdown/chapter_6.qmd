@@ -8,7 +8,7 @@ rm(list=ls())
 ```
 
 ```{r}
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, here)
 ```
 
 ```{r}
@@ -88,7 +88,7 @@ tribble(
 ```
 
 ```{r}
-'data/international_soccer_matches_results.csv' %>% 
+here('data', 'international_soccer_matches_results.csv') %>% 
   read_csv() %>% 
   as_tibble() -> results
 
@@ -228,7 +228,7 @@ results %>%
 ```
 
 ```{r}
-'data/fifa_ranking.csv' %>% 
+here('data', 'fifa_ranking.csv') %>% 
   read_csv() %>% 
   as_tibble() -> fifa_ranking
 ```
@@ -359,6 +359,6 @@ results %>%
             by = c('opponent' = 'team')) %>%
   rename(opponent_abrv = country_abrv) %>%
   drop_na() %>%
-  write.csv('soccer_matches_results_in_progress.csv')
+  write.csv('chapter_6_soccer_matches_results_in_progress.csv')
 ```
 

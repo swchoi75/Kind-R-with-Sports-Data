@@ -5,6 +5,7 @@ engine: knitr
 
 ```{r}
 library(dplyr)
+library(here)
 ```
 
 ```{r}
@@ -29,13 +30,13 @@ pacman::p_load(tidyverse, tidymodels)
 ```
 
 ```{r}
-batting <- read_csv('data/kbo_batting_qualified.csv')
+batting <- read_csv(here('data', 'kbo_batting_qualified.csv'))
 batting
 ```
 
 ```{r}
 batting <- read_csv(
-  'data/kbo_batting_qualified.csv',
+  here('data', 'kbo_batting_qualified.csv'),
   locale = locale('ko', encoding = 'utf-8'),
   show_col_types = FALSE
 )
@@ -51,7 +52,7 @@ class(batting)
 ```
 
 ```{r}
-batting <- read_csv('data/kbo_batting_qualified.csv')
+batting <- read_csv(here('data', 'kbo_batting_qualified.csv'))
 ```
 
 ```{r}
@@ -83,7 +84,7 @@ df2
 ```
 
 ```{r}
-df2 <- read_csv(textConnection(
+df2 <- read.csv(textConnection(
   "
 x, y
 1, 4
@@ -104,7 +105,7 @@ batting %>%
 ```
 
 ```{r}
-'data/kbo_batting_qualified.csv' %>%
+here('data', 'kbo_batting_qualified.csv') %>%
   read_csv() %>%
   as_tibble() -> batting
 batting

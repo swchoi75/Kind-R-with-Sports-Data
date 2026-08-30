@@ -132,13 +132,15 @@ getwd()
 ```
 
 ```{r}
+pacman::p_load(readr, here)
+
 batting <- read_csv(
   'https://github.com/bigkini/kindeR/blob/main/kbo_batting_qualified.csv'
 )
 ```
 
 ```{r}
-batting <- read_csv('data/kbo_batting_qualified.csv')
+batting <- read_csv(here('data', 'kbo_batting_qualified.csv'))
 ```
 
 ```{r}

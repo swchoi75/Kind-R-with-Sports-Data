@@ -4,7 +4,7 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
@@ -13,7 +13,7 @@ dt(x = 0, df = 1)
 ```
 
 ```{r}
-'19_20_uefa_big_5.csv' %>% 
+here('data', '19_20_uefa_big_5.csv') %>% 
   read_csv() %>% 
   as_tibble -> uefa_big5_match_results
 ```
@@ -171,7 +171,7 @@ uefa_big5_results_period %>%
 ```
 
 ```{r}
-'19_20_nba.csv' %>% 
+here('data', '19_20_nba.csv') %>% 
   read_csv() %>% 
   as_tibble -> nba_match_results
 ```

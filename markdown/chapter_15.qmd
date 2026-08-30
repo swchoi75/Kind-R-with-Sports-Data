@@ -4,12 +4,12 @@ engine: knitr
 ---
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
 ```{r}
-'2020_kbo_team_batting.csv' %>%
+here('data', '2020_kbo_team_batting.csv') %>%
   read_csv() %>%
   as_tibble() -> batting_2020
 
@@ -189,7 +189,7 @@ batting_2020 %>%
 ```
 
 ```{r}
-'kbo_team_batting.csv' %>%
+here('data', 'kbo_team_batting.csv') %>%
   read_csv() %>%
   as_tibble() -> team_batting
 
@@ -348,7 +348,7 @@ team_batting %>%
 team_batting %>%
   pivot_longer(cols = avg:woba, names_to = '구분', values_to = '기록') %>%
   group_by(구분) %>%
-  summarise(cor.test(runs, 기록) %>% tidy(), .groups = 'drop') %>%
+  reframe(tidy(lm(runs ~ 기록))) %>%
   arrange(estimate)
 ```
 
@@ -356,7 +356,7 @@ team_batting %>%
 team_batting %>%
   pivot_longer(cols = avg:woba, names_to = '구분', values_to = '기록') %>%
   group_by(구분) %>%
-  summarise(lm(runs ~ 기록) %>% tidy(), .groups = 'drop') %>%
+  reframe(tidy(lm(runs ~ 기록))) %>%
   arrange(estimate)
 ```
 
@@ -369,7 +369,7 @@ team_batting %>%
 ```
 
 ```{r}
-'kbo_batting_risp.csv' %>%
+here('data', 'kbo_batting_risp.csv') %>%
   read_csv() %>%
   as_tibble() -> kbo_batting_risp
 
@@ -458,7 +458,7 @@ kbo_batting_risp %>%
 ```
 
 ```{r}
-'kbo_pythagorean_expectation.csv' %>%
+here('data', 'kbo_pythagorean_expectation.csv') %>%
   read_csv() %>%
   as_tibble() -> kbo_pythagorean_expectation
 

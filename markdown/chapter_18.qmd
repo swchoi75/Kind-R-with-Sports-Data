@@ -8,7 +8,7 @@ rm(list = ls())
 ```
 
 ```{r}
-pacman::p_load(tidyverse, tidymodels)
+pacman::p_load(tidyverse, tidymodels, here)
 set.seed(1234)
 ```
 
@@ -44,7 +44,7 @@ tibble(
 ```
 
 ```{r}
-'kbo_batting_bayesian.csv' %>%
+here('data', 'kbo_batting_bayesian.csv') %>%
   read_csv() %>%
   as_tibble() -> kbo_batting
 ```
